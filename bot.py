@@ -97,6 +97,7 @@ class Bot(AutoShardedBot):
 
 
 
+
 client = Bot(prefix=when_mentioned_or('-' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
 			 activity=discord.Game(
