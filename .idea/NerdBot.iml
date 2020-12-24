@@ -4,5 +4,10 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="fancylights" />
+    <orderEntry type="module" module-name="MCCreatorFeedback" />
+    <orderEntry type="module" module-name="AI2ESWelcomerBot" />
+    <orderEntry type="module" module-name="EndercraftBot" />
+    <orderEntry type="module" module-name="HPWPHBot" />
   </component>
 </module>
