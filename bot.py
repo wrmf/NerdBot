@@ -95,7 +95,7 @@ class Bot(AutoShardedBot):
 					await ctx.send("Please stop pinging me damnit")
 				else:
 					await msg.add_reaction("<:pingsock:638087023269380126>")
-					
+
 
 
 
