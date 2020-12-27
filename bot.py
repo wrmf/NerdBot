@@ -91,7 +91,10 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
-				await msg.add_reaction("<:pingsock:638087023269380126>")
+				if(ctx.guild.id == 787387679703695410):
+					await ctx.send("Please stop pinging me damnit")
+				else:
+					await msg.add_reaction("<:pingsock:638087023269380126>")
 
 
 
