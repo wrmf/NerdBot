@@ -78,6 +78,8 @@ class Bot(AutoShardedBot):
 		########
 
 		TNMN = 555207100603826177
+		Cheese = 471299908528242708
+		Lockdown = 703964837578932234
 
 		discordWebsite = ["discord.gg"]
 		testeta = ["test1234"]
@@ -91,10 +93,14 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
-				if(ctx.guild.id == 787387679703695410):
-					await ctx.send("Please stop pinging me damnit")
-				else:
-					await msg.add_reaction("<:pingsock:638087023269380126>")
+				await msg.add_reaction("<:pingsock:638087023269380126>")
+
+		for m in msg.mentions:
+			if(ctx.guild.id == 707226419993772112):
+				if(m.id == Lockdown):
+					user = ctx.message.author
+					await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question!")
+
 
 
 

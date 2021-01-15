@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 tokenfile.py
 *.xml
+.idea/NerdBot.iml
