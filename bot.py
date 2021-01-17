@@ -99,8 +99,13 @@ class Bot(AutoShardedBot):
 			if(ctx.guild.id == 707226419993772112):
 				if(m.id == Lockdown):
 					user = ctx.message.author
-					await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question!")
-
+					await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question! **WARNING**")
+					channel = discord.utils.get(user.guild.channels, name="logs")
+					embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+					embed.add_field(
+						name=f"Moderation",
+						value=f"{user.mention} pinged lockdown! **WARNING**")
+					await channel.send(embed=embed)
 
 
 
