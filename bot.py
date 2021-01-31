@@ -56,7 +56,7 @@ class Bot(AutoShardedBot):
 			if(ctx.message.author.id == TNMN):
 				pass
 			else:
-				await ctx.send("My prefix is ~-. You can get my command list by doing ~-help")
+				await ctx.send("My prefix is ~. You can get my command list by doing ~-help")
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
@@ -80,7 +80,7 @@ class Bot(AutoShardedBot):
 
 
 
-client = Bot(prefix=when_mentioned_or('~-' if 'prefix' not in options else options['prefix']),
+client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
 			 activity=discord.Game(
 				 'with python' if 'game' not in options else options['game']))
