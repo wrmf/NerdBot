@@ -79,29 +79,6 @@ ffmpeg_options = {
     'options': '-vn'
 }
 
-ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
-
-class YTDLSource(discord.PCMVolumeTransformer):
-    def __init__(self, source, *, data, volume=0.5):
-        super().__init__(source, volume)
-
-        self.data = data
-
-        self.title = data.get('title')
-        self.url = data.get('url')
-
-    @classmethod
-    async def from_url(cls, url, *, loop=None, stream=False):
-        loop = loop or asyncio.get_event_loop()
-        data = await loop.run_in_executor(None, lambda: ytdl.extract_info(url, download=not stream))
-
-        if 'entries' in data:
-            # take first item from a playlist
-            data = data['entries'][0]
-
-        filename = data['url'] if stream else ytdl.prepare_filename(data)
-        return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
-
 class Discord_Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -142,14 +119,9 @@ class Discord_Info(commands.Cog):
         """ Get user information """
         #Concept by Paladin Of Ioun#5905
         #Final version by Nerd#2021
+        if user is None:
+            user = ctx.author
         if (is_LDL_channel(ctx)):
-            if user is None:
-                user = ctx.author
-
-            io = False
-
-            if user.id == ctx.guild.owner.id:
-                io = True
 
             embed = discord.Embed(color=user.color.value)
             embed.set_thumbnail(url=user.avatar_url)
@@ -158,7 +130,6 @@ class Discord_Info(commands.Cog):
             embed.add_field(name="Nickname", value=user.nick if hasattr(user, "nick") else "None", inline=True)
             embed.add_field(name="Account created", value=fmt(user.created_at), inline=True)
             embed.add_field(name=f"Joined {ctx.guild.name}", value=fmt(user.joined_at), inline=True)
-            embed.add_field(name="Is owner:", value=io, inline = True)
 
             roles = user.roles
             roles.reverse()
@@ -292,50 +263,6 @@ class Locked(commands.Cog):
             await user.add_roles(role)
         except discord.Forbidden:
             await ctx.send('Unable to create role..')
-
-    @commands.command(hidden=True)
-    @commands.guild_only()
-    @commands.check(is_owner)
-    async def gr(self, ctx: commands.Context, rolename: str):
-        """Gives you any role under my role"""
-        author = ctx.message.author #get author name
-
-        #Make sure that we aren't giving a role to no user
-        user = ctx.message.author
-
-        role = discord.utils.get(user.guild.roles, name=rolename) #Get role name
-
-        if(role in user.roles): #check if user already has role
-            embed = discord.Embed(color=user.color.value)
-            embed.add_field(
-                name=f"Error",
-                value=f"Error, user {user.mention} already has role {role.mention}")
-            await user.send(embed=embed) #post error message
-
-        else:
-            await user.add_roles(role) #Add role
-
-    @commands.command(hidden=True)
-    @commands.guild_only()
-    @commands.check(is_owner)
-    async def rr(self, ctx: commands.Context, rolename: str):
-        """Gives you any role under my role"""
-        author = ctx.message.author #get author name
-
-        #Make sure that we aren't giving a role to no user
-        user = ctx.message.author
-
-        role = discord.utils.get(user.guild.roles, name=rolename) #Get role name
-
-        if(role in user.roles): #check if user already has role
-            embed = discord.Embed(color=author.color.value)
-            embed.add_field(
-                name=f"Error",
-                value=f"Error, user {user.mention} already has role {role.mention}")
-            await user.send(embed=embed) #post error message
-
-        else:
-            await user.remove_roles(role) #Add role
 
 
 class Useful(commands.Cog):

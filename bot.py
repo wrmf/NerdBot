@@ -44,52 +44,19 @@ class Bot(AutoShardedBot):
 		except BaseException as e:
 			logger.error(repr(e))
 
-		####
-		#PC#
-		####
-
-		PC = 555087033652215830
-		bot_testing = 610630587275018250
-		bot_spam = 555583505246060555
-		discord_bots = 593298949977407508
-		mod_discussions = 580951068985393175
-		actionlog = 751484616128331859
-		modlog = 751485850361004143
-		warnings = 593294730381492225
-
-		bot_spam_TC = 609514186753441802
-		nerf = 617514604913885415
-
-		BTH = 617992443668987914
-
-		spam = 620067136735281202
-		off_topic = 620067149502873610
-
-		#######
-		#HPWPH#
-		#######
-
-		HPWPH = 709871237937102869
-		autopostHPWPH = 748198688798802050
-		mod_channelHPWPH = 748922203030159462
-
 		########
 		#People#
 		########
 
 		TNMN = 555207100603826177
-		Cheese = 471299908528242708
 		Lockdown = 703964837578932234
-
-		discordWebsite = ["discord.gg"]
-		testeta = ["test1234"]
 
 
 		if msg.guild.me in msg.mentions:
 			if(ctx.message.author.id == TNMN):
 				pass
 			else:
-				await ctx.send("My prefix is -. You can get my command list by doing -help")
+				await ctx.send("My prefix is ~-. You can get my command list by doing ~-help")
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
@@ -113,7 +80,7 @@ class Bot(AutoShardedBot):
 
 
 
-client = Bot(prefix=when_mentioned_or('-' if 'prefix' not in options else options['prefix']),
+client = Bot(prefix=when_mentioned_or('~-' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
 			 activity=discord.Game(
 				 'with python' if 'game' not in options else options['game']))
