@@ -26,7 +26,7 @@ class Bot(AutoShardedBot):
 		super().__init__(prefix, *args, **kwargs)
 
 	async def on_command_error(self, context, exception):
-		await context.send(f'{exception}')
+		#await context.send(f'{exception}')
 		logging.error(exception)
 
 	async def on_message(self, msg: discord.Message):
