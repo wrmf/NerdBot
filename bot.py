@@ -50,13 +50,19 @@ class Bot(AutoShardedBot):
 
 		TNMN = 555207100603826177
 		Lockdown = 703964837578932234
+		Cheese = 471299908528242708
+		Key = 336195394675539968
+		Mini = 597078673442734110
+		David = 691013302259810344
+		Likeusb = 308270212359258113
+		LDLstaff = [555207100603826177, 703964837578932234, 336195394675539968, 308270212359258113, 597078673442734110, 691013302259810344]
 
 
 		if msg.guild.me in msg.mentions:
-			if(ctx.message.author.id == TNMN):
+			if(ctx.message.author.id == TNMN or ctx.message.author.id == Cheese):
 				pass
 			else:
-				await ctx.send("My prefix is ~. You can get my command list by doing ~-help")
+				await ctx.send("My prefix is ~. You can get my command list by doing ~help")
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
@@ -64,15 +70,18 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if(ctx.guild.id == 707226419993772112):
-				if(m.id == Lockdown):
-					user = ctx.message.author
-					await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question! **WARNING**")
-					channel = discord.utils.get(user.guild.channels, name="logs")
-					embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-					embed.add_field(
-						name=f"Moderation",
-						value=f"{user.mention} pinged lockdown! **WARNING**")
-					await channel.send(embed=embed)
+				if(ctx.author.id == TNMN or ctx.author.id == Cheese or ctx.author.id == Key or ctx.author.id == Mini or ctx.author.id == Likeusb or ctx.author.id == David or ctx.author.id == Lockdown):
+					pass
+				else:
+					if(m.id == Lockdown):
+						user = ctx.message.author
+						await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question! **WARNING**")
+						channel = discord.utils.get(user.guild.channels, name="logs")
+						embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+						embed.add_field(
+							name=f"Moderation",
+							value=f"{user.mention} pinged lockdown! **WARNING**")
+						await channel.send(embed=embed)
 
 
 
