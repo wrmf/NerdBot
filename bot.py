@@ -70,7 +70,10 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if(ctx.guild.id == 707226419993772112):
-				if(ctx.author.id == TNMN or ctx.author.id == Cheese or ctx.author.id == Key or ctx.author.id == Mini or ctx.author.id == Likeusb or ctx.author.id == David or ctx.author.id == Lockdown):
+				if(ctx.author.id == TNMN or ctx.author.id == Cheese or ctx.author.id == Key
+						or ctx.author.id == Mini or ctx.author.id == Likeusb or ctx.author.id == David
+						or ctx.author.id == Lockdown or ctx.channel.id == 716059383548870657
+						or ctx.channel.id == 800391810689400912):
 					pass
 				else:
 					if(m.id == Lockdown):
