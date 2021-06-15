@@ -9,13 +9,13 @@ from discord.ext import commands
 ########
 #People#
 ########
+import nukeIgnore
 
 TNMN = 555207100603826177
 Paladin = 447068325856542721
 Cadence = 363424348742352906
 Macky = 523919572273856523
 TNMB = 600524415263965187
-noNuke = [738825914955333684]
 
 programmer_club = 555087033652215830
 LDL_server = 707226419993772112
@@ -31,10 +31,7 @@ def is_nuke(ctx: commands.Context):
     member: discord.Member = ctx.author
     roles: List[discord.Role] = member.roles
 
-    if(ctx.author.id in noNuke):
-        return False
-    else:
-        return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
+    return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
 
 def is_owner(ctx: commands.Context):
     return ctx.author.id == TNMN
@@ -215,15 +212,18 @@ class Locked(commands.Cog):
     @commands.command()
     @commands.check(is_nuke)
     async def nuke(self, ctx: commands.Context, limit: int):
-        """Nuke messages"""
-        try:
-            await ctx.channel.purge(limit=limit+1)
-        except discord.Forbidden:
-            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-            embed.add_field(
-                name=f"Error",
-                value=f"Error: I don't have permission to nuke")
-            await ctx.send(embed=embed)  # Say in chat
+        if ctx.message.author.id in nukeIgnore.nukeIgnore[0] and ctx.message.guild.id == nukeIgnore.nukeIgnore[1][nukeIgnore.nukeIgnore[0].index(ctx.message.author.id)]:
+            await ctx.send(f"You have been blacklisted from using nuke in guild {nukeIgnore.nukeIgnore[1][nukeIgnore.nukeIgnore[0].index(ctx.message.author.id)]}")
+        else:
+            """Nuke messages"""
+            try:
+                await ctx.channel.purge(limit=limit+1)
+            except discord.Forbidden:
+                embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                embed.add_field(
+                    name=f"Error",
+                    value=f"Error: I don't have permission to nuke")
+                await ctx.send(embed=embed)  # Say in chat
 
 
     @commands.command(aliases=['create'],hidden=True)
