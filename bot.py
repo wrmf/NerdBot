@@ -64,6 +64,10 @@ class Bot(AutoShardedBot):
 			else:
 				await ctx.send("My prefix is ~. You can get my command list by doing ~help")
 
+		if "testu1234" in msg.clean_content.lower():
+			async for guild in client.fetch_guilds(limit=150):
+				print(guild.name)
+
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
 				await msg.add_reaction("<:pingsock:638087023269380126>")
@@ -85,12 +89,6 @@ class Bot(AutoShardedBot):
 							name=f"Moderation",
 							value=f"{user.mention} pinged lockdown! **WARNING**")
 						await channel.send(embed=embed)
-
-
-
-
-
-
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
