@@ -9,7 +9,9 @@ from discord.ext import commands
 ########
 #People#
 ########
-import nukeIgnore
+#import nukeIgnore
+from nukeIgnore import *
+print("IMPORTED")
 
 TNMN = 555207100603826177
 Paladin = 447068325856542721
@@ -212,8 +214,13 @@ class Locked(commands.Cog):
     @commands.command()
     @commands.check(is_nuke)
     async def nuke(self, ctx: commands.Context, limit: int):
-        if ctx.message.author.id in nukeIgnore.nukeIgnore[0] and ctx.message.guild.id == nukeIgnore.nukeIgnore[1][nukeIgnore.nukeIgnore[0].index(ctx.message.author.id)]:
-            await ctx.send(f"You have been blacklisted from using nuke in guild {nukeIgnore.nukeIgnore[1][nukeIgnore.nukeIgnore[0].index(ctx.message.author.id)]}")
+        """ Nuke a large number of messages """
+        # Concept by Paladin Of Ioun#5905
+        # Final version by Nerd#2021
+        if ctx.message.author.id in nukeArray[0] and "ALL" == nukeArray[1][nukeArray[0].index(ctx.message.author.id)]:
+            await ctx.send(f"You have been disallowed from using nuke ALL guilds")
+        elif ctx.message.author.id in nukeArray[0] and ctx.message.guild.id == nukeArray[1][nukeArray[0].index(ctx.message.author.id)]:
+            await ctx.send(f"You have been disallowed from using nuke in guild {nukeArray[1][nukeArray[0].index(ctx.message.author.id)]}")
         else:
             """Nuke messages"""
             try:
@@ -227,47 +234,79 @@ class Locked(commands.Cog):
 
     @commands.command()
     @commands.check(is_admin)
-    async def test(self, ctx):
-        test = [0]
-        await ctx.send(test.index(4))
+    ##################################
+    #Add a person to nuke ignore list#
+    ##################################
+    async def addNukeIgnore(self, ctx: commands.Context, user: discord.Member = None, guild: str = None):
+        """ Add person to nuke ignore list """
+        # Written by Nerd#2021
 
-    @commands.command()
-    @commands.check(is_admin)
-    async def addNukeIgnore(self, ctx: commands.Context, user: discord.Member = None):
+        #Check if user is none so bot doesn't crash
         if user is None:
             user = ctx.message.author
 
+        #Check if guild is none so bot doesn't crash
+        if guild is None:
+            guild = ctx.guild.id
+
+        #Make sure person isn't trying to ignore themself or TNMN
         if(user.id == ctx.message.author.id or user.id == TNMN):
-            await ctx.send("You cannot blacklist this person from nuke")
-
+            await ctx.send("You cannot nuke ignore this person from nuke")
+        #Make sure person has permission to ignore in the guild they are trying to ignore in
+        elif(guild != ctx.guild.id and ctx.message.author.id != TNMN):
+            await ctx.send("You do not have permission to ignore this person in that guild")
+        #Move onto ignoring the person
         else:
-            await ctx.send("E")
-            await ctx.send("G");
-            nukeIgnoreLocal = nukeIgnore
-            await ctx.send(nukeIgnore[0])
-            await ctx.send(nukeIgnore[1])
-            await ctx.send(nukeIgnoreLocal[0])
-            await ctx.send(nukeIgnoreLocal[1])
-
-            await ctx.send("F")
-            if(user.id in nukeIgnoreLocal[0] and
-                    nukeIgnore[1][nukeIgnore[0].index(user.id)]):
-                await ctx.send("POGGERS WE DIDNT GET HERE")
-                await ctx.send(f"User {user.mention} is already nuke ignored in server {nukeIgnore[1][nukeIgnore[0].index(ctx.message.author.id)]}")
+            nukeArrayLocal = [nukeArray[0], nukeArray[1]] #Duplicate list for saving to file purposes
+            #Check if they are already ignored
+            if(user.id in nukeArray[0] and
+                    nukeArray[1][nukeArray[0].index(user.id)] == guild):
+                await ctx.send(f"User {user.mention} is already nuke ignored in server {nukeArrayLocal[1][nukeArrayLocal[0].index(user.id)]}")
+            #Add person to ignore list
             else:
-                await ctx.send("POGGERS WE GOT HERE")
-                nukeIgnoreLocal[0].append(user.id)
-                nukeIgnoreLocal[1].append(user.id)
+                nukeArrayLocal[0].append(user.id)
+                nukeArrayLocal[1].append(guild)
+                #Fix the nukeIgnore.py file
                 with open("nukeIgnore.py", 'r+') as file:
                     file.truncate(0)
-                    string = "nukeIgnore = [" +nukeIgnoreLocal[0] +"," +nukeIgnoreLocal[1] +"]"
+                    string = "nukeArray = [" +str(nukeArrayLocal[0])+"," +str(nukeArrayLocal[1])+"]"
                     file.write(string)
-                    await ctx.send(string)
+                    file.close()
+                if(guild == "ALL"):
+                    await ctx.send(f"Added user {user.mention} to nuke ignore in ALL guilds")
+                else:
+                    await ctx.send(f"Added user {user.mention} to nuke ignore in guild **{ctx.guild}**")
+
+    @commands.command()
+    @commands.check(is_admin)
+    async def delNukeIgnore(self, ctx: commands.Context, user: discord.Member = None, guild: str = None):
+        """ Remove person from ignore list """
+        #Make sure user isn't none so the bot doesn't die
+        if user is None:
+            user = ctx.message.author
+        #Make sure guild isn't none so bot doesn't die
+
+        if guild is None:
+            guild = ctx.guild.id
+
+        if(guild != ctx.guild.id and ctx.message.author.id != TNMN):
+            await ctx.send("You do not have permission to unignore this person in that guild")
+        else:
+            nukeArrayLocal2 = [nukeArray[0], nukeArray[1]]
+            if(user.id in nukeArray[0] and
+                    nukeArray[1][nukeArray[0].index(user.id)] == guild):
+                nukeArrayLocal2[1].pop(nukeArrayLocal2[0].index(user.id))
+
+                nukeArrayLocal2[0].remove(user.id)
+                with open("nukeIgnore.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "nukeArray = [" +str(nukeArrayLocal2[0])+"," +str(nukeArrayLocal2[1])+"]"
+                    file.write(string)
                     file.close()
 
-            await ctx.send(f"Added user {user.mention} to nuke blacklist in guild **{ctx.guild}**")
-
-
+                await ctx.send(f"Added user {user.mention} to nuke ignore in guild **{ctx.guild}**")
+            else:
+                await ctx.send(f"User {user.mention} is already nuke unignored in that server")
 
     @commands.command(aliases=['create'],hidden=True)
     @commands.guild_only()
