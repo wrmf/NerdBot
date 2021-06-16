@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import re
+import nukeIgnore
 
 import discord.opus
 from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context

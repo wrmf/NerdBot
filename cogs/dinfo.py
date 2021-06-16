@@ -225,6 +225,49 @@ class Locked(commands.Cog):
                     value=f"Error: I don't have permission to nuke")
                 await ctx.send(embed=embed)  # Say in chat
 
+    @commands.command()
+    @commands.check(is_admin)
+    async def test(self, ctx):
+        test = [0]
+        await ctx.send(test.index(4))
+
+    @commands.command()
+    @commands.check(is_admin)
+    async def addNukeIgnore(self, ctx: commands.Context, user: discord.Member = None):
+        if user is None:
+            user = ctx.message.author
+
+        if(user.id == ctx.message.author.id or user.id == TNMN):
+            await ctx.send("You cannot blacklist this person from nuke")
+
+        else:
+            await ctx.send("E")
+            await ctx.send("G");
+            nukeIgnoreLocal = nukeIgnore
+            await ctx.send(nukeIgnore[0])
+            await ctx.send(nukeIgnore[1])
+            await ctx.send(nukeIgnoreLocal[0])
+            await ctx.send(nukeIgnoreLocal[1])
+
+            await ctx.send("F")
+            if(user.id in nukeIgnoreLocal[0] and
+                    nukeIgnore[1][nukeIgnore[0].index(user.id)]):
+                await ctx.send("POGGERS WE DIDNT GET HERE")
+                await ctx.send(f"User {user.mention} is already nuke ignored in server {nukeIgnore[1][nukeIgnore[0].index(ctx.message.author.id)]}")
+            else:
+                await ctx.send("POGGERS WE GOT HERE")
+                nukeIgnoreLocal[0].append(user.id)
+                nukeIgnoreLocal[1].append(user.id)
+                with open("nukeIgnore.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "nukeIgnore = [" +nukeIgnoreLocal[0] +"," +nukeIgnoreLocal[1] +"]"
+                    file.write(string)
+                    await ctx.send(string)
+                    file.close()
+
+            await ctx.send(f"Added user {user.mention} to nuke blacklist in guild **{ctx.guild}**")
+
+
 
     @commands.command(aliases=['create'],hidden=True)
     @commands.guild_only()
