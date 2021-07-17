@@ -57,7 +57,7 @@ class Bot(AutoShardedBot):
 		David = 691013302259810344
 		Likeusb = 308270212359258113
 		LDLstaff = [555207100603826177, 703964837578932234, 336195394675539968, 308270212359258113, 597078673442734110, 691013302259810344]
-
+		NAYLE_2021_staff = 860183556599709737
 
 		if msg.guild.me in msg.mentions:
 			if(ctx.message.author.id == TNMN or ctx.message.author.id == Cheese):
@@ -69,9 +69,18 @@ class Bot(AutoShardedBot):
 			async for guild in client.fetch_guilds(limit=150):
 				print(guild.name)
 
+		if "nayle" in msg.clean_content.lower():
+			if(ctx.guild.id == NAYLE_2021_staff):
+				await ctx.send("NAYLE? I love NAYLE!")
+
+		if "outpost" in msg.clean_content.lower():
+			if(ctx.guild.id == NAYLE_2021_staff):
+				await ctx.send("ARE WE THERE YET?")
+
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
-				await msg.add_reaction("<:pingsock:638087023269380126>")
+				if(not ctx.guild.id == NAYLE_2021_staff):
+					await msg.add_reaction("<:pingsock:638087023269380126>")
 
 		for m in msg.mentions:
 			if(ctx.guild.id == 707226419993772112):
