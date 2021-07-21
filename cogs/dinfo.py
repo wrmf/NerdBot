@@ -1,28 +1,10 @@
-from io import BytesIO
 import logging
-import os
-
 import discord
-import random
 from discord.ext import commands
 
-########
-#People#
-########
-#import nukeIgnore
 from nukeIgnore import *
+from ids import *
 print("IMPORTED")
-
-TNMN = 555207100603826177
-Paladin = 447068325856542721
-Cadence = 363424348742352906
-Macky = 523919572273856523
-TNMB = 600524415263965187
-
-programmer_club = 555087033652215830
-LDL_server = 707226419993772112
-LDL_bot_commands = 710542883375022160
-LDL_bot_test = 741765478292127824
 
 logger = logging.getLogger("bot")
 

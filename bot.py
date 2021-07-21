@@ -45,20 +45,6 @@ class Bot(AutoShardedBot):
 		except BaseException as e:
 			logger.error(repr(e))
 
-		########
-		#People#
-		########
-
-		TNMN = 555207100603826177
-		Lockdown = 703964837578932234
-		Cheese = 471299908528242708
-		Key = 336195394675539968
-		Mini = 597078673442734110
-		David = 691013302259810344
-		Likeusb = 308270212359258113
-		LDLstaff = [555207100603826177, 703964837578932234, 336195394675539968, 308270212359258113, 597078673442734110, 691013302259810344]
-		NAYLE_2021_staff = 860183556599709737
-
 		if msg.guild.me in msg.mentions:
 			if(ctx.message.author.id == TNMN or ctx.message.author.id == Cheese):
 				pass
