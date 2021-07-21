@@ -3,6 +3,8 @@ import logging
 import os
 import re
 import nukeIgnore
+from ids import *
+from ldl_staff import *
 
 import discord.opus
 from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
@@ -51,10 +53,6 @@ class Bot(AutoShardedBot):
 			else:
 				await ctx.send("My prefix is ~. You can get my command list by doing ~help")
 
-		if "testu1234" in msg.clean_content.lower():
-			async for guild in client.fetch_guilds(limit=150):
-				print(guild.name)
-
 		if "nayle" in msg.clean_content.lower():
 			if(ctx.guild.id == NAYLE_2021_staff):
 				await ctx.send("NAYLE? I love NAYLE!")
@@ -69,14 +67,11 @@ class Bot(AutoShardedBot):
 					await msg.add_reaction("<:pingsock:638087023269380126>")
 
 		for m in msg.mentions:
-			if(ctx.guild.id == 707226419993772112):
-				if(ctx.author.id == TNMN or ctx.author.id == Cheese or ctx.author.id == Key
-						or ctx.author.id == Mini or ctx.author.id == Likeusb or ctx.author.id == David
-						or ctx.author.id == Lockdown or ctx.channel.id == 716059383548870657
-						or ctx.channel.id == 800391810689400912):
+			if(ctx.guild.id == LDL_server):
+				if(ctx.author.id in ldl_staff[0]):
 					pass
 				else:
-					if(m.id == Lockdown):
+					if(m.id == Lockdown or m.id == 713635251703906336):
 						user = ctx.message.author
 						await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question! **WARNING**")
 						channel = discord.utils.get(user.guild.channels, name="logs")

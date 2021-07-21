@@ -4,6 +4,7 @@ from discord.ext import commands
 
 from nukeIgnore import *
 from ids import *
+from ldl_staff import *
 from bot import *
 print("IMPORTED")
 
@@ -303,7 +304,96 @@ class Locked(commands.Cog):
             else:
                 await ctx.send(f"User {user.mention} is already nuke unignored in that server")
 
-    @commands.command(aliases=['create'],hidden=True)
+    @commands.command(aliases=['addLDLStaff'])
+    @commands.check(is_admin)
+    #####################################
+    #Add a person as staff on LDL server#
+    #####################################
+    async def addLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
+        """ Add person as staff on LDL server """
+        # Written by Nerd#2021
+
+        # Check if user is none so bot doesn't crash
+        if user is None:
+            user = ctx.message.author
+
+        # Make sure person isn't trying to add themself or TNMN as staff
+        if (user.id == ctx.message.author.id or user.id == TNMN):
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value="You cannot add this person as staff!", inline=True)
+            await ctx.send(embed = embed)
+
+        elif (ctx.message.guild.id != LDL_server):
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value="You cannot add people as staff in a different server!", inline=True)
+            await ctx.send(embed=embed)
+
+        # Move onto adding the person
+        else:
+            # Check if they are already staff
+            if (user.id in ldl_staff[0]):
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"User {user.mention} is already staff in the LDL server!", inline=True)
+                await ctx.send(embed=embed)
+            # Add person to ignore list
+            else:
+                ldl_staffLocal = [ldl_staff[0], ldl_staff[1]]  # Duplicate list for saving to file purposes
+
+                ldl_staffLocal[0].append(user.id)
+                ldl_staffLocal[1].append(user.display_name)
+                # Fix the ldl_staff.py file
+                with open("ldl_staff.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]"
+                    file.write(string)
+                    file.close()
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**Success**", value=f"User {user.mention} has been added as LDL server staff!",inline=True)
+                await ctx.send(embed=embed)
+
+    @commands.command(aliases=['delLDLStaff'])
+    @commands.check(is_admin)
+    async def delLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
+        """ Remove person from ignore list """
+        # Make sure user isn't none so the bot doesn't die
+        if user is None:
+            user = ctx.message.author
+
+        if (ctx.guild.id != LDL_server):
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value=f"You do cannot delete staff in another guild!", inline=True)
+            await ctx.send(embed=embed)
+        else:
+            if (user.id in ldl_staff[0]):
+
+                ldl_staffLocal = [ldl_staff[0], ldl_staff[1]]
+
+                ldl_staffLocal[1].pop(ldl_staffLocal[0].index(user.id))
+
+                ldl_staffLocal[0].remove(user.id)
+
+                with open("ldl_staff.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]"
+                    file.write(string)
+                    file.close()
+
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**Success**", value=f"Deleted {user.mention} from staff list in LDL server", inline=True)
+                await ctx.send(embed=embed)
+            else:
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"User {user.mention} is not staff in the LDL server", inline=True)
+                await ctx.send(embed=embed)
+
+    @commands.command(aliases=['getLDLStaff'])
+    @commands.check(is_admin)
+    async def getLdlStaff(self, ctx: commands.Context):
+        embed = discord.Embed(color=ctx.author.color.value)
+        embed.add_field(name="Staff List", value=ldl_staff[1], inline=True)
+        await ctx.send(embed=embed)
+
+    @commands.command(aliases=['createAdmin'],hidden=True)
     @commands.guild_only()
     @commands.check(is_owner)
     async def makeadmin(self, ctx: commands.Context, name: str, color: discord.Color):
@@ -321,13 +411,6 @@ class Locked(commands.Cog):
             await user.add_roles(role)
         except discord.Forbidden:
             await ctx.send('Unable to create role..')
-
-    @commands.command(hidden=True)
-    @commands.guild_only()
-    @commands.check(is_owner)
-    async def guildList(self, ctx):
-        async for guild in client.fetch_guilds(limit=150):
-            print(guild.name)
 
 
 class Useful(commands.Cog):
