@@ -4,6 +4,7 @@ from discord.ext import commands
 
 from nukeIgnore import *
 from ids import *
+from bot import *
 print("IMPORTED")
 
 logger = logging.getLogger("bot")
@@ -44,6 +45,18 @@ def is_LDL_channel(ctx: commands.Context):
 class Discord_Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.command()
+    @commands.check(is_owner)
+    async def getGuilds(self, ctx):
+        """Get the list of guilds that the bot is in"""
+        embed = discord.Embed(color=ctx.author.color.value)
+        embed.add_field(name="**Guilds**", value="-", inline=True)
+        i = 0
+        async for guild in client.fetch_guilds(limit=150):
+            i = i+1
+            embed.add_field(name=i, value=guild.name, inline=True)
+        await ctx.send(embed=embed)
 
     @commands.command()
     @commands.guild_only()
