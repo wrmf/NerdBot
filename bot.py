@@ -5,6 +5,7 @@ import re
 import nukeIgnore
 from ids import *
 from ldl_staff import *
+from ldl_channels import *
 
 import discord.opus
 from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
@@ -68,10 +69,10 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if(ctx.guild.id == LDL_server):
-				if(ctx.author.id in ldl_staff[0]):
+				if(ctx.author.id in ldl_staff[0] or ctx.channel.id in ldl_channels[0]):
 					pass
 				else:
-					if(m.id == Lockdown or m.id == 713635251703906336):
+					if(m.id == Lockdown):
 						user = ctx.message.author
 						await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question! **WARNING**")
 						channel = discord.utils.get(user.guild.channels, name="logs")
