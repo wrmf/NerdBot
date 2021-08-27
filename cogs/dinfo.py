@@ -54,7 +54,7 @@ class Discord_Info(commands.Cog):
         embed = discord.Embed(color=ctx.author.color.value)
         embed.add_field(name="**Guilds**", value="-", inline=True)
         i = 0
-        async for guild in client.fetch_guilds(limit=150):
+        async for guild in client.fetch_guilds(limit=200):
             i = i+1
             embed.add_field(name=i, value=guild.name, inline=True)
         await ctx.send(embed=embed)
@@ -66,7 +66,7 @@ class Discord_Info(commands.Cog):
         if user is None:
             user = ctx.author
         if(is_LDL_channel(ctx)):
-            await ctx.send(f"{user.avatar_url_as(size=1024)}")
+            await ctx.send(f"{user.avatar_url_as(size=2048)}")
 
     @commands.command()
     @commands.guild_only()
@@ -304,7 +304,7 @@ class Locked(commands.Cog):
             else:
                 await ctx.send(f"User {user.mention} is already nuke unignored in that server")
 
-    @commands.command(aliases=['addLDLStaff'])
+    @commands.command(aliases=['addLDLStaff'],hidden=True)
     @commands.check(is_admin)
     #####################################
     #Add a person as staff on LDL server#
@@ -351,7 +351,7 @@ class Locked(commands.Cog):
                 embed.add_field(name="**Success**", value=f"User {user.mention} has been added as LDL server staff!",inline=True)
                 await ctx.send(embed=embed)
 
-    @commands.command(aliases=['delLDLStaff'])
+    @commands.command(aliases=['delLDLStaff'],hidden=True)
     @commands.check(is_admin)
     async def delLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
         """ Remove person from ignore list """
@@ -386,7 +386,7 @@ class Locked(commands.Cog):
                 embed.add_field(name="**ERROR**", value=f"User {user.mention} is not staff in the LDL server", inline=True)
                 await ctx.send(embed=embed)
 
-    @commands.command(aliases=['getLDLStaff'])
+    @commands.command(aliases=['getLDLStaff'],hidden=True)
     @commands.check(is_admin)
     async def getLdlStaff(self, ctx: commands.Context):
         embed = discord.Embed(color=ctx.author.color.value)
