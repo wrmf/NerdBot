@@ -197,13 +197,6 @@ class Discord_Info(commands.Cog):
                 embed4.add_field(name="**Emojis**", value=f"No emojis found for  **{ctx.guild.name}**", inline=True)
                 await ctx.send(embed=embed4)
 
-    @commands.command()
-    async def invite(self, ctx):
-        """Invite the bot to your server"""
-
-        user = ctx.author
-        await user.send("My invite link is: https://tinyurl.com/yyoja52j")
-
     @commands.command(aliases=['createAdmin'],hidden=True)
     @commands.guild_only()
     @commands.check(is_owner)
