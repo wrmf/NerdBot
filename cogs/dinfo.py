@@ -477,6 +477,30 @@ class Useful(commands.Cog):
             await ctx.send(output)
 
     @commands.command(pass_context=True)
+    @commands.check(is_admin)
+    async def giveaway(self, ctx: commands.Context, item: str):
+        """
+        Create a giveaway
+        """
+        if (is_LDL_channel(ctx)):
+            if len(options) > 1:
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"You cannot make a giveaway with more than one option",inline=True)
+                await ctx.send(embed=embed)
+            elif len(options) > 1:
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"You cannot make a giveaway with less than one option",inline=True)
+                await ctx.send(embed=embed)
+
+            reaction = '🎉'
+
+            embed = discord.Embed(title=item, description=f'Giveaway by {ctx.message.author.mention}'.join(item))
+            react_message = await ctx.send(embed=embed)
+            await react_message.add_reaction(reaction)
+            embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
+            await react_message.edit(embed=embed)
+
+    @commands.command(pass_context=True)
     async def roll(self, ctx: commands.Context, id):
         poll_message = await ctx.fetch_message(id)
         if not poll_message.embeds:
