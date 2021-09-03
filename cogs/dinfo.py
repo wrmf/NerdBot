@@ -474,6 +474,7 @@ class Useful(commands.Cog):
             output = 'Results of the poll for "{}":\n'.format(embed.title) + \
                      '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()])
             await ctx.send(output)
+            await ctx.send(voters)
 
 
 def setup(bot):
