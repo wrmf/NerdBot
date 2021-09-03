@@ -51,7 +51,7 @@ class Giveaway(commands.Cog):
         """
         Create a giveaway
         """
-        
+
         #reaction = '🎉'
         reaction = '<:celebrate_animated:883452218840334346>'
 
@@ -85,3 +85,6 @@ class Giveaway(commands.Cog):
         embed = discord.Embed(title="Giveaway!", description="Winner: <@" + winner_id + ">!")
         embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
         await giveaway_message.edit(embed=embed)
+
+def setup(bot):
+    bot.add_cog(Giveaway(bot))
