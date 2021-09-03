@@ -506,6 +506,10 @@ class Useful(commands.Cog):
                     if reactor.id not in voters:
                         voters.append(reactor.id)
         voters.remove(giveaway_message.author.id)
+        if(len(voters) <= 0):
+            embed = discord.Embed(title="ERROR", description="No one has entered this giveaway!", color=ctx.message.author.top_role.color)
+            await ctx.send(embed=embed)
+            return
         winner_id = str(voters[random.randint(0, len(voters)-1)])
         await ctx.send("Congrats on winning <@"+winner_id+">!")
         embed = discord.Embed(title="Giveaway!", description="Winner: <@"+winner_id+">!")
