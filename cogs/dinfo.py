@@ -8,7 +8,6 @@ from ids import *
 from ldl_staff import *
 from bot import *
 import random
-print("IMPORTED")
 
 logger = logging.getLogger("bot")
 
