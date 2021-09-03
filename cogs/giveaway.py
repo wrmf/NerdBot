@@ -54,21 +54,21 @@ class Giveaway(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-@commands.command(pass_context=True)
-@commands.check(is_admin)
-async def giveaway(self, ctx: commands.Context, item: str):
-    """
-    Create a giveaway
-    """
-    if (is_LDL_channel(ctx)):
-        #reaction = '🎉'
-        reaction = '<:celebrate_animated:883452218840334346>'
+    @commands.command(pass_context=True)
+    @commands.check(is_admin)
+    async def giveaway(self, ctx: commands.Context, item: str):
+        """
+        Create a giveaway
+        """
+        if (is_LDL_channel(ctx)):
+            #reaction = '🎉'
+            reaction = '<:celebrate_animated:883452218840334346>'
 
-        embed = discord.Embed(title="Giveaway!", description=item)
-        react_message = await ctx.send(embed=embed)
-        await react_message.add_reaction(reaction)
-        embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
-        await react_message.edit(embed=embed)
+            embed = discord.Embed(title="Giveaway!", description=item)
+            react_message = await ctx.send(embed=embed)
+            await react_message.add_reaction(reaction)
+            embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
+            await react_message.edit(embed=embed)
 
 
     @commands.command(pass_context=True)
