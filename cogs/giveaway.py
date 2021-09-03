@@ -52,8 +52,7 @@ class Giveaway(commands.Cog):
         Create a giveaway
         """
 
-        #reaction = '🎉'
-        reaction = '<:celebrate_animated:883452218840334346>'
+        reaction = '🎉'
 
         embed = discord.Embed(title="Giveaway!", description=item)
         react_message = await ctx.send(embed=embed)
