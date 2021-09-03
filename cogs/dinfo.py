@@ -484,10 +484,10 @@ class Useful(commands.Cog):
         """
         if (is_LDL_channel(ctx)):
 
-            #reaction = '🎉'
-            reaction = '<:tada_animated:883443555283120148>'
+            reaction = '🎉'
+            #reaction = '<:tada_animated:883443555283120148>'
 
-            embed = discord.Embed(title=item, description=' ')
+            embed = discord.Embed(title="Giveaway!", description=item)
             react_message = await ctx.send(embed=embed)
             await react_message.add_reaction(reaction)
             embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
