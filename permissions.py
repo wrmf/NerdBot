@@ -1,9 +1,13 @@
 import discord
 from discord.ext import commands
-import random
-from bot import *
-from ids import *
+
 from nukeIgnore import *
+from bot import *
+import logging
+import discord
+from discord.ext import commands
+from bot import *
+import random
 
 logger = logging.getLogger("bot")
 
@@ -31,21 +35,11 @@ def is_mod(ctx: commands.Context):
     roles: List[discord.Role] = member.roles
     return is_admin(ctx) or any([role.permissions.manage_messages for role in roles])
 
-
-class Invite(commands.Cog):
-    """
-    Nuke related commandss
-    """
-
-    def __init__(self, bot):
-        self.bot = bot
-
-    @commands.command()
-    async def invite(self, ctx):
-        """Invite the bot to your server"""
-
-        user = ctx.author
-        await user.send("My invite link is: https://tinyurl.com/yyoja52j")
-
-def setup(bot):
-    bot.add_cog(Invite(bot))
+def is_LDL_channel(ctx: commands.Context):
+    if(ctx.guild.id == LDL_server):
+        if(ctx.message.channel.id == LDL_bot_commands or ctx.message.channel.id == LDL_bot_test):
+            return True
+        else:
+            return False
+    else:
+        return True
