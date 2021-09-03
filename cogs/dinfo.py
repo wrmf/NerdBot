@@ -491,9 +491,7 @@ class Useful(commands.Cog):
                         voters.append(reactor.id)
         voters.remove(600524415263965187)
         await ctx.send(voters)
-        #random.seed(a=None, version=2)
-        await ctx.send(random.randint(1, 100))
-        await ctx.send(voters[random.randint(0, len(voters)-1)])
+        await ctx.send("Congrats on winning <#"+voters[random.randint(0, len(voters)-1)]+">!")
 
 
 
