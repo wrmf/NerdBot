@@ -486,7 +486,7 @@ class Useful(commands.Cog):
 
             reaction = '🎉'
 
-            embed = discord.Embed(title=item, description=f'Giveaway by {ctx.message.author.mention}'.join(item))
+            embed = discord.Embed(title=item, description=' ')
             react_message = await ctx.send(embed=embed)
             await react_message.add_reaction(reaction)
             embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
