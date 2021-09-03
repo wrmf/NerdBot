@@ -99,8 +99,6 @@ for file in os.listdir("cogs"):
 	if file.endswith(".py"):
 		name = file[:-3]
 client.load_extension(f"cogs.{name}")
-#client.load_extension("cogs.dinfo")
-#client.load_extension("cogs.giveaway")
 
 client.load_extension("jishaku")
 
