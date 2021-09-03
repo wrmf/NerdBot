@@ -98,7 +98,10 @@ async def on_ready():
 for file in os.listdir("cogs"):
 	if file.endswith(".py"):
 		name = file[:-3]
-client.load_extension(f"cogs.{name}")
+#client.load_extension(f"cogs.{name}")
+client.load_extension("Poll")
+client.load_extension("Giveaway")
+client.load_extension("dinfo")
 
 client.load_extension("jishaku")
 
