@@ -1,17 +1,32 @@
 import discord
 from discord.ext import commands
-from permChecks import *
 import random
 
 logger = logging.getLogger("bot")
 
-import logging
-import discord
-from discord.ext import commands
-from bot import *
-import random
+def fmt(d):
+    return d.strftime('%A, %B %e %Y at %H:%M:%S')
 
-logger = logging.getLogger("bot")
+def is_nuke(ctx: commands.Context):
+    member: discord.Member = ctx.author
+    roles: List[discord.Role] = member.roles
+
+    return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
+
+def is_owner(ctx: commands.Context):
+    return ctx.author.id == TNMN
+
+
+def is_admin(ctx: commands.Context):
+    member: discord.Member = ctx.author
+    roles: List[discord.Role] = member.roles
+    return is_owner(ctx) or any([role.permissions.administrator for role in roles])
+
+
+def is_mod(ctx: commands.Context):
+    member: discord.Member = ctx.author
+    roles: List[discord.Role] = member.roles
+    return is_admin(ctx) or any([role.permissions.manage_messages for role in roles])
 
 class Giveaway(commands.Cog):
     """
@@ -38,6 +53,7 @@ class Giveaway(commands.Cog):
 
 
     @commands.command(pass_context=True)
+    @commands.check(is_admin)
     async def roll(self, ctx: commands.Context, id):
         giveaway_message = await ctx.fetch_message(id)
         if not giveaway_message.embeds:
