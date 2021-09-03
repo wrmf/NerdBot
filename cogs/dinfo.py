@@ -495,18 +495,22 @@ class Useful(commands.Cog):
 
     @commands.command(pass_context=True)
     async def roll(self, ctx: commands.Context, id):
-        poll_message = await ctx.fetch_message(id)
-        if not poll_message.embeds:
+        giveaway_message = await ctx.fetch_message(id)
+        if not giveaway_message.embeds:
             return
         voters = [ctx.me.id]  # add the bot's ID to the list of voters to exclude it's votes
 
-        for reaction in poll_message.reactions:
+        for reaction in giveaway_message.reactions:
                 reactors = await reaction.users().flatten()
                 for reactor in reactors:
                     if reactor.id not in voters:
                         voters.append(reactor.id)
-        voters.remove(poll_message.author.id)
-        await ctx.send("Congrats on winning <"+str(voters[random.randint(0, len(voters)-1)])+">!")
+        voters.remove(giveaway_message.author.id)
+        winner_id = str(voters[random.randint(0, len(voters)-1)])
+        await ctx.send("Congrats on winning <@"+winner_id+">!")
+        embed = discord.Embed(title="Giveaway!", description="Winner: <@"+winner_id+">!")
+        embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
+        giveaway_message.edit(embed)
 
 
 
