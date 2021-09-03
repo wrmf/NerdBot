@@ -489,7 +489,7 @@ class Useful(commands.Cog):
                     if reactor.id not in voters:
                         voters.append(reactor.id)
         voters.remove(poll_message.author.id)
-        await ctx.send("Congrats on winning <@"+str(voters[random.randint(0, len(voters)-1)])+">!")
+        await ctx.send("Congrats on winning <"+str(voters[random.randint(0, len(voters)-1)])+">!")
 
 
 
