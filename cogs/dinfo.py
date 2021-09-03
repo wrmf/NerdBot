@@ -1,5 +1,4 @@
 import logging
-from random import random
 
 import discord
 from discord.ext import commands
@@ -8,6 +7,7 @@ from nukeIgnore import *
 from ids import *
 from ldl_staff import *
 from bot import *
+import random
 print("IMPORTED")
 
 logger = logging.getLogger("bot")
@@ -492,6 +492,7 @@ class Useful(commands.Cog):
         voters.remove(600524415263965187)
         await ctx.send(voters)
         #random.seed(a=None, version=2)
+        await ctx.send(random.randint(1, 100))
         await ctx.send(voters[random.randint(0, len(voters)-1)])
 
 
