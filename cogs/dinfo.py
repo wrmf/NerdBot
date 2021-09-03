@@ -509,7 +509,7 @@ class Useful(commands.Cog):
         winner_id = str(voters[random.randint(0, len(voters)-1)])
         await ctx.send("Congrats on winning <@"+winner_id+">!")
         embed = discord.Embed(title="Giveaway!", description="Winner: <@"+winner_id+">!")
-        embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
+        embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
         giveaway_message.edit(embed)
 
 
