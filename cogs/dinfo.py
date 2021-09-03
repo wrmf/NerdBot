@@ -483,14 +483,6 @@ class Useful(commands.Cog):
         Create a giveaway
         """
         if (is_LDL_channel(ctx)):
-            if len(options) > 1:
-                embed = discord.Embed(color=ctx.author.color.value)
-                embed.add_field(name="**ERROR**", value=f"You cannot make a giveaway with more than one option",inline=True)
-                await ctx.send(embed=embed)
-            elif len(options) > 1:
-                embed = discord.Embed(color=ctx.author.color.value)
-                embed.add_field(name="**ERROR**", value=f"You cannot make a giveaway with less than one option",inline=True)
-                await ctx.send(embed=embed)
 
             reaction = '🎉'
 
