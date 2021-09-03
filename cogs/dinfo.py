@@ -1,4 +1,6 @@
 import logging
+from random import random
+
 import discord
 from discord.ext import commands
 
@@ -474,7 +476,25 @@ class Useful(commands.Cog):
             output = 'Results of the poll for "{}":\n'.format(embed.title) + \
                      '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()])
             await ctx.send(output)
-            await ctx.send(voters)
+
+    @commands.command(pass_context=True)
+    async def roll(self, ctx: commands.Context, id):
+        poll_message = await ctx.fetch_message(id)
+        if not poll_message.embeds:
+            return
+        voters = [ctx.me.id]  # add the bot's ID to the list of voters to exclude it's votes
+
+        for reaction in poll_message.reactions:
+                reactors = await reaction.users().flatten()
+                for reactor in reactors:
+                    if reactor.id not in voters:
+                        voters.append(reactor.id)
+        voters.remove(600524415263965187)
+        await ctx.send(voters)
+        #random.seed(a=None, version=2)
+        await ctx.send(voters[random.randint(0, len(voters)-1)])
+
+
 
 
 def setup(bot):
