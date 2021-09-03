@@ -484,7 +484,8 @@ class Useful(commands.Cog):
         """
         if (is_LDL_channel(ctx)):
 
-            reaction = '🎉'
+            #reaction = '🎉'
+            reaction = '<:tada_animated:883443555283120148>'
 
             embed = discord.Embed(title=item, description=' ')
             react_message = await ctx.send(embed=embed)
