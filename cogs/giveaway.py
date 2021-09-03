@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+from bot import *
 
 logger = logging.getLogger("bot")
 
