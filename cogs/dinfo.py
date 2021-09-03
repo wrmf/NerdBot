@@ -1,13 +1,9 @@
-import logging
 import discord
 from discord.ext import commands
 
 from nukeIgnore import *
-from ids import *
-from ldl_staff import *
 from permChecks import *
 from bot import *
-import random
 
 logger = logging.getLogger("bot")
 

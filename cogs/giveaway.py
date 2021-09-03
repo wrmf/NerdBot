@@ -1,7 +1,5 @@
-import logging
 import discord
 from discord.ext import commands
-from bot import *
 from permChecks import *
 import random
 
