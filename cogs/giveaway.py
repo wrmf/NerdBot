@@ -34,15 +34,13 @@ class Giveaway(commands.Cog):
         giveaway_message = await ctx.fetch_message(id)
         if not giveaway_message.embeds:
             return
-        voters = [ctx.me.id]  # add the bot's ID to the list of voters to exclude it's votes
+        voters = [ctx.message.author.id]  # add the bot's ID to the list of voters to exclude it's votes
 
         for reaction in giveaway_message.reactions:
             reactors = await reaction.users().flatten()
             for reactor in reactors:
                 if reactor.id not in voters:
                     voters.append(reactor.id)
-        if(ctx.message.author.id != ctx.me.id):
-            voters.remove(ctx.me.id)
         voters.remove(giveaway_message.author.id)
         if (len(voters) <= 0):
             embed = discord.Embed(title="ERROR", description=f"No one has entered this giveaway!\n\n Hosted by {ctx.message.author.mention}",
