@@ -48,7 +48,6 @@ class Giveaway(commands.Cog):
 
         embed = discord.Embed(title="Giveaway!", description=item+f"\n\n Hosted by {ctx.message.author.mention}")
         react_message = await ctx.send(embed=embed)
-        #embed.add_field(name="Test", value=f"Hosted by {ctx.message.author.mention}!", inline=True)
         await react_message.add_reaction(reaction)
         embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
         await react_message.edit(embed=embed)
@@ -69,13 +68,13 @@ class Giveaway(commands.Cog):
                     voters.append(reactor.id)
         voters.remove(giveaway_message.author.id)
         if (len(voters) <= 0):
-            embed = discord.Embed(title="ERROR", description="No one has entered this giveaway!",
+            embed = discord.Embed(title="ERROR", description=f"No one has entered this giveaway!\n\n Hosted by {ctx.message.author.mention}",
                                   color=ctx.message.author.top_role.color)
             await ctx.send(embed=embed)
             return
         winner_id = str(voters[random.randint(0, len(voters) - 1)])
         await ctx.send("Congrats on winning <@" + winner_id + ">!")
-        embed = discord.Embed(title="Giveaway ended!", description="Winner: <@" + winner_id + ">!")
+        embed = discord.Embed(title="Giveaway ended!", description="Winner: <@" + winner_id + f">!\n\n Hosted by {ctx.message.author.id}")
         embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
         await giveaway_message.edit(embed=embed)
 
