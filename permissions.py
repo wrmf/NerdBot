@@ -13,7 +13,6 @@ logger = logging.getLogger("bot")
 
 def fmt(d):
     return d.strftime('%A, %B %e %Y at %H:%M:%S')
-
 def is_nuke(ctx: commands.Context):
     member: discord.Member = ctx.author
     roles: List[discord.Role] = member.roles
