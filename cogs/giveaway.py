@@ -56,7 +56,7 @@ class Giveaway(commands.Cog):
             embed = discord.Embed(title="Giveaway ended!",description="Winner: <@" + winner_id + f">!\n\n Hosted by {ctx.message.author.mention}")
             embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
             await giveaway_message.edit(embed=embed)
-        except discord.forbidden:
+        except discord.Forbidden:
             embed = discord.Embed(title="ERROR", description=f"Giveaway was not hosted by {ctx.me.mention}. I cannot edit the embed")
             await ctx.send(embed=embed)
 
