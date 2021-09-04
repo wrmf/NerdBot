@@ -41,6 +41,8 @@ class Giveaway(commands.Cog):
             for reactor in reactors:
                 if reactor.id not in voters:
                     voters.append(reactor.id)
+        if(ctx.message.author.id != ctx.me.id):
+            voters.remove(ctx.me.id)
         voters.remove(giveaway_message.author.id)
         if (len(voters) <= 0):
             embed = discord.Embed(title="ERROR", description=f"No one has entered this giveaway!\n\n Hosted by {ctx.message.author.mention}",

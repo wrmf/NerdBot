@@ -4,6 +4,7 @@ import random
 from bot import *
 from permissions import *
 
+
 class Poll(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
