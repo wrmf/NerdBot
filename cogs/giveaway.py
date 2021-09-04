@@ -74,7 +74,7 @@ class Giveaway(commands.Cog):
             return
         winner_id = str(voters[random.randint(0, len(voters) - 1)])
         await ctx.send("Congrats on winning <@" + winner_id + ">!")
-        embed = discord.Embed(title="Giveaway ended!", description="Winner: <@" + winner_id + f">!\n\n Hosted by {ctx.message.author.id}")
+        embed = discord.Embed(title="Giveaway ended!", description="Winner: <@" + winner_id + f">!\n\n Hosted by {ctx.message.author.mention}")
         embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
         await giveaway_message.edit(embed=embed)
 
