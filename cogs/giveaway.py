@@ -46,9 +46,9 @@ class Giveaway(commands.Cog):
 
         reaction = '🎉'
 
-        embed = discord.Embed(title="Giveaway!", description=item)
+        embed = discord.Embed(title="Giveaway!", description=item+f"/n/n Hosted by {ctx.message.author.mention}")
         react_message = await ctx.send(embed=embed)
-        embed.add_field(name="Test", value=f"Hosted by {ctx.message.author.mention}!", inline=True)
+        #embed.add_field(name="Test", value=f"Hosted by {ctx.message.author.mention}!", inline=True)
         await react_message.add_reaction(reaction)
         embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
         await react_message.edit(embed=embed)
