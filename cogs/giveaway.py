@@ -48,6 +48,7 @@ class Giveaway(commands.Cog):
 
         embed = discord.Embed(title="Giveaway!", description=item)
         react_message = await ctx.send(embed=embed)
+        embed.set_footer(text=f'Hosted by {ctx.message.author}')
         await react_message.add_reaction(reaction)
         embed.set_footer(text='Giveaway ID: {}'.format(react_message.id))
         await react_message.edit(embed=embed)
@@ -74,7 +75,7 @@ class Giveaway(commands.Cog):
             return
         winner_id = str(voters[random.randint(0, len(voters) - 1)])
         await ctx.send("Congrats on winning <@" + winner_id + ">!")
-        embed = discord.Embed(title="Giveaway!", description="Winner: <@" + winner_id + ">!")
+        embed = discord.Embed(title="Giveaway ended!", description="Winner: <@" + winner_id + ">!")
         embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
         await giveaway_message.edit(embed=embed)
 
