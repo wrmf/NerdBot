@@ -17,9 +17,6 @@ class ldl(commands.Cog):
 
     @commands.command(aliases=['addLDLStaff'], hidden=True)
     @commands.check(is_admin)
-    #####################################
-    # Add a person as staff on LDL server#
-    #####################################
     async def addLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
         """
         Add person as staff on LDL server
