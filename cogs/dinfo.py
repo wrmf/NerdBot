@@ -19,7 +19,7 @@ class Discord_Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.check(is_owner)
     async def getGuilds(self, ctx):
         """
@@ -54,7 +54,9 @@ class Discord_Info(commands.Cog):
 
         #Sent profile photo
         if(is_LDL_channel(ctx)):
-            await ctx.send(f"{user.avatar_url_as(size=2048)}")
+            embed = discord.Embed(color=ctx.author.color.value, text=f"{user.avatar_url_as(size=2048)}")  # Create embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)
 
     @commands.command()
     @commands.guild_only()
