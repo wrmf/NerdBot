@@ -130,36 +130,37 @@ class Discord_Info(commands.Cog):
         """
         if (is_LDL_channel(ctx)):
             if ctx.invoked_subcommand is None:
-                findbots = sum(1 for member in ctx.guild.members if member.bot)
+                findbots = sum(1 for member in ctx.guild.members if member.bot) #Find the number of bots in the guild
 
-                allroles = ""
+                allroles = "" #Roll list
 
+                #Find all of the roles
                 for num, role in enumerate(sorted(ctx.guild.roles, reverse=True), start=1):
                     allroles += f"{role.name}\n"
 
-                author = ctx.message.author
+                author = ctx.message.author #Get author
 
-                embed = discord.Embed(color=author.top_role.color.value)
-                embed.set_thumbnail(url=ctx.guild.icon_url)
-                embed.add_field(name="Server Name", value=ctx.guild.name, inline=True)
-                embed.add_field(name="Server ID", value=ctx.guild.id, inline=True)
-                embed.add_field(name="Members", value=ctx.guild.member_count, inline=True)
-                embed.add_field(name="Bots", value=str(findbots), inline=True)
-                embed.add_field(name="Owner", value=ctx.guild.owner, inline=True)
-                embed.add_field(name="Created", value=fmt(ctx.guild.created_at), inline=True)
+                embed = discord.Embed(color=author.top_role.color.value) #Create embed
+                embed.set_thumbnail(url=ctx.guild.icon_url) #Set embed thumbnail
+                embed.add_field(name="Server Name", value=ctx.guild.name, inline=True) #Add server name to embed
+                embed.add_field(name="Server ID", value=ctx.guild.id, inline=True) #Add server ID to embed
+                embed.add_field(name="Members", value=ctx.guild.member_count, inline=True) #Add member count to embed
+                embed.add_field(name="Bots", value=str(findbots), inline=True) #Add bots count to embed
+                embed.add_field(name="Owner", value=ctx.guild.owner, inline=True) #Add guild owner to embed ***BROKEN SINCE 2020***
+                embed.add_field(name="Created", value=fmt(ctx.guild.created_at), inline=True) #Add when the guild was created to embed
 
-                roles = ctx.guild.roles
-                roles.reverse()
+                roles = ctx.guild.roles #Get roles
+                roles.reverse() #Reverse the roles
 
                 embed.add_field(
                     name="Roles",
                     value=', '.join([f"<@&{x.id}>" for x in roles if x is not ctx.guild.default_role]) if len(
                         ctx.guild.roles) > 1 else f"No roles in {ctx.guild.name}",
                     inline=False
-                )
+                ) #Add roles to embed
 
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed)
+                await ctx.send(embed=embed) #Send embed
 
     @commands.command()
     @commands.guild_only()
@@ -170,20 +171,25 @@ class Discord_Info(commands.Cog):
         """
 
         if (is_LDL_channel(ctx)):
-            """ Check when a user joined the current server """
-            embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**Emojis**", value="-", inline=True)
+            """
+            Check when a user joined the current server
+            @author Nerd#2021
+            """
 
-            embed2 = discord.Embed(color=ctx.author.color.value)
-            embed2.add_field(name="**Emojis**", value="-", inline=True)
+            embed = discord.Embed(color=ctx.author.color.value) #Make first embed
+            embed.add_field(name="**Emojis**", value="-", inline=True) #Set title for first embed
 
-            embed3 = discord.Embed(color=ctx.author.color.value)
-            embed3.add_field(name="**Emojis**", value="-", inline=True)
+            embed2 = discord.Embed(color=ctx.author.color.value) #Make second embed
+            embed2.add_field(name="**Emojis**", value="-", inline=True) #Set title for second embed
 
-            i = 1
+            embed3 = discord.Embed(color=ctx.author.color.value) #Make third embed
+            embed3.add_field(name="**Emojis**", value="-", inline=True) #Set title for third embed
+
+            i = 1 #Make emoji counter
 
 
             for x in ctx.guild.emojis:
+                #Make sure we aren't adding emotes to a full embed
                 if(i<=24):
                     embed.add_field(name=i, value=x, inline=True)
                 elif(i<=48):
@@ -191,6 +197,8 @@ class Discord_Info(commands.Cog):
                 else:
                     embed3.add_field(name=i, value=x, inline=True)
                 i = i+1
+
+            #Sent messages that are full (don't send empty ones)
             if i != 1:
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed = embed)
@@ -202,11 +210,12 @@ class Discord_Info(commands.Cog):
                 if (i > 49):
                     embed3.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                     await ctx.send(embed=embed3)
+            #Send error message if there are no emotes
             else:
                 embed4 = discord.Embed(color=ctx.author.color.value)
                 embed4.add_field(name="**Emojis**", value=f"No emojis found for  **{ctx.guild.name}**", inline=True)
                 embed4.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed4)
+                await ctx.send(embed=embed4) #Send embed
 
     @commands.command(aliases=['createAdmin'],hidden=True)
     @commands.guild_only()
@@ -217,6 +226,7 @@ class Discord_Info(commands.Cog):
         @author Nerd#2021
         """
 
+        #Delete message if possible
         try:
             await ctx.message.delete()
         except discord.Forbidden:
@@ -224,13 +234,13 @@ class Discord_Info(commands.Cog):
         try:
             role = await ctx.guild.create_role(name=name,
                                                color=color,
-                                               permissions=discord.Permissions.all())
-            user = ctx.message.author
-            await user.add_roles(role)
+                                               permissions=discord.Permissions.all()) #Create role
+            user = ctx.message.author #Get msg author
+            await user.add_roles(role)  #Add role to user
         except discord.Forbidden:
             embed = discord.Embed(color=user.color.value, text="Unable to create role...")  # Embed
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-            await ctx.send(embed=embed)
+            await ctx.send(embed=embed) #Send error message
 
 def setup(bot):
     bot.add_cog(Discord_Info(bot))
