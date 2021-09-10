@@ -12,15 +12,23 @@ from permissions import *
 
 
 class Text(commands.Cog):
+    """
+    Text related commands
+    """
+
     def __init__(self, bot):
         self.bot = bot
 
         @commands.command()
         @commands.check(is_admin)
         async def echo(self, ctx: commands.Context, message: str):
-            """Echo a message"""
-            await ctx.channel.purge(limit=1)
-            await ctx.send(message)
+            """
+            Echo a message
+            @author Nerd#2021
+            """
+
+            await ctx.channel.purge(limit=1) #Delete original message
+            await ctx.send(message) #Send message
 
 def setup(bot):
     bot.add_cog(Text(bot))
