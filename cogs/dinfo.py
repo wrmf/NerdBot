@@ -54,7 +54,8 @@ class Discord_Info(commands.Cog):
 
         #Sent profile photo
         if(is_LDL_channel(ctx)):
-            embed = discord.Embed(color=ctx.author.color.value, text=f"{user.avatar_url_as(size=2048)}")  # Create embed
+            embed = discord.Embed(color=ctx.author.color.value)# text=f"{user.avatar_url_as(size=2048)}")  # Create embed
+            embed.set_thumbnail(url=user.avatar_url)  # Create embed thumbnail
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)
 
