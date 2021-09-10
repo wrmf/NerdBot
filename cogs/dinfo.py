@@ -79,7 +79,7 @@ class Discord_Info(commands.Cog):
                 inline=False
             ) #Add roles to embed
 
-            embed.set_footer(text=f"Message sent by {author.mention}") #Footer
+            embed.set_footer(text=f"Message sent by {author.nick}") #Footer
 
             await ctx.send(embed=embed) #Send embed
 
