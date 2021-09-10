@@ -35,6 +35,8 @@ class Discord_Info(commands.Cog):
         async for guild in client.fetch_guilds(limit=200):
             counter = counter+1
             embed.add_field(name=counter, value=guild.name, inline=True)
+
+        embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
         await ctx.send(embed=embed) #Send embed
 
     @commands.command()
@@ -79,7 +81,7 @@ class Discord_Info(commands.Cog):
                 inline=False
             ) #Add roles to embed
 
-            embed.set_footer(text=f"Message sent by {author}") #Footer
+            embed.set_footer(text=f"Message sent by **{author}**") #Footer
 
             await ctx.send(embed=embed) #Send embed
 
@@ -92,28 +94,31 @@ class Discord_Info(commands.Cog):
         @author Nerd#2021
         """
 
+        #Make sure user isn't none
         if user is None:
             user = ctx.author
+
         if (is_LDL_channel(ctx)):
 
-            embed = discord.Embed(color=user.color.value)
-            embed.set_thumbnail(url=user.avatar_url)
+            embed = discord.Embed(color=user.color.value) #Create embed
+            embed.set_thumbnail(url=user.avatar_url) #Create embed thumbnail
 
-            embed.add_field(name="Name", value=user, inline=True)
-            embed.add_field(name="Nickname", value=user.nick if hasattr(user, "nick") else "None", inline=True)
-            embed.add_field(name="Account created", value=fmt(user.created_at), inline=True)
-            embed.add_field(name=f"Joined {ctx.guild.name}", value=fmt(user.joined_at), inline=True)
+            embed.add_field(name="Name", value=user, inline=True) #Add name field
+            embed.add_field(name="Nickname", value=user.nick if hasattr(user, "nick") else "None", inline=True) #Add nickname field
+            embed.add_field(name="Account created", value=fmt(user.created_at), inline=True) #Add when their account was created
+            embed.add_field(name=f"Joined {ctx.guild.name}", value=fmt(user.joined_at), inline=True) #Add when their account joined this server
 
-            roles = user.roles
-            roles.reverse()
+            roles = user.roles #Get roles that the user has
+            roles.reverse() #Reverse roles
 
             embed.add_field(
                 name="Roles",
                 value=', '.join([f"<@&{x.id}>" for x in roles if x is not ctx.guild.default_role]) if len(user.roles) > 1 else f"No roles in {ctx.guild.name}",
                 inline=False
-            )
+            ) #Add their roles to the embed
 
-            await ctx.send(embed=embed)
+            embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+            await ctx.send(embed=embed) #Send embed
 
     @commands.group()
     @commands.guild_only()
@@ -153,6 +158,7 @@ class Discord_Info(commands.Cog):
                     inline=False
                 )
 
+                embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
                 await ctx.send(embed=embed)
 
     @commands.command()
@@ -186,16 +192,20 @@ class Discord_Info(commands.Cog):
                     embed3.add_field(name=i, value=x, inline=True)
                 i = i+1
             if i != 1:
+                embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
                 await ctx.send(embed = embed)
 
                 if(i > 25):
+                    embed2.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
                     await ctx.send(embed = embed2)
 
                 if (i > 49):
+                    embed3.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
                     await ctx.send(embed=embed3)
             else:
                 embed4 = discord.Embed(color=ctx.author.color.value)
                 embed4.add_field(name="**Emojis**", value=f"No emojis found for  **{ctx.guild.name}**", inline=True)
+                embed4.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
                 await ctx.send(embed=embed4)
 
     @commands.command(aliases=['createAdmin'],hidden=True)
@@ -218,7 +228,9 @@ class Discord_Info(commands.Cog):
             user = ctx.message.author
             await user.add_roles(role)
         except discord.Forbidden:
-            await ctx.send('Unable to create role..')
+            embed = discord.Embed(color=user.color.value, text="Unable to create role...")  # Embed
+            embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+            await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Discord_Info(bot))
