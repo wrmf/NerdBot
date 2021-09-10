@@ -6,6 +6,10 @@ from permissions import *
 
 
 class Poll(commands.Cog):
+    """
+    Poll related commands
+    """
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -41,24 +45,36 @@ class Poll(commands.Cog):
     @commands.command(pass_context=True)
     async def tally(self, ctx: commands.Context, id):
         """
-        Tally poll.
+        Tally poll
+        @author Paladin Of Ioun#5905
+        @author Nerd#2021
         """
+
+        #Check if channel is an LDL channel
         if (is_LDL_channel(ctx)):
             poll_message = await ctx.fetch_message(id)
+
+            #Check if poll has an embed
             if not poll_message.embeds:
                 return
-            embed = poll_message.embeds[0]
-            if poll_message.author != ctx.me:
+
+            embed = poll_message.embeds[0] #Set embed
+
+            #Don't tally poll if poll is not made by you
+            if poll_message.author != ctx.me or poll_message.author != TNMN:
                 return
+
+            #Make sure that poll has a poll ID attached to it
             if not embed.footer.text.startswith('Poll ID:'):
                 return
-            unformatted_options = [x.strip() for x in embed.description.split('\n')]
+            unformatted_options = [x.strip() for x in embed.description.split('\n')] #Set unformatted options
             opt_dict = {x[:2]: x[3:] for x in unformatted_options} if unformatted_options[0][0] == '1' \
                 else {x[:1]: x[2:] for x in unformatted_options}
             # check if we're using numbers for the poll, or x/checkmark, parse accordingly
+
             voters = [ctx.me.id]  # add the bot's ID to the list of voters to exclude it's votes
 
-            tally = {x: 0 for x in opt_dict.keys()}
+            tally = {x: 0 for x in opt_dict.keys()} #Tally all of the votes
             for reaction in poll_message.reactions:
                 if reaction.emoji in opt_dict.keys():
                     reactors = await reaction.users().flatten()
@@ -68,8 +84,8 @@ class Poll(commands.Cog):
                             voters.append(reactor.id)
 
             output = 'Results of the poll for "{}":\n'.format(embed.title) + \
-                     '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()])
-            await ctx.send(output)
+                     '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()]) #Generate results embed
+            await ctx.send(output) #Send output
 
 def setup(bot):
     bot.add_cog(Poll(bot))
