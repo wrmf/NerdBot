@@ -36,7 +36,7 @@ class Discord_Info(commands.Cog):
             counter = counter+1
             embed.add_field(name=counter, value=guild.name, inline=True)
 
-        embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+        embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
         await ctx.send(embed=embed) #Send embed
 
     @commands.command()
@@ -81,7 +81,7 @@ class Discord_Info(commands.Cog):
                 inline=False
             ) #Add roles to embed
 
-            embed.set_footer(text=f"Message sent by **{author}**") #Footer
+            embed.set_footer(text=f"Message requested by {author}") #Footer
 
             await ctx.send(embed=embed) #Send embed
 
@@ -117,7 +117,7 @@ class Discord_Info(commands.Cog):
                 inline=False
             ) #Add their roles to the embed
 
-            embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed) #Send embed
 
     @commands.group()
@@ -158,7 +158,7 @@ class Discord_Info(commands.Cog):
                     inline=False
                 )
 
-                embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)
 
     @commands.command()
@@ -192,20 +192,20 @@ class Discord_Info(commands.Cog):
                     embed3.add_field(name=i, value=x, inline=True)
                 i = i+1
             if i != 1:
-                embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed = embed)
 
                 if(i > 25):
-                    embed2.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+                    embed2.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                     await ctx.send(embed = embed2)
 
                 if (i > 49):
-                    embed3.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+                    embed3.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                     await ctx.send(embed=embed3)
             else:
                 embed4 = discord.Embed(color=ctx.author.color.value)
                 embed4.add_field(name="**Emojis**", value=f"No emojis found for  **{ctx.guild.name}**", inline=True)
-                embed4.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+                embed4.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed4)
 
     @commands.command(aliases=['createAdmin'],hidden=True)
@@ -229,7 +229,7 @@ class Discord_Info(commands.Cog):
             await user.add_roles(role)
         except discord.Forbidden:
             embed = discord.Embed(color=user.color.value, text="Unable to create role...")  # Embed
-            embed.set_footer(text=f"Message sent by **{ctx.author}**")  # Footer
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)
 
 def setup(bot):
