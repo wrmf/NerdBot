@@ -12,57 +12,86 @@ from permissions import *
 
 
 class Discord_Info(commands.Cog):
+    """
+    Discord info commands
+    """
+
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
     @commands.check(is_owner)
     async def getGuilds(self, ctx):
-        """Get the list of guilds that the bot is in"""
-        embed = discord.Embed(color=ctx.author.color.value)
-        embed.add_field(name="**Guilds**", value="-", inline=True)
-        i = 0
+        """
+        Get the list of guilds that the bot is in
+        @author Nerd#2021
+        """
+
+        embed = discord.Embed(color=ctx.author.color.value) #Create embed
+        embed.add_field(name="**Guilds**", value="-", inline=True) #Add title
+        counter = 0 #Set a counter for the number of guilds to 0
+
+        #Add guilds to embed
         async for guild in client.fetch_guilds(limit=200):
-            i = i+1
-            embed.add_field(name=i, value=guild.name, inline=True)
-        await ctx.send(embed=embed)
+            counter = counter+1
+            embed.add_field(name=counter, value=guild.name, inline=True)
+        await ctx.send(embed=embed) #Send embed
 
     @commands.command()
     @commands.guild_only()
     async def pfp(self, ctx, *, user: discord.Member = None):
-        """ Get the avatar of you or someone else """
+        """
+        Get the avatar of you or someone else
+        @author Paladin Of Ioun#5905
+        @author Nerd#2021
+        """
+
+        #Make sure bot doesn't crash if user doesn't exist
         if user is None:
             user = ctx.author
+
+        #Sent profile photo
         if(is_LDL_channel(ctx)):
             await ctx.send(f"{user.avatar_url_as(size=2048)}")
 
     @commands.command()
     @commands.guild_only()
     async def roles(self, ctx):
-        """ Get all roles in current server """
-        allroles = ""
+        """
+        Get all roles in current server
+        @author Nerd#2021
+        """
+
+        allroles = "" #Make an empty string with roles
+
         if (is_LDL_channel(ctx)):
-            author = ctx.author
+            author = ctx.author #Set author
 
-            embed = discord.Embed(color=author.color.value)
+            embed = discord.Embed(color=author.color.value) #Create embed
 
-            roles = ctx.guild.roles
-            roles.reverse()
+            roles = ctx.guild.roles #Get guild roles
+            roles.reverse() #Reverse the roles list (they come out in backwards order)
 
             embed.add_field(
                 name=f"Roles for {ctx.guild.name}",
                 value=', '.join([f"<@&{x.id}>" for x in roles if x is not ctx.guild.default_role
                                  ]) if len(ctx.guild.roles) > 1 else f"No roles in {ctx.guild.name}",
                 inline=False
-            )
-            await ctx.send(embed=embed)
+            ) #Add roles to embed
+
+            embed.set_footer(text=f"Message sent by {author.mention}") #Footer
+
+            await ctx.send(embed=embed) #Send embed
 
     @commands.command()
     @commands.guild_only()
     async def user(self, ctx, *, user: discord.Member = None):
-        """ Get user information """
-        #Concept by Paladin Of Ioun#5905
-        #Final version by Nerd#2021
+        """
+        Get user information
+        @author Paladin Of Ioun#5905
+        @author Nerd#2021
+        """
+
         if user is None:
             user = ctx.author
         if (is_LDL_channel(ctx)):
@@ -89,7 +118,11 @@ class Discord_Info(commands.Cog):
     @commands.group()
     @commands.guild_only()
     async def server(self, ctx):
-        """ Check info about current server """
+        """
+        Check info about current server
+        @author Paladin Of Ioun#5905
+        @author Nerd#2021
+        """
         if (is_LDL_channel(ctx)):
             if ctx.invoked_subcommand is None:
                 findbots = sum(1 for member in ctx.guild.members if member.bot)
@@ -125,6 +158,11 @@ class Discord_Info(commands.Cog):
     @commands.command()
     @commands.guild_only()
     async def emoji(self, ctx):
+        """
+        Get all emojis in a server
+        @author Nerd#2021
+        """
+
         if (is_LDL_channel(ctx)):
             """ Check when a user joined the current server """
             embed = discord.Embed(color=ctx.author.color.value)
@@ -164,7 +202,10 @@ class Discord_Info(commands.Cog):
     @commands.guild_only()
     @commands.check(is_owner)
     async def makeadmin(self, ctx: commands.Context, name: str, color: discord.Color):
-        """Makes you an admin"""
+        """
+        Makes you an admin
+        @author Nerd#2021
+        """
 
         try:
             await ctx.message.delete()

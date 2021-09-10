@@ -21,8 +21,10 @@ class ldl(commands.Cog):
     # Add a person as staff on LDL server#
     #####################################
     async def addLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
-        """ Add person as staff on LDL server """
-        # Written by Nerd#2021
+        """
+        Add person as staff on LDL server
+        @author Nerd#2021
+        """
 
         # Check if user is none so bot doesn't crash
         if user is None:
@@ -68,7 +70,11 @@ class ldl(commands.Cog):
     @commands.command(aliases=['delLDLStaff'], hidden=True)
     @commands.check(is_admin)
     async def delLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
-        """ Remove person from ignore list """
+        """
+        Remove person from ignore list
+        @author Nerd#2021
+        """
+
         # Make sure user isn't none so the bot doesn't die
         if user is None:
             user = ctx.message.author
@@ -105,6 +111,11 @@ class ldl(commands.Cog):
     @commands.command(aliases=['getLDLStaff'], hidden=True)
     @commands.check(is_admin)
     async def getLdlStaff(self, ctx: commands.Context):
+        """
+        Get the list of LDL staff
+        @author @Nerd2021
+        """
+
         embed = discord.Embed(color=ctx.author.color.value)
         embed.add_field(name="Staff List", value=ldl_staff[1], inline=True)
         await ctx.send(embed=embed)
