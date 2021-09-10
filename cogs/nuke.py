@@ -22,7 +22,7 @@ class Nuke(commands.Cog):
         Nuke a large number of messages
         @author Paladin Of Ioun #5905
         @author Nerd#2021
-        """"
+        """
 
         #Check if the user is nuke ignored
         if ctx.message.author.id in nukeArray[0] and "ALL" == nukeArray[1][nukeArray[0].index(ctx.message.author.id)]:
