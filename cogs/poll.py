@@ -63,7 +63,7 @@ class Poll(commands.Cog):
             embed = poll_message.embeds[0] #Set embed
 
             #Don't tally poll if poll is not made by you
-            if poll_message.author != ctx.me or poll_message.author != TNMN:
+            if poll_message.author != ctx.me: #or poll_message.author != TNMN:
                 return
 
             #Make sure that poll has a poll ID attached to it
