@@ -90,7 +90,7 @@ class Poll(commands.Cog):
 
             await ctx.send(output)
             embed2 = discord.Embed(color=ctx.author.color.value)  # Create embed
-            embed.add_field(name="Poll Results", value=ctx.output, inline=True)  # Add server name to embed
+            embed2.add_field(name="Poll Results", value=ctx.output, inline=True)  # Add server name to embed
             embed2.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed2)  # Sent error message
 
