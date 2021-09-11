@@ -50,6 +50,8 @@ class Poll(commands.Cog):
         @author Nerd#2021
         """
 
+        await ctx.send("E")
+
         #Check if channel is an LDL channel
         if (is_LDL_channel(ctx)):
             poll_message = await ctx.fetch_message(id)
