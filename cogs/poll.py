@@ -63,7 +63,7 @@ class Poll(commands.Cog):
             embed = poll_message.embeds[0] #Set embed
 
             #Don't tally poll if poll is not made by you
-            if poll_message.author != ctx.me: #or poll_message.author != TNMN:
+            if poll_message.author != ctx.me:
                 return
 
             #Make sure that poll has a poll ID attached to it
@@ -89,7 +89,8 @@ class Poll(commands.Cog):
                      '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()]) #Generate results embed
 
             await ctx.send(output)
-            embed2 = discord.Embed(color=ctx.author.color.value, text=output)  # Create embed
+            embed2 = discord.Embed(color=ctx.author.color.value)  # Create embed
+            embed.add_field(name="Poll Results", value=ctx.output, inline=True)  # Add server name to embed
             embed2.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed2)  # Sent error message
 
