@@ -15,7 +15,7 @@ class ldl(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['addLDLStaff'], hidden=True)
+    @commands.command(aliases=['addLDLStaff'])
     @commands.check(is_admin)
     async def addLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
         """
@@ -50,21 +50,21 @@ class ldl(commands.Cog):
             else:
                 ldl_staffLocal = [ldl_staff[0], ldl_staff[1]]  # Duplicate list for saving to file purposes
 
-                ldl_staffLocal[0].append(user.id)
-                ldl_staffLocal[1].append(user.display_name)
+                ldl_staffLocal[0].append(user.id) #Add their ID
+                ldl_staffLocal[1].append(user.display_name) #Add their display name
                 # Fix the ldl_staff.py file
                 with open("ldl_staff.py", 'r+') as file:
                     file.truncate(0)
                     string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]"
                     file.write(string)
                     file.close()
-                embed = discord.Embed(color=ctx.author.color.value)
+                embed = discord.Embed(color=ctx.author.color.value) #Make embed
                 embed.add_field(name="**Success**", value=f"User {user.mention} has been added as LDL server staff!",
-                                inline=True)
-                await ctx.send(embed=embed)
+                                inline=True) #Make sucess message
+                await ctx.send(embed=embed) #Send embed
 
 
-    @commands.command(aliases=['delLDLStaff'], hidden=True)
+    @commands.command(aliases=['delLDLStaff'])
     @commands.check(is_admin)
     async def delLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
         """
@@ -76,6 +76,7 @@ class ldl(commands.Cog):
         if user is None:
             user = ctx.message.author
 
+        # Error if you are not in the LDL guild
         if (ctx.guild.id != LDL_server):
             embed = discord.Embed(color=ctx.author.color.value)
             embed.add_field(name="**ERROR**", value=f"You do cannot delete staff in another guild!", inline=True)
@@ -105,7 +106,7 @@ class ldl(commands.Cog):
                 await ctx.send(embed=embed)
 
 
-    @commands.command(aliases=['getLDLStaff'], hidden=True)
+    @commands.command(aliases=['getLDLStaff'])
     @commands.check(is_admin)
     async def getLdlStaff(self, ctx: commands.Context):
         """
