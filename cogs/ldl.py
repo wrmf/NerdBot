@@ -45,6 +45,7 @@ class ldl(commands.Cog):
                 embed = discord.Embed(color=ctx.author.color.value)
                 embed.add_field(name="**ERROR**", value=f"User {user.mention} is already staff in the LDL server!",
                                 inline=True)
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)
             # Add person to ignore list
             else:
@@ -61,6 +62,7 @@ class ldl(commands.Cog):
                 embed = discord.Embed(color=ctx.author.color.value) #Make embed
                 embed.add_field(name="**Success**", value=f"User {user.mention} has been added as LDL server staff!",
                                 inline=True) #Make sucess message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed) #Send embed
 
 
@@ -80,6 +82,7 @@ class ldl(commands.Cog):
         if (ctx.guild.id != LDL_server):
             embed = discord.Embed(color=ctx.author.color.value) #Create embed
             embed.add_field(name="**ERROR**", value=f"You do cannot delete staff in another guild!", inline=True) #Add error to embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed) #Sent error message
         else:
             if (user.id in ldl_staff[0]):
@@ -100,10 +103,12 @@ class ldl(commands.Cog):
                 embed = discord.Embed(color=ctx.author.color.value) #Make embed
                 embed.add_field(name="**Success**", value=f"Deleted {user.mention} from staff list in LDL server",
                                 inline=True) #Add success message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed) #Send embed
             else:
                 embed = discord.Embed(color=ctx.author.color.value) #Make embed
                 embed.add_field(name="**ERROR**", value=f"User {user.mention} is not staff in the LDL server", inline=True) #Error message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed) #Send embed
 
 
@@ -117,6 +122,7 @@ class ldl(commands.Cog):
 
         embed = discord.Embed(color=ctx.author.color.value) #Create embed
         embed.add_field(name="Staff List", value=ldl_staff[1], inline=True) #Add ldl staff to embed
+        embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
         await ctx.send(embed=embed) #Send embed
 
 def setup(bot):
