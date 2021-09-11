@@ -40,6 +40,7 @@ class Poll(commands.Cog):
             for reaction in reactions[:len(options)]:
                 await react_message.add_reaction(reaction) #Add reactions from above
             embed.set_footer(text='Poll ID: {}'.format(react_message.id)) #Add poll id (message.id)
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await react_message.edit(embed=embed) #Edit message for ID
 
     @commands.command(pass_context=True)
