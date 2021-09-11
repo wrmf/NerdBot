@@ -86,6 +86,7 @@ class Poll(commands.Cog):
             output = 'Results of the poll for "{}":\n'.format(embed.title) + \
                      '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()]) #Generate results embed
 
+            await ctx.send(output)
             embed = discord.Embed(color=ctx.author.color.value, text=output)  # Create embed
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Sent error message
