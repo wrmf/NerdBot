@@ -40,7 +40,6 @@ class Poll(commands.Cog):
             for reaction in reactions[:len(options)]:
                 await react_message.add_reaction(reaction) #Add reactions from above
             embed.set_footer(text='Poll ID: {}'.format(react_message.id)) #Add poll id (message.id)
-            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await react_message.edit(embed=embed) #Edit message for ID
 
     @commands.command(pass_context=True)
@@ -86,7 +85,11 @@ class Poll(commands.Cog):
 
             output = 'Results of the poll for "{}":\n'.format(embed.title) + \
                      '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()]) #Generate results embed
-            await ctx.send(output) #Send output
+
+            embed = discord.Embed(color=ctx.author.color.value, text=output)  # Create embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Sent error message
+
 
 def setup(bot):
     bot.add_cog(Poll(bot))
