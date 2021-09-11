@@ -78,32 +78,33 @@ class ldl(commands.Cog):
 
         # Error if you are not in the LDL guild
         if (ctx.guild.id != LDL_server):
-            embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**ERROR**", value=f"You do cannot delete staff in another guild!", inline=True)
-            await ctx.send(embed=embed)
+            embed = discord.Embed(color=ctx.author.color.value) #Create embed
+            embed.add_field(name="**ERROR**", value=f"You do cannot delete staff in another guild!", inline=True) #Add error to embed
+            await ctx.send(embed=embed) #Sent error message
         else:
             if (user.id in ldl_staff[0]):
 
-                ldl_staffLocal = [ldl_staff[0], ldl_staff[1]]
+                ldl_staffLocal = [ldl_staff[0], ldl_staff[1]] #Create duplicate array
 
-                ldl_staffLocal[1].pop(ldl_staffLocal[0].index(user.id))
+                ldl_staffLocal[1].pop(ldl_staffLocal[0].index(user.id)) #Remove their display name
 
-                ldl_staffLocal[0].remove(user.id)
+                ldl_staffLocal[0].remove(user.id) #Remove ID
 
+                #Fix ldl_staff file
                 with open("ldl_staff.py", 'r+') as file:
-                    file.truncate(0)
-                    string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]"
-                    file.write(string)
-                    file.close()
+                    file.truncate(0) #Empty the file
+                    string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]" #Add the copy arrays
+                    file.write(string) #Write the files
+                    file.close() #Close file
 
-                embed = discord.Embed(color=ctx.author.color.value)
+                embed = discord.Embed(color=ctx.author.color.value) #Make embed
                 embed.add_field(name="**Success**", value=f"Deleted {user.mention} from staff list in LDL server",
-                                inline=True)
-                await ctx.send(embed=embed)
+                                inline=True) #Add success message
+                await ctx.send(embed=embed) #Send embed
             else:
-                embed = discord.Embed(color=ctx.author.color.value)
-                embed.add_field(name="**ERROR**", value=f"User {user.mention} is not staff in the LDL server", inline=True)
-                await ctx.send(embed=embed)
+                embed = discord.Embed(color=ctx.author.color.value) #Make embed
+                embed.add_field(name="**ERROR**", value=f"User {user.mention} is not staff in the LDL server", inline=True) #Error message
+                await ctx.send(embed=embed) #Send embed
 
 
     @commands.command(aliases=['getLDLStaff'])
@@ -114,9 +115,9 @@ class ldl(commands.Cog):
         @author @Nerd2021
         """
 
-        embed = discord.Embed(color=ctx.author.color.value)
-        embed.add_field(name="Staff List", value=ldl_staff[1], inline=True)
-        await ctx.send(embed=embed)
+        embed = discord.Embed(color=ctx.author.color.value) #Create embed
+        embed.add_field(name="Staff List", value=ldl_staff[1], inline=True) #Add ldl staff to embed
+        await ctx.send(embed=embed) #Send embed
 
 def setup(bot):
     bot.add_cog(ldl(bot))
