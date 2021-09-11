@@ -50,8 +50,6 @@ class Poll(commands.Cog):
         @author Nerd#2021
         """
 
-        await ctx.send("E")
-
         #Check if channel is an LDL channel
         if (is_LDL_channel(ctx)):
             poll_message = await ctx.fetch_message(id)
@@ -88,7 +86,6 @@ class Poll(commands.Cog):
             output = 'Results of the poll for "{}":\n'.format(embed.title) + \
                      '\n'.join(['{}: {}'.format(opt_dict[key], tally[key]) for key in tally.keys()]) #Generate results embed
 
-            await ctx.send(output)
             embed2 = discord.Embed(color=ctx.author.color.value)  # Create embed
             embed2.add_field(name="Poll Results", value=output, inline=True)  # Add server name to embed
             embed2.set_footer(text=f"Message requested by {ctx.author}")  # Footer
