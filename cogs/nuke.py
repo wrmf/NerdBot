@@ -26,9 +26,15 @@ class Nuke(commands.Cog):
 
         #Check if the user is nuke ignored
         if ctx.message.author.id in nukeArray[0] and "ALL" == nukeArray[1][nukeArray[0].index(ctx.message.author.id)]:
-            await ctx.send(f"You have been disallowed from using nuke ALL guilds")
+            embed = discord.Embed(color=ctx.author.color.value,
+                                  text=f"You have been disallowed from using nuke ALL guilds")  # Create embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Sent error message
         elif ctx.message.author.id in nukeArray[0] and ctx.message.guild.id == nukeArray[1][nukeArray[0].index(ctx.message.author.id)]:
-            await ctx.send(f"You have been disallowed from using nuke in guild {nukeArray[1][nukeArray[0].index(ctx.message.author.id)]}")
+            embed = discord.Embed(color=ctx.author.color.value, text=f"You have been disallowed from using nuke in guild "
+                                f"{nukeArray[1][nukeArray[0].index(ctx.message.author.id)]}")  # Create embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Sent error message
         else:
             #nuke messages
             try:
@@ -39,6 +45,7 @@ class Nuke(commands.Cog):
                 embed.add_field(
                     name=f"Error",
                     value=f"Error: I don't have permission to nuke")
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Say in chat
 
     @commands.command()
@@ -59,17 +66,27 @@ class Nuke(commands.Cog):
 
         #Make sure person isn't trying to ignore themself or TNMN
         if(user.id == ctx.message.author.id or user.id == TNMN):
-            await ctx.send("You cannot nuke ignore this person from nuke")
+            embed = discord.Embed(color=ctx.author.color.value,
+                                  text=f"You cannot nuke ignore this person from nuke")  # Create embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Sent error message
         #Make sure person has permission to ignore in the guild they are trying to ignore in
         elif(guild != ctx.guild.id and ctx.message.author.id != TNMN):
-            await ctx.send("You do not have permission to ignore this person in that guild")
+            embed = discord.Embed(color=ctx.author.color.value,
+                                  text=f"You do not have permission to ignore this person in that guild")  # Create embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Sent error message
         #Move onto ignoring the person
         else:
             nukeArrayLocal = [nukeArray[0], nukeArray[1]] #Duplicate list for saving to file purposes
+
             #Check if they are already ignored
-            if(user.id in nukeArray[0] and
-                    nukeArray[1][nukeArray[0].index(user.id)] == guild):
-                await ctx.send(f"User {user.mention} is already nuke ignored in server {nukeArrayLocal[1][nukeArrayLocal[0].index(user.id)]}")
+            if(user.id in nukeArray[0] and nukeArray[1][nukeArray[0].index(user.id)] == guild):
+                embed = discord.Embed(color=ctx.author.color.value,
+                                    text=f"User {user.mention} is already nuke ignored in server "
+                                    f"{nukeArrayLocal[1][nukeArrayLocal[0].index(user.id)]}")  # Create embed
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Sent error message
             #Add person to ignore list
             else:
                 nukeArrayLocal[0].append(user.id)
@@ -81,9 +98,15 @@ class Nuke(commands.Cog):
                     file.write(string)
                     file.close()
                 if(guild == "ALL"):
-                    await ctx.send(f"Added user {user.mention} to nuke ignore in ALL guilds")
+                    embed = discord.Embed(color=ctx.author.color.value,
+                                          text=f"Added user {user.mention} to nuke ignore in ALL guilds")  # Create embed
+                    embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                    await ctx.send(embed=embed)  # Sent error message
                 else:
-                    await ctx.send(f"Added user {user.mention} to nuke ignore in guild **{ctx.guild}**")
+                    embed = discord.Embed(color=ctx.author.color.value,
+                                          text=f"Added user {user.mention} to nuke ignore in guild **{ctx.guild}**")  # Create embed
+                    embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                    await ctx.send(embed=embed)  # Sent error message
 
     @commands.command()
     @commands.check(is_admin)
@@ -119,9 +142,15 @@ class Nuke(commands.Cog):
                     file.write(string)
                     file.close()
 
-                await ctx.send(f"Removed user {user.mention} from nuke ignore in guild **{ctx.guild}**") #Confirmation of removal
+                embed = discord.Embed(color=ctx.author.color.value,
+                                      text=f"Removed user {user.mention} from nuke ignore in guild **{ctx.guild}**")  # Create embed
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Sent error message
             else:
-                await ctx.send(f"User {user.mention} is already nuke unignored in that server") #Error
+                embed = discord.Embed(color=ctx.author.color.value,
+                                      text=f"User {user.mention} is already nuke unignored in that server")  # Create embed
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Sent error message
 
 def setup(bot):
     bot.add_cog(Nuke(bot))
