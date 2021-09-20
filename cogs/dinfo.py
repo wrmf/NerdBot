@@ -54,7 +54,7 @@ class Discord_Info(commands.Cog):
 
         #Sent profile photo
         if(is_LDL_channel(ctx)):
-            await ctx.send(f"{user.avatar_url_as(size=2048)}")  # Create embed
+            await ctx.send(f"{user.avatar_url_as(size=2048)}")  # Send message
 
     @commands.command()
     @commands.guild_only()
@@ -171,10 +171,6 @@ class Discord_Info(commands.Cog):
         """
 
         if (is_LDL_channel(ctx)):
-            """
-            Check when a user joined the current server
-            @author Nerd#2021
-            """
 
             embed = discord.Embed(color=ctx.author.color.value) #Make first embed
             embed.add_field(name="**Emojis**", value="-", inline=True) #Set title for first embed
