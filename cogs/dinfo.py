@@ -213,31 +213,6 @@ class Discord_Info(commands.Cog):
                 embed4.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed4) #Send embed
 
-    @commands.command(aliases=['createAdmin'],hidden=True)
-    @commands.guild_only()
-    @commands.check(is_owner)
-    async def makeadmin(self, ctx: commands.Context, name: str, color: discord.Color):
-        """
-        Makes you an admin
-        @author Nerd#2021
-        """
-
-        #Delete message if possible
-        try:
-            await ctx.message.delete()
-        except discord.Forbidden:
-            await logger.warning("ERROR IN DELETING MESSAGE")
-        try:
-            role = await ctx.guild.create_role(name=name,
-                                               color=color,
-                                               permissions=discord.Permissions.all()) #Create role
-            user = ctx.message.author #Get msg author
-            await user.add_roles(role)  #Add role to user
-        except discord.Forbidden:
-            embed = discord.Embed(color=user.color.value, text="Unable to create role...")  # Embed
-            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-            await ctx.send(embed=embed) #Send error message
-
 def setup(bot):
     bot.add_cog(Discord_Info(bot))
 
