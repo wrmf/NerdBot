@@ -1,0 +1,104 @@
+import discord
+from discord.ext import commands
+
+from nukeIgnore import *
+from bot import *
+import logging
+import discord
+from discord.ext import commands
+from bot import *
+import random
+from permissions import *
+
+
+class Moderation(commands.Cog):
+    """
+    Moderation related commands
+    """
+
+    def __init__(self, bot):
+        self.bot = bot
+
+    @commands.command()
+    @commands.check(is_admin)
+    @commands.guild_only()
+    async def nick(self, ctx, id: discord.Member, *, nickname: str):
+        """Changes a user's nickname"""
+
+        guild_id = ctx.guild.name
+        try:
+            await id.edit(nick=nickname)
+            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+            embed.add_field(
+                name=f"Moderation",
+                value=f"User {id.mention}'s nickname has been changed")
+            await ctx.send(embed=embed)  # Say in chat
+        except discord.Forbidden:
+            user = ctx.author
+            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+            embed.add_field(
+                name=f"Error",
+                value=f"Error changing nickname in %s"%guild_id)
+            await user.send(embed=embed)  # Say in chat
+
+    @commands.command()
+    @commands.check(is_admin)
+    @commands.guild_only()
+    async def ban(self, ctx: commands.Context, user: discord.Member = None, silent: int = 0):
+        """
+        Bans a user
+        Param user: User you want to ban
+        Param silent: 0 for not silent, 1 for silent. Defaults to 0
+        """
+        author = ctx.author
+        if (user.id == TNMN == TNMB):
+            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+            embed.add_field(
+                name=f"Error",
+                value=f"I cannot ban that person")
+            await author.send(embed=embed)  # Say in chat
+        else:
+            try:
+                await user.ban()
+                if (silent == 0):
+                    embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                    embed.add_field(
+                        name=f"Moderation",
+                        value=f"User {user.mention} has been banned")
+                    await ctx.send(embed=embed)  # Say in chat
+            except discord.Forbidden:
+                embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                embed.add_field(
+                    name=f"Error",
+                    value=f"Error banning: I don't have permissions")
+                await author.send(embed=embed)  # Say in chat
+
+    @commands.command()
+    @commands.check(is_mod)
+    @commands.guild_only()
+    async def kick(self, ctx: commands.Context, user: discord.Member = None, silent: int = 0):
+        """
+        Kicks a user
+        Param user: User you want to kick
+        Param silent: 0 for not silent, 1 for silent. Defaults to 0
+        """
+
+        author = ctx.message.author
+
+        await user.kick()
+        try:
+            if (silent is 0):
+                embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                embed.add_field(
+                    name=f"Kick",
+                    value=f"User {user.mention} has been kicked")
+                await ctx.send(embed=embed)  # Say in chat
+        except discord.Forbidden:
+            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+            embed.add_field(
+                name=f"Error",
+                value=f"Error: I don't have permission to kick that person")
+            await author.send(embed=embed)  # Say in chat
+
+def setup(bot):
+    bot.add_cog(Moderation(bot))
