@@ -87,7 +87,7 @@ class Moderation(commands.Cog):
 
         await user.kick()
         try:
-            if (silent is 0):
+            if (silent == 0):
                 embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                 embed.add_field(
                     name=f"Kick",
