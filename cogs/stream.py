@@ -21,28 +21,16 @@ class Stream(commands.Cog):
 
     @commands.command()
     @commands.check(is_owner)
-    async def startStream(self, ctx, status: str):
+    async def startStream(self, ctx, status: str = None):
         if(status is None):
             status = "Minecraft I'm sure"
         await self.bot.change_presence(activity=discord.Streaming(name=status, url="https://twitch.tv/EndermanEmerald"))
 
     @commands.command()
     @commands.check(is_owner)
-    async def startStream(self, ctx):
-        status = "Minecraft I'm sure"
-        await self.bot.change_presence(activity=discord.Streaming(name=status, url="https://twitch.tv/EndermanEmerald"))
-
-    @commands.command()
-    @commands.check(is_owner)
-    async def stopStream(self, ctx, status: str):
+    async def stopStream(self, ctx, status: str = None):
         if(status is None):
             status = "nothing, switching to JDA currently"
-        await self.bot.change_presence(activity=discord.Game(name=status))
-
-    @commands.command()
-    @commands.check(is_owner)
-    async def stopStream(self, ctx):
-        status = "nothing, switching to JDA currently"
         await self.bot.change_presence(activity=discord.Game(name=status))
 
 def setup(bot):
