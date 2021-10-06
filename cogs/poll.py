@@ -3,6 +3,11 @@ from discord.ext import commands
 import random
 from bot import *
 from permissions import *
+from typing import List
+import discord
+from discord import Role
+from discord.ext import commands
+from discord.ext.commands import Greedy
 
 
 class Poll(commands.Cog):
@@ -90,6 +95,31 @@ class Poll(commands.Cog):
             embed2.add_field(name="Poll Results", value=output, inline=True)  # Add server name to embed
             embed2.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed2)  # Sent error message
+
+    @commands.command()
+    @commands.has_permissions(manage_roles=True)
+    async def rolepoll(self, ctx: commands.Context, roles: Greedy[Role]):
+        roles: List[Role] = list(roles)
+        options = [x.name for x in roles]
+
+        if len(options) > 10:
+            await ctx.send('You cannot make a poll for more than 10 things!')
+            return
+
+        if any(map(lambda x: x.position >= ctx.author.top_role.position, roles)):
+            return await ctx.send("You cannot make a poll for a role higher (or equal to) than your top role!")
+
+        reactions = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
+
+        description = []
+        for x, option in enumerate(options):
+            description += '\n {}: {}'.format(reactions[x], option)
+        embed = discord.Embed(title="Select reactions to gain roles!", description=''.join(description))
+        react_message = await ctx.send(embed=embed)
+        for reaction in reactions[:len(options)]:
+            await react_message.add_reaction(reaction)
+        embed.set_footer(text='ID: {}'.format(react_message.id))
+        await react_message.edit(embed=embed)
 
 
 def setup(bot):

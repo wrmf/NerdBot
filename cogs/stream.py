@@ -22,9 +22,20 @@ class Stream(commands.Cog):
     @commands.command()
     @commands.check(is_owner)
     async def startStream(self, ctx, status: str = None):
+        """
+        Change bot's status to streaming
+        @author Nerd#2021
+        """
+
+        #Make sure bot doesn't error when no status is given
         if(status is None):
             status = "Minecraft I'm sure"
-        await self.bot.change_presence(activity=discord.Streaming(name=status, url="https://twitch.tv/EndermanEmerald"))
+
+        await self.bot.change_presence(activity=discord.Streaming(name=status,
+                                                                  url="https://twitch.tv/EndermanEmerald")) #Set status
+        embed = discord.Embed(title="Stream", description=f"Status has been updated to streaming!",
+                              color=ctx.message.author.top_role.color) #Create embed
+        await ctx.send(embed=embed) #Send embed
 
     @commands.command()
     @commands.check(is_owner)
@@ -32,6 +43,8 @@ class Stream(commands.Cog):
         if(status is None):
             status = "nothing, switching to JDA currently"
         await self.bot.change_presence(activity=discord.Game(name=status))
+        embed = discord.Embed(title="Stream", description=f"Bot is no longer streaming", color=ctx.message.author.top_role.color)
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Stream(bot))
