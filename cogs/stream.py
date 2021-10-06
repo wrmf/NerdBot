@@ -19,7 +19,7 @@ class Stream(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(aliases=['startstream'])
     @commands.check(is_owner)
     async def startStream(self, ctx, status: str = None):
         """
@@ -37,7 +37,7 @@ class Stream(commands.Cog):
                               color=ctx.message.author.top_role.color) #Create embed
         await ctx.send(embed=embed) #Send embed
 
-    @commands.command()
+    @commands.command(aliases=['stopstream'])
     @commands.check(is_owner)
     async def stopStream(self, ctx, status: str = None):
         """
@@ -50,7 +50,7 @@ class Stream(commands.Cog):
             status = "nothing, working on switching to JDA currently"
 
         await self.bot.change_presence(activity=discord.Game(name=status)) #Set status
-        embed = discord.Embed(title="Stream", description=f"Bot is no longer streaming",
+        embed = discord.Embed(title="Stream", description=f"Bot's status is no longer streaming",
                               color=ctx.message.author.top_role.color) #Create embed
         await ctx.send(embed=embed) #Send embed
 
