@@ -121,6 +121,65 @@ class Poll(commands.Cog):
         embed.set_footer(text='ID: {}'.format(react_message.id))
         await react_message.edit(embed=embed)
 
+    async def check_role_add_or_remove(self, message: int, user: int, guild: int, channel: int,
+                                       emoji: discord.PartialEmoji, remove: bool):
+        guild: discord.Guild = await self.bot.fetch_guild(guild)
+        channel: discord.TextChannel = await self.bot.fetch_channel(channel)
+        member = await guild.fetch_member(user)
+        msg: discord.Message = await channel.fetch_message(message)
+        ctx: commands.Context = await self.bot.get_context(msg)
+
+        if len(msg.embeds) == 0 \
+                or msg.author.id not in [ctx.me.id, 525348802354216982] \
+                or member == ctx.me:
+            return
+
+        embed: discord.Embed = msg.embeds[0]
+        content = embed.description
+        maps = [x.split(': ') for x in content.split('\n') if x]
+        for x in maps:
+            if not len(x) > 1:
+                return
+        # await ctx.send(maps)
+        # await ctx.send(emoji.name)
+        # print(emoji.name)
+
+        role: discord.Role = None
+        role_str: str = ''
+
+        for i in maps:
+            if emoji.name in i[0]:
+                role_str = i[1]
+                break
+
+        # await ctx.send(role_str)
+        for i in guild.roles:
+            if i.name.strip() == role_str.strip():
+                role = i
+                break
+
+        if role is None:
+            return
+
+        if remove:
+            await member.remove_roles(role)
+        else:
+            await member.add_roles(role)
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload: discord.RawReactionActionEvent):
+        await self.check_role_add_or_remove(payload.message_id, payload.user_id, payload.guild_id,
+                                            payload.channel_id,
+                                            payload.emoji,
+                                            False)
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload: discord.RawReactionActionEvent):
+        await self.check_role_add_or_remove(payload.message_id, payload.user_id, payload.guild_id,
+                                            payload.channel_id,
+                                            payload.emoji,
+                                            True)
+
 
 def setup(bot):
     bot.add_cog(Poll(bot))
