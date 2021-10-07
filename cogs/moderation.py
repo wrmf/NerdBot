@@ -9,6 +9,7 @@ from discord.ext import commands
 from bot import *
 import random
 from permissions import *
+from ownerPrefix import *
 
 
 class Moderation(commands.Cog):
@@ -212,6 +213,36 @@ class Moderation(commands.Cog):
 
         else:
             await user.remove_roles(role)  # Add role
+
+    @commands.command(aliases=['toggleprefix'])
+    @commands.check(is_owner)
+    async def togglePrefix(self, ctx: commands.Context):
+        """
+        Toggle if owner prefix is on
+        @author Nerd#2021
+        """
+
+        if(owner_no_prefix is False):
+            with open("ownerPrefix.py", 'r+') as file:
+                file.truncate(0)
+                string = "owner_no_prefix = True"
+                file.write(string)
+                file.close()
+            embed = discord.Embed(color=ctx.author.color.value)  # Make embed
+            embed.add_field(name="**Success**", value=f"Owner no prefix has been enabled", inline=True)  # Make sucess message
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Send embed
+        else:
+            with open("ownerPrefix.py", 'r+') as file:
+                file.truncate(0)
+                string = "owner_no_prefix = False"
+                file.write(string)
+                file.close()
+            embed = discord.Embed(color=ctx.author.color.value)  # Make embed
+            embed.add_field(name="**Success**", value=f"Owner no prefix has been disabled", inline=True)  # Make sucess message
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Send embed
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
