@@ -84,7 +84,14 @@ class Bot(AutoShardedBot):
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
-			 activity = discord.Game('nothing. Switching to JDA currently' if 'game' not in options else options['game']))
+			 activity = discord.Game('nothing. Banging my head against a wall at JDA currently' if 'game' not in options else options['game']))
+
+async def get_pre(bot, message):
+    pre = ["~!"]
+    
+    is_owner = await bot.is_owner(message.author)
+    if isinstance(message.channel, discord.DMChannel) or (is_owner and not bot.owner_no_prefix):
+        pre.append("")
 
 @client.event
 async def on_ready():
