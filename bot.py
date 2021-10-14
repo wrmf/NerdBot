@@ -1,4 +1,5 @@
 import json
+import discord
 from ids import *
 from ldl_staff import *
 from ldl_channels import *
@@ -9,8 +10,6 @@ from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
 from tokenfile import token
 import logging
 import os
-import discord
-from discord.ext import commands
 
 
 logger = logging.getLogger('bot')
@@ -22,12 +21,6 @@ logger.info('=== RESTART ===')
 
 with open("options.json") as f:
 	options = json.loads(f.read())
-
-class NerdBot(commands.Bot):
-    def __init__(self, extra_owners=None, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-		
-		self.owner_no_prefix = False
 
 class Bot(AutoShardedBot):
 	def __init__(self, *args, prefix=None, **kwargs):
