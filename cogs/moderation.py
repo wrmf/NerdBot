@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 from bot import *
 import random
+import importlib
 from permissions import *
 from ownerPrefix import *
 
@@ -232,7 +233,8 @@ class Moderation(commands.Cog):
             embed.add_field(name="**Success**", value=f"Owner no prefix has been enabled", inline=True)  # Make sucess message
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Send embed
-        else:
+            importlib.reload(string)
+        elif(owner_no_prefix is True):
             with open("ownerPrefix.py", 'r+') as file:
                 file.truncate(0)
                 string = "owner_no_prefix = False"
@@ -242,6 +244,7 @@ class Moderation(commands.Cog):
             embed.add_field(name="**Success**", value=f"Owner no prefix has been disabled", inline=True)  # Make sucess message
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Send embed
+            importlib.reload(string)
 
 
 def setup(bot):

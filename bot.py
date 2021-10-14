@@ -1,19 +1,17 @@
 import json
-import logging
-import os
-import re
-import nukeIgnore
 from ids import *
 from ldl_staff import *
 from ldl_channels import *
 from ownerPrefix import *
-
+import signal
 import discord.opus
 from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
-from discord.ext.commands import CommandNotFound
-
 from tokenfile import token
-#from words import cussWords
+import logging
+import os
+import discord
+from discord.ext import commands
+
 
 logger = logging.getLogger('bot')
 logger.setLevel(logging.DEBUG)
@@ -24,6 +22,12 @@ logger.info('=== RESTART ===')
 
 with open("options.json") as f:
 	options = json.loads(f.read())
+
+class NerdBot(commands.Bot):
+    def __init__(self, extra_owners=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+		
+		self.owner_no_prefix = False
 
 class Bot(AutoShardedBot):
 	def __init__(self, *args, prefix=None, **kwargs):
@@ -92,6 +96,12 @@ async def get_pre(bot, message):
 	is_owner = await bot.is_owner(message.author)
 	if isinstance(message.channel, discord.DMChannel) or (is_owner and not owner_no_prefix):
 		pre.append("")
+
+def signal_handler(signal, frame):
+  await .send("E")
+
+signal.signal(signal.SIGINT, signal_handler)
+
 
 @client.event
 async def on_ready():
