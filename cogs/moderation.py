@@ -76,6 +76,32 @@ class Moderation(commands.Cog):
                 await author.send(embed=embed)  # Say in chat
 
     @commands.command()
+    @commands.check(is_admin)
+    @commands.guild_only()
+    async def unban(self, ctx: commands.Context, user: discord.Member = None, silent: int = 0):
+        """
+        Unbans a user
+        Param user: User you want to unban
+        Param silent: 0 for not silent, 1 for silent. Defaults to 0
+        @author Nerd#2021
+        """
+        author = ctx.author
+        try:
+            await user.unban()
+            if (silent == 0):
+                embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                embed.add_field(
+                    name=f"Moderation",
+                    value=f"User {user.mention} has been unbanned")
+                await ctx.send(embed=embed)  # Say in chat
+        except discord.Forbidden:
+            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+            embed.add_field(
+                name=f"Error",
+                value=f"Error banning: I don't have permissions")
+            await author.send(embed=embed)  # Say in chat
+
+    @commands.command()
     @commands.check(is_mod)
     @commands.guild_only()
     async def kick(self, ctx: commands.Context, user: discord.Member = None, silent: int = 0):
