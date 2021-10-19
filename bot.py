@@ -90,8 +90,8 @@ async def get_pre(bot, message):
 	if isinstance(message.channel, discord.DMChannel) or (is_owner and not owner_no_prefix):
 		pre.append("")
 
-def signal_handler(signal, frame):
-  await .send("E")
+async def signal_handler(signal, frame):
+  await ctx.send("E")
 
 signal.signal(signal.SIGINT, signal_handler)
 
