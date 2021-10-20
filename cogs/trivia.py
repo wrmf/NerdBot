@@ -16,7 +16,7 @@ from triviaCategoriesList import triviaCategoriesList
 maxTriviaQuestions = 10
 
 
-def getNumQuestions(self, ctx, maxQuestions):
+async def getNumQuestions(self, ctx, maxQuestions):
     embed = discord.Embed(title="Trivia",
                           description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
                           color=ctx.message.author.top_role.color)  # Create embed
