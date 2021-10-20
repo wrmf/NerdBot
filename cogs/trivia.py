@@ -75,8 +75,9 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
     listOfQuestions = []
     correctAnswers = [[],[]]
     numUnanswered = 0
+    x = 0
 
-    for x in range(0, questions):
+    while x < questions:
         answeredThisQuestion = [] #Variable for those who have answered this question so they can't guess again
 
         num = random.randint(0, len(airportCodesList[0])-1)
@@ -134,6 +135,8 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
                                       description=f"Question timed out! No one answered correctly!",
                                       color=ctx.message.author.top_role.color)  # Create embed
                 await ctx.send(embed=embed)  # Send embed
+
+        x+=1
 
     counter = 0
     highestScore = 0
