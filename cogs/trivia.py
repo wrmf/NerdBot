@@ -71,7 +71,6 @@ async def getCategory(self, ctx, category):
 
 
 async def airportCodesTrivia(self, ctx, questions):
-    #await ctx.send("I got to the function")
     listOfQuestions = []
     for x in range(0, questions):
         num = random.randint(1, len(airportCodesList[0]))
@@ -80,21 +79,16 @@ async def airportCodesTrivia(self, ctx, questions):
             embed = discord.Embed(title=f"Question {x}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
-            await ctx.send("generatedListOfAnswers")
             counter = 0
             while counter < 3:
                 num2 = random.randint(0, maxTriviaQuestions-1)
-                await ctx.send(num2)
                 if num2 in listOfAnswers or num2 == num:
-                    await ctx.send(f"TRUE {counter}")
+                    pass
                 else:
-                    await ctx.send(f"FALSE {counter}")
                     listOfAnswers.append(num2)
                     counter = counter +1
 
             placementOfRightAnswer = random.randint(1, 4)
-            await ctx.send(f"Placement of right answer is {placementOfRightAnswer}")
-            await ctx.send(f"Wrong answer list is {listOfAnswers}")
             counterWrongAnswer = 0
 
             for counter2 in range (1, 5):
@@ -132,7 +126,6 @@ class Trivia(commands.Cog):
 
             categorySelected = getCategory(self=self, ctx=ctx, category=category)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
-            await ctx.send(f"number of questions is {numQuestions}")
             await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 
@@ -144,7 +137,6 @@ class Trivia(commands.Cog):
 
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
-            await ctx.send(f"number of questions is {numQuestions}")
             await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 def setup(bot):
