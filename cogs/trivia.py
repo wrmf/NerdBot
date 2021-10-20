@@ -74,7 +74,9 @@ async def getCategory(self, ctx, category, check):
 
 async def airportCodesTrivia(self, ctx, questions):
     listOfQuestions = []
+    await ctx.send("Line 79")
     for x in range(0, questions):
+        await ctx.send("Line 79")
         num = random.randint(1, len(airportCodesList[0]))
         await ctx.send("Line 79")
         if num not in listOfQuestions:
