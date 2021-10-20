@@ -39,7 +39,7 @@ class Trivia(commands.Cog):
     async def triviaStart(self, ctx, category: str = None):
         msg = 0
 
-        if(category is None)
+        if category is None:
             embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
                                   color=ctx.message.author.top_role.color)  # Create embed
             i = 1
