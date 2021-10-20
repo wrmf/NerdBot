@@ -83,7 +83,7 @@ async def airportCodesTrivia(self, ctx, questions):
             embed = discord.Embed(title=f"Question {x}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
-            for counter in range(1, 3):
+            for counter in range(0, 4):
                 num2 = random.randint(1, len(airportCodesList[0]))
                 if num2 in listOfAnswers or num2 == num:
                     counter-=1
