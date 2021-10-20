@@ -76,12 +76,15 @@ async def airportCodesTrivia(self, ctx, questions):
     listOfQuestions = []
     for x in range(0, questions):
         num = random.randint(1, len(airportCodesList[0]))
+        await ctx.send("Line 79")
         if num not in listOfQuestions:
             listOfQuestions.append(num)
             embed = discord.Embed(title=f"Question {x+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
             counter = 0
+            await
+            ctx.send("Line 87")
             while counter < 3:
                 num2 = random.randint(0, maxTriviaQuestions-1)
                 if num2 in listOfAnswers or num2 == num:
@@ -89,9 +92,12 @@ async def airportCodesTrivia(self, ctx, questions):
                 else:
                     listOfAnswers.append(num2)
                     counter = counter +1
+            await
+            ctx.send("Line 96")
 
             placementOfRightAnswer = random.randint(1, 4)
             counterWrongAnswer = 0
+            await ctx.send("")
 
             await ctx.send("EE")
             counter2 = 0
