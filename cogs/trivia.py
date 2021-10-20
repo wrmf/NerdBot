@@ -85,8 +85,7 @@ async def airportCodesTrivia(self, ctx, questions):
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
             counter = 0
-            await
-            ctx.send("Line 87")
+            await ctx.send("Line 87")
             while counter < 3:
                 num2 = random.randint(0, maxTriviaQuestions-1)
                 if num2 in listOfAnswers or num2 == num:
