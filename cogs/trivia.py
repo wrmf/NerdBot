@@ -9,7 +9,7 @@ from discord.ext import commands
 from bot import *
 import random
 from permissions import *
-from triviaCategories import *
+from triviaCategoriesList import *
 
 
 class Trivia(commands.Cog):
