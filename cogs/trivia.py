@@ -77,13 +77,13 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
     numUnanswered = 0
     x = 0
 
-    while x < questions:
+    while x < questions+1:
         answeredThisQuestion = [] #Variable for those who have answered this question so they can't guess again
 
         num = random.randint(0, len(airportCodesList[0])-1)
         if num not in listOfQuestions:
             listOfQuestions.append(num)
-            embed = discord.Embed(title=f"Question {x+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
+            embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
             counter = 0
