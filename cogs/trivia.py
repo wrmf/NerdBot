@@ -88,7 +88,7 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
             listOfAnswers = []
             counter = 0
             while counter < 3:
-                num2 = random.randint(0, maxTriviaQuestions-1)
+                num2 = random.randint(0, len(airportCodesList[0])-1)
                 if num2 in listOfAnswers or num2 == num:
                     pass
                 else:
