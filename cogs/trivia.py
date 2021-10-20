@@ -16,6 +16,32 @@ from triviaCategoriesList import triviaCategoriesList
 maxTriviaQuestions = 10
 
 
+def getNumQuestions(self, ctx, maxQuestions):
+    embed = discord.Embed(title="Trivia",
+                          description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
+                          color=ctx.message.author.top_role.color)  # Create embed
+    await ctx.send(embed=embed)  # Send embed
+    try:
+
+        msg = await client.wait_for('message', timeout=15.0)
+
+        if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
+            embed = discord.Embed(title="ERROR",
+                                  description=f"Having a trivia game with {msg.content} number of questions is not valid at the moment. Please try again and enter a number between 1 and 10.",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+        else:
+            return int(msg.content)
+    except asyncio.TimeoutError:
+        embed = discord.Embed(title="ERROR",
+                              description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
+                              color=ctx.message.author.top_role.color)  # Create embed
+        await ctx.send(embed=embed)  # Send embed
+        return
+
+
+async def airportCodesTrivia(self, ctx, questions):
+
 class Trivia(commands.Cog):
     """
     Trivia related commands
@@ -48,14 +74,22 @@ class Trivia(commands.Cog):
                 i += i
             await ctx.send(embed=embed)  # Send embed
 
+            try:
+                msg = await client.wait_for('message', timeout=15.0)
 
-            msg = await client.wait_for('message', timeout=15.0)
+                if int(msg.content) < 1 or int(msg.content) > i:
+                    embed = discord.Embed(title="ERROR",
+                                          description=f"Category **{category[int(msg.content)]}** is not a valid category. Please do ~triviaCategories for the full list of categories",
+                                          color=ctx.message.author.top_role.color)  # Create embed
+                    await ctx.send(embed=embed)  # Send embed
 
-            if msg.content < 1 or msg.content > i:
-                embed = discord.Embed(title="ERROR",
-                                      description=f"Category **{category[msg.content]}** is not a valid category. Please do ~triviaCategories for the full list of categories",
+
+
+            except asyncio.TimeoutError:
+                embed = discord.Embed(title="ERROR", description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
                                       color=ctx.message.author.top_role.color)  # Create embed
                 await ctx.send(embed=embed)  # Send embed
+                return
 
 
         elif category not in triviaCategoriesList:
@@ -63,27 +97,14 @@ class Trivia(commands.Cog):
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
+
         else:
-            embed = discord.Embed(title="Trivia",
-                                  description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
-                                  color=ctx.message.author.top_role.color)  # Create embed
-            await ctx.send(embed=embed)  # Send embed
-            try:
+            numQuestions = getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            await ctx.send(numQuestions)
 
-                msg = await client.wait_for('message', timeout=15.0)
 
-                if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
-                    embed = discord.Embed(title="ERROR",
-                                          description=f"Having a trivia game with {msg.content} number of questions is not valid at the moment. Please try again and enter a number between 1 and 10.",
-                                          color=ctx.message.author.top_role.color)  # Create embed
-                    await ctx.send(embed=embed)  # Send embed
-                else:
-                    pass
-            except asyncio.TimeoutError:
-                embed = discord.Embed(title="ERROR", description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
-                                      color=ctx.message.author.top_role.color)  # Create embed
-                await ctx.send(embed=embed)  # Send embed
-                return
+
+
 
 
 def setup(bot):
