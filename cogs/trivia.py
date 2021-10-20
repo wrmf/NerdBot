@@ -55,7 +55,7 @@ class Trivia(commands.Cog):
                 msg = await client.wait_for('message', timeout=15.0)
 
                 if msg.content < 1 or msg.content > maxTriviaQuestions:
-
+                    pass
                 else:
                     embed = discord.Embed(title="ERROR",
                                           description=f"Having a trivia game with {msg.content} number of questions is not valid at the moment. Please try again and enter a number between 1 and 10.",
