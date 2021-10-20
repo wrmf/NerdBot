@@ -94,13 +94,16 @@ async def airportCodesTrivia(self, ctx, questions):
             counterWrongAnswer = 0
 
             await ctx.send("EE")
-            
-            for counter2 in range (1, 5):
+            counter2 = 0
+
+            while counter2 < 4:
                 if counter2 == placementOfRightAnswer:
                     embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
+                    counter2+=1
                 else:
                     embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=True)  # Set title for first embed
                     counterWrongAnswer+=1
+                    counter2+=1
             await ctx.send(embed=embed)
 
 class Trivia(commands.Cog):
