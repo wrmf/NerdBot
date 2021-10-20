@@ -10,7 +10,6 @@ from bot import *
 import random
 from permissions import *
 from triviaCategories import *
-from NerdBot.triviaCategories import triviaCategories
 
 
 class Trivia(commands.Cog):
@@ -22,7 +21,6 @@ class Trivia(commands.Cog):
         self.bot = bot
 
     @commands.command(aliases=['triviaCategories'])
-    @commands.check(is_admin)
     async def triviaCategories(self, ctx, status: str = None):
 
         embed = discord.Embed(title="Trivia", description=f"The available trivia categories are:",
