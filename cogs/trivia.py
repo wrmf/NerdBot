@@ -54,7 +54,7 @@ class Trivia(commands.Cog):
 
                 msg = await client.wait_for('message', timeout=15.0)
 
-                if msg.content < 1 or msg.content > maxTriviaQuestions:
+                if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
                     pass
                 else:
                     embed = discord.Embed(title="ERROR",
