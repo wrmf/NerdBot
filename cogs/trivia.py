@@ -54,6 +54,7 @@ class Trivia(commands.Cog):
 
                 msg = await client.wait_for('message', timeout=15.0)
                 await ctx.send(msg)
+                await ctx.send(msg.content)
 
                 if msg < 1 or msg > maxTriviaQuestions:
                     embed = discord.Embed(title="ERROR",
