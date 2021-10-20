@@ -84,7 +84,7 @@ async def airportCodesTrivia(self, ctx, questions):
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
             for counter in range(1, 3):
-                num = random.randint(1, len(airportCodesList[0]))
+                num2 = random.randint(1, len(airportCodesList[0]))
                 if num2 in listOfAnswers or num2 == num:
                     counter-=1
                 else:
