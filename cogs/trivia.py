@@ -192,7 +192,7 @@ class Trivia(commands.Cog):
             categorySelected = getCategory(self=self, ctx=ctx, category=category, check=check)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check, originalChannel= ctx.message.channel)
+            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
 
 
         elif category not in triviaCategoriesList:
@@ -204,7 +204,7 @@ class Trivia(commands.Cog):
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check, originalChannel= ctx.message.channel)
+            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
