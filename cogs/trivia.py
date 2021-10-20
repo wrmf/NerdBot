@@ -49,7 +49,11 @@ class Trivia(commands.Cog):
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
             try:
-                msg = await client.wait_for('messsage', timeout=15.0)
+                def check(m):
+                    return isinstance(m, int)
+
+                msg = await client.wait_for('message', check=check, timeout=15.0)
+
                 if msg < 1 or msg > maxTriviaQuestions:
                     embed = discord.Embed(title="ERROR",
                                           description=f"Having a trivia game with {msg} number of questions is not valid at the moment. Please try again and enter a number between 1 and 10.",
