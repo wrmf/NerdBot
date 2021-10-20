@@ -101,6 +101,7 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
                 counter+=1
 
         await ctx.send("a")
+        await ctx.send(listOfAnswers)
 
         placementOfRightAnswer = random.randint(1, 4)
         counterWrongAnswer = 0
