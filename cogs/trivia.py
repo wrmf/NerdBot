@@ -41,6 +41,7 @@ def getNumQuestions(self, ctx, maxQuestions):
 
 
 async def airportCodesTrivia(self, ctx, questions):
+    pass
 
 class Trivia(commands.Cog):
     """
