@@ -136,7 +136,7 @@ async def airportCodesTrivia(self, ctx, questions, check):
     highestScoreUser = 0
 
     while counter < len(correctAnswers[0]):
-        if correctAnswers[1][counter] < highestScore:
+        if correctAnswers[1][counter] > highestScore:
             highestScore = correctAnswers[1][counter]
             highestScoreUser = correctAnswers[0][counter]
             await ctx.send(highestScoreUser)
