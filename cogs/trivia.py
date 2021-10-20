@@ -81,62 +81,64 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
     while x < questions+1:
         answeredThisQuestion = [] #Variable for those who have answered this question so they can't guess again
 
-        num = random.randint(0, len(airportCodesList[0])-1)
-        if num not in listOfQuestions:
-            listOfQuestions.append(num)
-            embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
+        num = random.randint(0, len(airportCodesList[0]) - 1)
+        while num in listOfQuestions:
+            num = random.randint(0, len(airportCodesList[0]) - 1)
+
+        listOfQuestions.append(num)
+        embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
+                              color=ctx.message.author.top_role.color)  # Create embed
+        listOfAnswers = []
+        counter = 0
+        while counter < 3:
+            num2 = random.randint(0, len(airportCodesList[0])-1)
+            if num2 in listOfAnswers or num2 == num:
+                pass
+            else:
+                listOfAnswers.append(num2)
+                counter = counter +1
+
+        placementOfRightAnswer = random.randint(1, 4)
+        counterWrongAnswer = 0
+
+        counter2 = 0
+
+        while counter2 < 4:
+            if counter2 == placementOfRightAnswer:
+                embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
+                counter2+=1
+            else:
+                embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=True)  # Set title for first embed
+                counterWrongAnswer+=1
+                counter2+=1
+        await ctx.send(embed=embed)
+
+        def checkCustom(message: discord.Message):
+            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
+                return True
+            else:
+                return False
+
+        await ctx.send("E")
+        try:
+            msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
+            embed = discord.Embed(title="Trivia",
+                                  description=f"{msg.author.mention} has won this round!",
                                   color=ctx.message.author.top_role.color)  # Create embed
-            listOfAnswers = []
-            counter = 0
-            while counter < 3:
-                num2 = random.randint(0, len(airportCodesList[0])-1)
-                if num2 in listOfAnswers or num2 == num:
-                    pass
-                else:
-                    listOfAnswers.append(num2)
-                    counter = counter +1
+            await ctx.send(embed=embed)  # Send embed
+            if msg.author.id not in correctAnswers[0]:
+                correctAnswers[0].append(msg.author.id)
+                correctAnswers[1].append(1)
+                await ctx.send(f"Correct answers is {correctAnswers}")
+            elif msg.author.id in correctAnswers:
+                await ctx.send(f"Current correct answers is {correctAnswers[1][correctAnswers[0].index[msg.author.id]]}")
+                correctAnswers[1][correctAnswers[0].index[msg.author.id]] += 1
 
-            placementOfRightAnswer = random.randint(1, 4)
-            counterWrongAnswer = 0
-
-            counter2 = 0
-
-            while counter2 < 4:
-                if counter2 == placementOfRightAnswer:
-                    embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
-                    counter2+=1
-                else:
-                    embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=True)  # Set title for first embed
-                    counterWrongAnswer+=1
-                    counter2+=1
-            await ctx.send(embed=embed)
-
-            def checkCustom(message: discord.Message):
-                if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
-                    return True
-                else:
-                    return False
-
-            await ctx.send("E")
-            try:
-                msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
-                embed = discord.Embed(title="Trivia",
-                                      description=f"{msg.author.mention} has won this round!",
-                                      color=ctx.message.author.top_role.color)  # Create embed
-                await ctx.send(embed=embed)  # Send embed
-                if msg.author.id not in correctAnswers[0]:
-                    correctAnswers[0].append(msg.author.id)
-                    correctAnswers[1].append(1)
-                    await ctx.send(f"Correct answers is {correctAnswers}")
-                elif msg.author.id in correctAnswers:
-                    await ctx.send(f"Current correct answers is {correctAnswers[1][correctAnswers[0].index[msg.author.id]]}")
-                    correctAnswers[1][correctAnswers[0].index[msg.author.id]] += 1
-
-            except asyncio.TimeoutError:  # Timeout
-                embed = discord.Embed(title="Trivia",
-                                      description=f"Question timed out! No one answered correctly!",
-                                      color=ctx.message.author.top_role.color)  # Create embed
-                await ctx.send(embed=embed)  # Send embed
+        except asyncio.TimeoutError:  # Timeout
+            embed = discord.Embed(title="Trivia",
+                                  description=f"Question timed out! No one answered correctly!",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
 
         x+=1
 
