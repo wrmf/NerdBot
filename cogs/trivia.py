@@ -32,3 +32,6 @@ class Trivia(commands.Cog):
             embed.add_field(name=i, value=category, inline=True) #Set title for first embed
             i+=i
         await ctx.send(embed=embed) #Send embed
+
+def setup(bot):
+    bot.add_cog(Trivia(bot))
