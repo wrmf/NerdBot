@@ -20,7 +20,7 @@ class Trivia(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['triviaCategories'])
+    @commands.command(aliases=['triviacategories'])
     async def triviaCategories(self, ctx, status: str = None):
 
         embed = discord.Embed(title="Trivia", description=f"The available trivia categories are:",
