@@ -13,9 +13,8 @@ from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 from airportCodesTrivia import airportCodesList
 
-#from NerdBot.airportCodesTrivia import airportCodesList
-
 maxTriviaQuestions = len(airportCodesList[0])
+numUnansweredMax = 3
 
 
 async def getNumQuestions(self, ctx, maxQuestions, check):
@@ -74,7 +73,12 @@ async def getCategory(self, ctx, category, check):
 
 async def airportCodesTrivia(self, ctx, questions, check):
     listOfQuestions = []
+    correctAnswers = [[],[]]
+    numUnanswered = 0
+
     for x in range(0, questions):
+        answeredThisQuestion = [] #Variable for those who have answered this question so they can't guess again
+
         num = random.randint(0, len(airportCodesList[0])-1)
         if len(listOfQuestions) == 0 or num not in listOfQuestions:
             listOfQuestions.append(num)
@@ -105,18 +109,43 @@ async def airportCodesTrivia(self, ctx, questions, check):
                     counter2+=1
             await ctx.send(embed=embed)
 
-            def checkCustom(message: discord.Message):
+            async def checkCustom(message: discord.Message, answeredThisQuestion):
                 return message.channel == ctx.channel and int(message.content) == placementOfRightAnswer
 
+            await ctx.send("E")
             try:
-
                 msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
-                await ctx.send("YOU WIN")
+                embed = discord.Embed(title="Trivia",
+                                      description=f"{msg.author.mention} has one this round!",
+                                      color=ctx.message.author.top_role.color)  # Create embed
+                await ctx.send(embed=embed)  # Send embed
+                if msg.author not in correctAnswers:
+                    correctAnswers[0].append(msg.author)
+                    correctAnswers[1].append(1)
+                else:
+                    correctAnswers[1][correctAnswers[0].index[msg.author]] += 1
+
             except asyncio.TimeoutError:  # Timeout
                 embed = discord.Embed(title="Trivia",
                                       description=f"Question timed out! No one answered correctly!",
                                       color=ctx.message.author.top_role.color)  # Create embed
                 await ctx.send(embed=embed)  # Send embed
+
+    counter = 0
+    highestScore = 0
+    highestScoreUser = 0
+
+    while counter < len(correctAnswers):
+        if correctAnswers[1][counter] < highestScore:
+            highestScore = correctAnswers[1][counter]
+            highestScoreUser = correctAnswers[0][counter]
+
+        counter += 1
+
+    embed = discord.Embed(title="Trivia",
+                          description=f"Game over! The winner was {highestScoreUser.mention} with {highestScore} answers correct! That's a {highestScore/questions*100}% correct rate!",
+                          color=ctx.message.author.top_role.color)  # Create embed
+    await ctx.send(embed=embed)  # Send embed
 
 class Trivia(commands.Cog):
     """
