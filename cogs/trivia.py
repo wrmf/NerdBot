@@ -100,6 +100,7 @@ async def airportCodesTrivia(self, ctx, questions):
                 else:
                     embed.add_field(name=counter2, value=listOfAnswers[counterWrongAnswer], inline=True)  # Set title for first embed
                     counterWrongAnswer+=1
+            await ctx.send(embed=embed)
 
 class Trivia(commands.Cog):
     """
