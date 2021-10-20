@@ -6,6 +6,7 @@ from ldl_channels import *
 from ownerPrefix import *
 import signal
 import discord.opus
+import asyncio
 from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
 from tokenfile import token
 import logging

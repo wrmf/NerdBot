@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 from bot import *
 import random
+import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 
