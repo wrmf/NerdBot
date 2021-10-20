@@ -80,12 +80,16 @@ async def airportCodesTrivia(self, ctx, questions):
         num = random.randint(1, len(airportCodesList[0]))
         await ctx.send("Line 79")
         if len(listOfQuestions) == 0 or num not in listOfQuestions:
+            await ctx.send("line 73")
             listOfQuestions.append(num)
+            await ctx.send("line 75")
             embed = discord.Embed(title=f"Question {x+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send("line 88")
             listOfAnswers = []
+            await ctx.send("line 90")
             counter = 0
-            await ctx.send("Line 87")
+            await ctx.send("Line 92")
             while counter < 3:
                 num2 = random.randint(0, maxTriviaQuestions-1)
                 if num2 in listOfAnswers or num2 == num:
