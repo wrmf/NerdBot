@@ -72,25 +72,16 @@ async def getCategory(self, ctx, category, check):
         return
 
 
-async def airportCodesTrivia(self, ctx, questions):
+async def airportCodesTrivia(self, ctx, questions, check):
     listOfQuestions = []
-    #await ctx.send("Line 79")
     for x in range(0, questions):
-        #await ctx.send("Line 79")
         num = random.randint(0, len(airportCodesList[0])-1)
-        #await ctx.send("Line 79")
         if len(listOfQuestions) == 0 or num not in listOfQuestions:
-            #await ctx.send("line 73")
             listOfQuestions.append(num)
-            #await ctx.send("line 75")
-            await ctx.send(num)
             embed = discord.Embed(title=f"Question {x+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
-            await ctx.send("line 88")
             listOfAnswers = []
-            await ctx.send("line 90")
             counter = 0
-            await ctx.send("Line 92")
             while counter < 3:
                 num2 = random.randint(0, maxTriviaQuestions-1)
                 if num2 in listOfAnswers or num2 == num:
@@ -98,14 +89,10 @@ async def airportCodesTrivia(self, ctx, questions):
                 else:
                     listOfAnswers.append(num2)
                     counter = counter +1
-            await ctx.send("Line 96")
 
             placementOfRightAnswer = random.randint(1, 4)
             counterWrongAnswer = 0
-            await ctx.send(" 9")
 
-            await ctx.send("EE")
-            await ctx.send(listOfAnswers)
             counter2 = 0
 
             while counter2 < 4:
@@ -117,6 +104,18 @@ async def airportCodesTrivia(self, ctx, questions):
                     counterWrongAnswer+=1
                     counter2+=1
             await ctx.send(embed=embed)
+
+            try:
+                def checkCustom(message: discord.Message):
+                    return message.channel == ctx.channel and message.content == placementOfRightAnswer
+
+                msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
+                await ctx.send("YOU WIN")
+            except asyncio.TimeoutError:  # Timeout
+                embed = discord.Embed(title="Trivia",
+                                      description=f"Question timed out! No one answered correctly!",
+                                      color=ctx.message.author.top_role.color)  # Create embed
+                await ctx.send(embed=embed)  # Send embed
 
 class Trivia(commands.Cog):
     """
@@ -150,7 +149,7 @@ class Trivia(commands.Cog):
             categorySelected = getCategory(self=self, ctx=ctx, category=category, check=check)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
+            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check)
 
 
         elif category not in triviaCategoriesList:
@@ -162,7 +161,7 @@ class Trivia(commands.Cog):
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
+            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check)
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
