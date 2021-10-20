@@ -76,8 +76,10 @@ async def airportCodesTrivia(self, ctx, questions):
     for x in range(0, questions):
         num = random.randint(1, len(airportCodesList[0]))
         await ctx.send(f"Num is {num}")
+        await ctx.send(f"List of questions is {listOfQuestions}")
         if num not in listOfQuestions:
             listOfQuestions.append(num)
+            await ctx.send("Appended here")
             embed = discord.Embed(title=f"Question {x}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
