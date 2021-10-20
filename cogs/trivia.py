@@ -132,6 +132,7 @@ class Trivia(commands.Cog):
 
             categorySelected = getCategory(self=self, ctx=ctx, category=category, check=check)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
+            await ctx.send(numQuestions)
             await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 
@@ -143,6 +144,7 @@ class Trivia(commands.Cog):
 
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
+            await ctx.send(numQuestions)
             await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 def setup(bot):
