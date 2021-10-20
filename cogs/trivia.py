@@ -105,9 +105,11 @@ async def airportCodesTrivia(self, ctx, questions, check):
                     counter2+=1
             await ctx.send(embed=embed)
 
+            def checkCustom(message: discord.Message):
+                await ctx.send("E")
+                return message.channel == ctx.channel and int(message.content) == placementOfRightAnswer
+
             try:
-                def checkCustom(message: discord.Message):
-                    return message.channel == ctx.channel and message.content == placementOfRightAnswer
 
                 msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
                 await ctx.send("YOU WIN")
@@ -142,6 +144,7 @@ class Trivia(commands.Cog):
 
         def check(message: discord.Message):
             return message.channel == ctx.channel
+
 
 
         if category is None:
