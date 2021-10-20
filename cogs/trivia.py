@@ -127,7 +127,8 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
                 if msg.author.id not in correctAnswers:
                     correctAnswers[0].append(msg.author.id)
                     correctAnswers[1].append(1)
-                else:
+                    await ctx.send(f"Correct answers is {correctAnswers}")
+                elif msg.author.id in correctAnswers:
                     await ctx.send(f"Current correct answers is {correctAnswers[1][correctAnswers[0].index[msg.author.id]]}")
                     correctAnswers[1][correctAnswers[0].index[msg.author.id]] += 1
 
