@@ -119,11 +119,11 @@ async def airportCodesTrivia(self, ctx, questions, check):
                                       description=f"{msg.author.mention} has won this round!",
                                       color=ctx.message.author.top_role.color)  # Create embed
                 await ctx.send(embed=embed)  # Send embed
-                if msg.author not in correctAnswers:
-                    correctAnswers[0].append(msg.author)
+                if msg.author.id not in correctAnswers:
+                    correctAnswers[0].append(msg.author.id)
                     correctAnswers[1].append(1)
                 else:
-                    correctAnswers[1][correctAnswers[0].index[msg.author]] += 1
+                    correctAnswers[1][correctAnswers[0].index[msg.author.id]] += 1
 
             except asyncio.TimeoutError:  # Timeout
                 embed = discord.Embed(title="Trivia",
@@ -139,6 +139,7 @@ async def airportCodesTrivia(self, ctx, questions, check):
         if correctAnswers[1][counter] < highestScore:
             highestScore = correctAnswers[1][counter]
             highestScoreUser = correctAnswers[0][counter]
+            await ctx.send(highestScoreUser)
 
         counter += 1
 
