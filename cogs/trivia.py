@@ -56,12 +56,12 @@ class Trivia(commands.Cog):
                 await ctx.send(int(msg.content))
 
                 if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
-                    pass
-                else:
                     embed = discord.Embed(title="ERROR",
                                           description=f"Having a trivia game with {msg.content} number of questions is not valid at the moment. Please try again and enter a number between 1 and 10.",
                                           color=ctx.message.author.top_role.color)  # Create embed
                     await ctx.send(embed=embed)  # Send embed
+                else:
+                    pass
             except asyncio.TimeoutError:
                 embed = discord.Embed(title="ERROR", description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
                                       color=ctx.message.author.top_role.color)  # Create embed
