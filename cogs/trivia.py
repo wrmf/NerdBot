@@ -85,7 +85,7 @@ async def airportCodesTrivia(self, ctx, questions):
                 num2 = random.randint(0, maxTriviaQuestions)
                 await ctx.send(num2)
                 if num2 in listOfAnswers or num2 == num:
-                    await ctx.send("TRUE")
+                    await ctx.send(f"TRUE {counter}")
                     counter = counter -1
                 else:
                     listOfAnswers.append(num2)
