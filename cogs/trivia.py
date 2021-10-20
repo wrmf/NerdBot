@@ -143,7 +143,7 @@ async def airportCodesTrivia(self, ctx, questions, check):
         counter += 1
 
     embed = discord.Embed(title="Trivia",
-                          description=f"Game over! The winner was {highestScoreUser.mention} with {highestScore} answers correct! That's a {highestScore/questions*100}% correct rate!",
+                          description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore/questions*100}% correct rate!",
                           color=ctx.message.author.top_role.color)  # Create embed
     await ctx.send(embed=embed)  # Send embed
 
