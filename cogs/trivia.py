@@ -124,6 +124,7 @@ class Trivia(commands.Cog):
 
             categorySelected = getCategory(self=self, ctx=ctx, category=category)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 
         elif category not in triviaCategoriesList:
@@ -134,6 +135,7 @@ class Trivia(commands.Cog):
 
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
