@@ -125,6 +125,7 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
 
         await ctx.send("E")
         try:
+            await ctx.send(placementOfRightAnswer)
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
