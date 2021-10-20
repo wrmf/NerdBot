@@ -116,7 +116,7 @@ async def airportCodesTrivia(self, ctx, questions, check):
             try:
                 msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
                 embed = discord.Embed(title="Trivia",
-                                      description=f"{msg.author.mention} has one this round!",
+                                      description=f"{msg.author.mention} has won this round!",
                                       color=ctx.message.author.top_role.color)  # Create embed
                 await ctx.send(embed=embed)  # Send embed
                 if msg.author not in correctAnswers:
@@ -135,7 +135,7 @@ async def airportCodesTrivia(self, ctx, questions, check):
     highestScore = 0
     highestScoreUser = 0
 
-    while counter < len(correctAnswers):
+    while counter < len(correctAnswers[0]):
         if correctAnswers[1][counter] < highestScore:
             highestScore = correctAnswers[1][counter]
             highestScoreUser = correctAnswers[0][counter]
