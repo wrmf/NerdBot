@@ -39,9 +39,29 @@ class Trivia(commands.Cog):
     async def triviaStart(self, ctx, category: str = None):
         msg = 0
 
-        if(category is None or category not in triviaCategoriesList):
-            embed = discord.Embed(title="ERROR", description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
-                                color=ctx.message.author.top_role.color)  # Create embed
+        if(category is None)
+            embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            i = 1
+            for category in triviaCategoriesList:
+                embed.add_field(name=i, value=category, inline=True)  # Set title for first embed
+                i += i
+            await ctx.send(embed=embed)  # Send embed
+
+
+            msg = await client.wait_for('message', timeout=15.0)
+
+            if msg.content < 1 or msg.content > i:
+                embed = discord.Embed(title="ERROR",
+                                      description=f"Category **{category[msg.content]}** is not a valid category. Please do ~triviaCategories for the full list of categories",
+                                      color=ctx.message.author.top_role.color)  # Create embed
+                await ctx.send(embed=embed)  # Send embed
+
+
+        elif category not in triviaCategoriesList:
+            embed = discord.Embed(title="ERROR",
+                                  description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
+                                  color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
         else:
             embed = discord.Embed(title="Trivia",
@@ -49,11 +69,8 @@ class Trivia(commands.Cog):
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
             try:
-                def check(m):
-                    return isinstance(m, int)
 
                 msg = await client.wait_for('message', timeout=15.0)
-                await ctx.send(int(msg.content))
 
                 if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
                     embed = discord.Embed(title="ERROR",
