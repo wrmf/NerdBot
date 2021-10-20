@@ -124,7 +124,7 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
                                       description=f"{msg.author.mention} has won this round!",
                                       color=ctx.message.author.top_role.color)  # Create embed
                 await ctx.send(embed=embed)  # Send embed
-                if msg.author.id not in correctAnswers:
+                if msg.author.id not in correctAnswers[0]:
                     correctAnswers[0].append(msg.author.id)
                     correctAnswers[1].append(1)
                     await ctx.send(f"Correct answers is {correctAnswers}")
