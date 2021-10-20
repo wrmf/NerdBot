@@ -74,7 +74,7 @@ async def airportCodesTrivia(self, ctx, questions):
     await ctx.send("I got to the function")
     listOfQuestions = []
     for x in range(0, questions):
-        num = random.seed(len(airportCodesList))
+        num = random.randint(1, len(airportCodesList[0]))
         await ctx.send(f"Num is {num}")
         if num not in listOfQuestions:
             listOfQuestions.append(num)
@@ -82,13 +82,13 @@ async def airportCodesTrivia(self, ctx, questions):
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
             for counter in range(1, 3):
-                num2 = random.seed(len(airportCodesList))
+                num = random.randint(1, len(airportCodesList[0]))
                 if num2 in listOfAnswers or num2 == num:
                     counter-=1
                 else:
                     listOfAnswers.append(num2)
 
-            placementOfRightAnswer = random.seed(4)
+            placementOfRightAnswer = random.randint(1, 4)
             await ctx.send(f"Placement of right answer is {placementOfRightAnswer}")
             counterWrongAnswer = 0
 
