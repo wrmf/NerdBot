@@ -11,19 +11,22 @@ import random
 import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
+from airportCodesTrivia import airportCodesList
 
+#from NerdBot.airportCodesTrivia import airportCodesList
 
-maxTriviaQuestions = 10
+maxTriviaQuestions = len(airportCodesList)
 
 
 async def getNumQuestions(self, ctx, maxQuestions):
+    """Get the number of questions for a trivia game"""
     embed = discord.Embed(title="Trivia",
                           description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
-                          color=ctx.message.author.top_role.color)  # Create embed
+                          color=ctx.message.author.top_role.color)  # Create question embed
     await ctx.send(embed=embed)  # Send embed
     try:
 
-        msg = await client.wait_for('message', timeout=15.0)
+        msg = await client.wait_for('message', timeout=15.0) #Get response from user
 
         if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
             embed = discord.Embed(title="ERROR",
@@ -32,6 +35,33 @@ async def getNumQuestions(self, ctx, maxQuestions):
             await ctx.send(embed=embed)  # Send embed
         else:
             return int(msg.content)
+    except asyncio.TimeoutError: #Timeout
+        embed = discord.Embed(title="ERROR",
+                              description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
+                              color=ctx.message.author.top_role.color)  # Create error embed
+        await ctx.send(embed=embed)  # Send embed
+        return
+
+async def getCategory(self, ctx, category):
+    embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
+                          color=ctx.message.author.top_role.color)  # Create embed
+    i = 1
+    for category in triviaCategoriesList:
+        embed.add_field(name=i, value=category, inline=True)  # Set title for first embed
+        i += i
+    await ctx.send(embed=embed)  # Send embed
+
+    try:
+        msg = await client.wait_for('message', timeout=15.0)
+
+        if int(msg.content) < 1 or int(msg.content) > i:
+            embed = discord.Embed(title="ERROR",
+                                  description=f"Category **{category[int(msg.content)]}** is not a valid category. Please do ~triviaCategories for the full list of categories",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+        else:
+            return category[int(msg.content)]
+
     except asyncio.TimeoutError:
         embed = discord.Embed(title="ERROR",
                               description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
@@ -41,7 +71,31 @@ async def getNumQuestions(self, ctx, maxQuestions):
 
 
 async def airportCodesTrivia(self, ctx, questions):
-    pass
+    listOfQuestions = []
+    for x in range(1, questions):
+        num = random.seed(len(airportCodesList))
+        if num not in listOfQuestions:
+            listOfQuestions.append(num)
+            embed = discord.Embed(title=f"Question {x}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            listOfAnswers = []
+            for counter in range(1, 3):
+                num2 = random.seed(len(airportCodesList))
+                if num2 in listOfAnswers or num2 == num:
+                    counter-=1
+                else:
+                    listOfAnswers.append(num2)
+
+            placementOfRightAnswer = random.seed(4)
+            await ctx.send(f"Placement of right answer is {placementOfRightAnswer}")
+            counterWrongAnswer = 0
+
+            for counter2 in range (1, 4):
+                if counter2 == placementOfRightAnswer:
+                    embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
+                else:
+                    embed.add_field(name=counter2, value=listOfAnswers[counterWrongAnswer], inline=True)  # Set title for first embed
+                    counterWrongAnswer+=1
 
 class Trivia(commands.Cog):
     """
@@ -67,30 +121,9 @@ class Trivia(commands.Cog):
         msg = 0
 
         if category is None:
-            embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
-                                  color=ctx.message.author.top_role.color)  # Create embed
-            i = 1
-            for category in triviaCategoriesList:
-                embed.add_field(name=i, value=category, inline=True)  # Set title for first embed
-                i += i
-            await ctx.send(embed=embed)  # Send embed
 
-            try:
-                msg = await client.wait_for('message', timeout=15.0)
-
-                if int(msg.content) < 1 or int(msg.content) > i:
-                    embed = discord.Embed(title="ERROR",
-                                          description=f"Category **{category[int(msg.content)]}** is not a valid category. Please do ~triviaCategories for the full list of categories",
-                                          color=ctx.message.author.top_role.color)  # Create embed
-                    await ctx.send(embed=embed)  # Send embed
-
-
-
-            except asyncio.TimeoutError:
-                embed = discord.Embed(title="ERROR", description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
-                                      color=ctx.message.author.top_role.color)  # Create embed
-                await ctx.send(embed=embed)  # Send embed
-                return
+            categorySelected = getCategory(self=self, ctx=ctx, category=category)
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
 
 
         elif category not in triviaCategoriesList:
@@ -101,12 +134,6 @@ class Trivia(commands.Cog):
 
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
-            await ctx.send(numQuestions)
-
-
-
-
-
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
