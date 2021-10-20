@@ -110,7 +110,10 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
             await ctx.send(embed=embed)
 
             async def checkCustom(message: discord.Message):
-                return message.channel == originalChannel and int(message.content) == placementOfRightAnswer
+                if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
+                    return True
+                else:
+                    return False
 
             await ctx.send("E")
             try:
