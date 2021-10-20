@@ -40,7 +40,7 @@ async def getNumQuestions(self, ctx, maxQuestions, check):
                               description=f"Trivia Start timed out. Please try again and send a message quicker next time!",
                               color=ctx.message.author.top_role.color)  # Create error embed
         await ctx.send(embed=embed)  # Send embed
-        return
+        return None
 
 async def getCategory(self, ctx, category, check):
 
@@ -203,8 +203,9 @@ class Trivia(commands.Cog):
 
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
-            await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
+            if numQuestions is not None:
+                await ctx.send(numQuestions)
+                await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
