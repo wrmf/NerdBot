@@ -15,7 +15,7 @@ from airportCodesTrivia import airportCodesList
 
 #from NerdBot.airportCodesTrivia import airportCodesList
 
-maxTriviaQuestions = len(airportCodesList)
+maxTriviaQuestions = len(airportCodesList[0])
 
 
 async def getNumQuestions(self, ctx, maxQuestions):
