@@ -32,14 +32,25 @@ class Trivia(commands.Cog):
         await ctx.send(embed=embed) #Send embed
 
     @commands.command(aliases=['triviastart'])
-    async def triviaStart(self, ctx, *category: str):
+    async def triviaStart(self, ctx, category: str = None):
 
         if(category is None or category not in triviaCategoriesList):
             embed = discord.Embed(title="ERROR", description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                 color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
         else:
-            await ctx.send("idk I haven't gotten this far in my coding yet leave me alone")
+            embed = discord.Embed(title="Trivia",
+                                  description=f"How many questions would you like? You can have up to 10 questions",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+            try:
+                msg = await client.wait_for('messsage', timeout=15.0)
+            except asyncio.TimeoutError:
+                embed = discord.Embed(title="ERROR",
+                                      description=f"",
+                                      color=ctx.message.author.top_role.color)  # Create embed
+                await ctx.send(embed=embed)  # Send embed
+                return
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
