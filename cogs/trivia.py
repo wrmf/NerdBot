@@ -71,10 +71,9 @@ async def getCategory(self, ctx, category, check):
         return
 
 
-async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
+async def airportCodesTrivia(self, ctx, questions, originalChannel):
     listOfQuestions = []
     correctAnswers = [[],[]]
-    numUnanswered = 0
     x = 0
     await ctx.send(f"x = {x}, questions = {questions}")
 
@@ -91,12 +90,12 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
         listOfAnswers = []
         counter = 0
         while counter < 3:
-            num2 = random.randint(0, len(airportCodesList[0])-1)
+            num2 = random.randint(0, (len(airportCodesList[0])-1))
             if num2 in listOfAnswers or num2 == num:
                 pass
             else:
                 listOfAnswers.append(num2)
-                counter = counter +1
+                counter+=1
 
         placementOfRightAnswer = random.randint(1, 4)
         counterWrongAnswer = 0
