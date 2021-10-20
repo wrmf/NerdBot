@@ -30,7 +30,7 @@ async def getNumQuestions(self, ctx, maxQuestions, check):
 
         if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
             embed = discord.Embed(title="ERROR",
-                                  description=f"Having a trivia game with {msg.content} number of questions is not valid at the moment. Please try again and enter a number between 1 and 10.",
+                                  description=f"Having a trivia game with {msg.content} number of questions is not valid at the moment. Please try again and enter a number between 1 and {maxTriviaQuestions}.",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
         else:
