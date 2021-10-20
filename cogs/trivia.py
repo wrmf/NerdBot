@@ -78,19 +78,13 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
     await ctx.send(f"x = {x}, questions = {questions}")
 
     while x < questions+1:
-        await ctx.send("a")
         num = random.randint(0, len(airportCodesList[0]) - 1)
-        await ctx.send("a")
         while num in listOfQuestions:
             num = random.randint(0, len(airportCodesList[0]) - 1)
-        await ctx.send("a")
         listOfQuestions.append(num)
-        await ctx.send("a")
         embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                               color=ctx.message.author.top_role.color)  # Create embed
-        await ctx.send("a")
         listOfAnswers = []
-        await ctx.send("a")
         counter = 0
         while counter < 3:
             num2 = random.randint(0, (len(airportCodesList[0])-1))
@@ -100,20 +94,12 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
                 listOfAnswers.append(num2)
                 counter+=1
 
-        await ctx.send("a")
-
         placementOfRightAnswer = random.randint(0, 3)
-
-
-        await ctx.send(listOfAnswers)
-        await ctx.send(placementOfRightAnswer)
-
         counterWrongAnswer = 0
 
         counter2 = 0
 
         while counter2 < 4:
-            await ctx.send(f"Counter 2 is {counter2}")
             if counter2 == placementOfRightAnswer:
                 embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
                 counter2+=1
@@ -129,7 +115,6 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
             else:
                 return False
 
-        await ctx.send("E")
         try:
             await ctx.send(placementOfRightAnswer)
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
