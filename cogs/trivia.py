@@ -71,9 +71,11 @@ async def getCategory(self, ctx, category):
 
 
 async def airportCodesTrivia(self, ctx, questions):
+    await ctx.send("I got to the function")
     listOfQuestions = []
     for x in range(0, questions):
         num = random.seed(len(airportCodesList))
+        await ctx.send(f"Num is {num}")
         if num not in listOfQuestions:
             listOfQuestions.append(num)
             embed = discord.Embed(title=f"Question {x}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
