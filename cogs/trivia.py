@@ -20,13 +20,17 @@ maxTriviaQuestions = len(airportCodesList[0])
 
 async def getNumQuestions(self, ctx, maxQuestions):
     """Get the number of questions for a trivia game"""
+
+    def check(message: discord.Message):
+        return message.channel == ctx.channel
+
     embed = discord.Embed(title="Trivia",
                           description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
                           color=ctx.message.author.top_role.color)  # Create question embed
     await ctx.send(embed=embed)  # Send embed
     try:
 
-        msg = await client.wait_for('message', timeout=15.0) #Get response from user
+        msg = await client.wait_for('message', timeout=15.0, check=check) #Get response from user
 
         if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
             embed = discord.Embed(title="ERROR",
@@ -43,6 +47,9 @@ async def getNumQuestions(self, ctx, maxQuestions):
         return
 
 async def getCategory(self, ctx, category):
+    def check(message: discord.Message):
+        return message.channel == ctx.channel
+
     embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
                           color=ctx.message.author.top_role.color)  # Create embed
     i = 1
@@ -52,7 +59,7 @@ async def getCategory(self, ctx, category):
     await ctx.send(embed=embed)  # Send embed
 
     try:
-        msg = await client.wait_for('message', timeout=15.0)
+        msg = await client.wait_for('message', timeout=15.0, check=check)
 
         if int(msg.content) < 1 or int(msg.content) > i:
             embed = discord.Embed(title="ERROR",
