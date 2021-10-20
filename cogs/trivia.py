@@ -18,11 +18,8 @@ from airportCodesTrivia import airportCodesList
 maxTriviaQuestions = len(airportCodesList[0])
 
 
-async def getNumQuestions(self, ctx, maxQuestions):
+async def getNumQuestions(self, ctx, maxQuestions, check):
     """Get the number of questions for a trivia game"""
-
-    def check(message: discord.Message):
-        return message.channel == ctx.channel
 
     embed = discord.Embed(title="Trivia",
                           description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
@@ -46,9 +43,7 @@ async def getNumQuestions(self, ctx, maxQuestions):
         await ctx.send(embed=embed)  # Send embed
         return
 
-async def getCategory(self, ctx, category):
-    def check(message: discord.Message):
-        return message.channel == ctx.channel
+async def getCategory(self, ctx, category, check):
 
     embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
                           color=ctx.message.author.top_role.color)  # Create embed
@@ -129,10 +124,14 @@ class Trivia(commands.Cog):
     async def triviaStart(self, ctx, category: str = None):
         msg = 0
 
+        def check(message: discord.Message):
+            return message.channel == ctx.channel
+
+
         if category is None:
 
-            categorySelected = getCategory(self=self, ctx=ctx, category=category)
-            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            categorySelected = getCategory(self=self, ctx=ctx, category=category, check=check)
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 
@@ -143,7 +142,7 @@ class Trivia(commands.Cog):
             await ctx.send(embed=embed)  # Send embed
 
         else:
-            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 def setup(bot):
