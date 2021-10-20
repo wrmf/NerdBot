@@ -93,8 +93,7 @@ async def airportCodesTrivia(self, ctx, questions):
                 else:
                     listOfAnswers.append(num2)
                     counter = counter +1
-            await
-            ctx.send("Line 96")
+            await ctx.send("Line 96")
 
             placementOfRightAnswer = random.randint(1, 4)
             counterWrongAnswer = 0
