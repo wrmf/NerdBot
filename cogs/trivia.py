@@ -8,8 +8,8 @@ import discord
 from discord.ext import commands
 from bot import *
 import random
-from NerdBot.permissions import *
-from NerdBot.triviaCategoriesList import triviaCategoriesList
+from permissions import *
+from triviaCategoriesList import triviaCategoriesList
 
 
 class Trivia(commands.Cog):
