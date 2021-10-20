@@ -25,7 +25,7 @@ class Trivia(commands.Cog):
 
         embed = discord.Embed(title="Trivia", description=f"The available trivia categories are:",
                               color=ctx.message.author.top_role.color) #Create embed
-        i = 0
+        i = 1
         for category in triviaCategoriesList:
             embed.add_field(name=i, value=category, inline=True) #Set title for first embed
             i+=i
