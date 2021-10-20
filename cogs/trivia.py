@@ -71,7 +71,7 @@ async def getCategory(self, ctx, category):
 
 
 async def airportCodesTrivia(self, ctx, questions):
-    await ctx.send("I got to the function")
+    #await ctx.send("I got to the function")
     listOfQuestions = []
     for x in range(0, questions):
         num = random.randint(1, len(airportCodesList[0]))
@@ -80,7 +80,7 @@ async def airportCodesTrivia(self, ctx, questions):
             embed = discord.Embed(title=f"Question {x}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
             listOfAnswers = []
-            await ctx.send("generatedListOfAnswers")
+            #await ctx.send("generatedListOfAnswers")
             for counter in range(0, 3):
                 num2 = random.randint(0, maxTriviaQuestions-1)
                 await ctx.send(num2)
@@ -88,6 +88,7 @@ async def airportCodesTrivia(self, ctx, questions):
                     await ctx.send(f"TRUE {counter}")
                     counter = counter -1
                 else:
+                    await ctx.send(f"FALSE {counter}")
                     listOfAnswers.append(num2)
 
             placementOfRightAnswer = random.randint(1, 4)
