@@ -72,7 +72,7 @@ async def getCategory(self, ctx, category):
 
 async def airportCodesTrivia(self, ctx, questions):
     listOfQuestions = []
-    for x in range(1, questions):
+    for x in range(0, questions):
         num = random.seed(len(airportCodesList))
         if num not in listOfQuestions:
             listOfQuestions.append(num)
@@ -124,6 +124,7 @@ class Trivia(commands.Cog):
 
             categorySelected = getCategory(self=self, ctx=ctx, category=category)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            await ctx.send(f"number of questions is {numQuestions}")
             airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 
@@ -135,6 +136,7 @@ class Trivia(commands.Cog):
 
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            await ctx.send(f"number of questions is {numQuestions}")
             airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions)
 
 def setup(bot):
