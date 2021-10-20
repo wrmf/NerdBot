@@ -101,14 +101,19 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
                 counter+=1
 
         await ctx.send("a")
-        await ctx.send(listOfAnswers)
 
         placementOfRightAnswer = random.randint(1, 4)
+
+
+        await ctx.send(listOfAnswers)
+        await ctx.send(placementOfRightAnswer)
+
         counterWrongAnswer = 0
 
         counter2 = 0
 
         while counter2 < 4:
+            await ctx.send(f"Counter 2 is {counter2}")
             if counter2 == placementOfRightAnswer:
                 embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
                 counter2+=1
