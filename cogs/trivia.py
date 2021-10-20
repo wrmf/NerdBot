@@ -100,6 +100,7 @@ async def airportCodesTrivia(self, ctx, questions):
             await ctx.send(" 9")
 
             await ctx.send("EE")
+            await ctx.send(listOfAnswers)
             counter2 = 0
 
             while counter2 < 4:
