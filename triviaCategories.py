@@ -1,0 +1,1 @@
+triviaCategories = ["Airport Codes"]

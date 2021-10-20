@@ -13,7 +13,7 @@ from permissions import *
 
 class Stream(commands.Cog):
     """
-    Moderation related commands
+    Stream related commands
     """
 
     def __init__(self, bot):
