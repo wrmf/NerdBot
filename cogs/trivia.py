@@ -71,7 +71,7 @@ async def getCategory(self, ctx, category, check):
         return
 
 
-async def airportCodesTrivia(self, ctx, questions, check):
+async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
     listOfQuestions = []
     correctAnswers = [[],[]]
     numUnanswered = 0
@@ -110,7 +110,7 @@ async def airportCodesTrivia(self, ctx, questions, check):
             await ctx.send(embed=embed)
 
             async def checkCustom(message: discord.Message):
-                return message.channel == ctx.channel and int(message.content) == placementOfRightAnswer
+                return message.channel == originalChannel and int(message.content) == placementOfRightAnswer
 
             await ctx.send("E")
             try:
@@ -181,7 +181,7 @@ class Trivia(commands.Cog):
             categorySelected = getCategory(self=self, ctx=ctx, category=category, check=check)
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check)
+            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check, originalChannel= ctx.message.channel)
 
 
         elif category not in triviaCategoriesList:
@@ -193,7 +193,7 @@ class Trivia(commands.Cog):
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check)
+            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, check=check, originalChannel= ctx.message.channel)
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
