@@ -76,6 +76,7 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
     correctAnswers = [[],[]]
     numUnanswered = 0
     x = 0
+    await ctx.send(f"x = {x}, questions = {questions}")
 
     while x < questions+1:
         answeredThisQuestion = [] #Variable for those who have answered this question so they can't guess again
@@ -154,6 +155,7 @@ async def airportCodesTrivia(self, ctx, questions, check, originalChannel):
                           description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore/questions*100}% correct rate!",
                           color=ctx.message.author.top_role.color)  # Create embed
     await ctx.send(embed=embed)  # Send embed
+    return
 
 class Trivia(commands.Cog):
     """
