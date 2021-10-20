@@ -100,7 +100,7 @@ class Trivia(commands.Cog):
             await ctx.send(embed=embed)  # Send embed
 
         else:
-            numQuestions = getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions)
             await ctx.send(numQuestions)
 
 
