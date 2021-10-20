@@ -53,6 +53,7 @@ class Trivia(commands.Cog):
                     return isinstance(m, int)
 
                 msg = await client.wait_for('message', timeout=15.0)
+                await ctx.send(int(msg.content))
 
                 if int(msg.content) < 1 or int(msg.content) > maxTriviaQuestions:
                     pass
