@@ -74,12 +74,12 @@ async def getCategory(self, ctx, category, check):
 
 async def airportCodesTrivia(self, ctx, questions):
     listOfQuestions = []
-    await ctx.send("Line 79")
+    #await ctx.send("Line 79")
     for x in range(0, questions):
-        await ctx.send("Line 79")
+        #await ctx.send("Line 79")
         num = random.randint(1, len(airportCodesList[0]))
         await ctx.send("Line 79")
-        if num not in listOfQuestions:
+        if len(listOfQuestions) == 0 or num not in listOfQuestions:
             listOfQuestions.append(num)
             embed = discord.Embed(title=f"Question {x+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                                   color=ctx.message.author.top_role.color)  # Create embed
