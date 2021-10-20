@@ -32,7 +32,7 @@ class Trivia(commands.Cog):
         await ctx.send(embed=embed) #Send embed
 
     @commands.command(aliases=['triviastart'])
-    async def triviaStart(self, ctx, category: str = None):
+    async def triviaStart(self, ctx, *category: str = None):
 
         if(category is None or category not in triviaCategoriesList):
             embed = discord.Embed(title="ERROR", description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
