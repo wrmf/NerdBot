@@ -72,7 +72,7 @@ async def getCategory(self, ctx, category, check):
         return
 
 
-async def airportCodesTrivia(self, ctx, questions, originalChannel):
+async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuthor):
     listOfQuestions = []
     correctAnswers = [[],[]]
     x = 0
@@ -112,11 +112,17 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
         def checkCustom(message: discord.Message):
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
                 return True
+            elif message.content.lower == "stop":
+                return True
             else:
                 return False
 
         try:
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
+
+            if msg.content.lower == "stop" and msg.author.id == originalAuthor:
+
+
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
                                   color=ctx.message.author.top_role.color)  # Create embed
@@ -197,12 +203,10 @@ class Trivia(commands.Cog):
 
 
         if category is None:
-
-            categorySelected = getCategory(self=self, ctx=ctx, category=category, check=check)
-            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
-            await ctx.send(numQuestions)
-            await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
-
+            embed = discord.Embed(title="ERROR",
+                                  description=f"Please chose a category and try again",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
 
         elif category not in triviaCategoriesList:
             embed = discord.Embed(title="ERROR",
@@ -213,8 +217,8 @@ class Trivia(commands.Cog):
         else:
             numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
             if numQuestions is not None:
-                await ctx.send(numQuestions)
-                await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
+                if category == triviaCategoriesList[0]:
+                    await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel, originalAuthor=ctx.message.author.id)
 
     @commands.command(aliases=['addairport'])
     @commands.check(is_mod)
