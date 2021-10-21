@@ -11,7 +11,8 @@ import random
 import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
-from airportCodesTrivia import airportCodesList
+from airportCodesTriviaFile import airportCodesList
+import importlib
 
 maxTriviaQuestions = len(airportCodesList[0])
 numUnansweredMax = 3
@@ -189,7 +190,7 @@ class Trivia(commands.Cog):
     @commands.command(aliases=['triviastart'])
     async def triviaStart(self, ctx, category: str = None):
         msg = 0
-        reload(airportCodesTrivia)
+        importlib.reload(airportCodesTriviaFile)
 
         def check(message: discord.Message):
             return message.channel == ctx.channel
@@ -252,7 +253,7 @@ class Trivia(commands.Cog):
                 airportCodesListLocal[0].append(name)  # Add their ID
                 airportCodesListLocal[1].append(code)  # Add their display name
                 # Fix the ldl_staff.py file
-                with open("airportCodesTrivia.py", 'r+') as file:
+                with open("airportCodesTriviaFile.py", 'r+') as file:
                     file.truncate(0)
                     string = "airportCodesList = [" + str(airportCodesListLocal[0]) + "," + str(airportCodesListLocal[1]) + "]"
                     file.write(string)
