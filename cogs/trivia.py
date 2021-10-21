@@ -75,7 +75,6 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
     listOfQuestions = []
     correctAnswers = [[],[]]
     x = 0
-    await ctx.send(f"x = {x}, questions = {questions}")
 
     while x < questions:
         num = random.randint(0, len(airportCodesList[0]) - 1)
@@ -125,11 +124,8 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
             if msg.author.id not in correctAnswers[0]:
                 correctAnswers[0].append(msg.author.id)
                 correctAnswers[1].append(1)
-                await ctx.send(f"Correct answers is {correctAnswers}")
             else:
-                await ctx.send(f"Current correct answers is {correctAnswers[1][correctAnswers[0].index(msg.author.id)]}")
                 correctAnswers[1][correctAnswers[0].index(msg.author.id)] += 1
-                await ctx.send("E")
 
         except asyncio.TimeoutError:  # Timeout
             embed = discord.Embed(title="Trivia",
