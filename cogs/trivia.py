@@ -216,5 +216,52 @@ class Trivia(commands.Cog):
                 await ctx.send(numQuestions)
                 await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel)
 
+    @commands.command(aliases=['addairport'])
+    @commands.check(is_mod)
+    async def addAirport(self, ctx: commands.Context, name: str, code: str):
+        """
+        Add airport name and code to trivia list
+        @author Nerd#2021
+        """
+
+        # Check if user is none so bot doesn't crash
+        if name is None or code is None:
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value="You cannot set the name or code to be none", inline=True)
+            await ctx.send(embed=embed)
+
+        # Make sure person isn't trying to add themself or TNMN as staff
+        if (ctx.message.author.id == 308270212359258113 or ctx.message.author.id == 555207100603826177):
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value="You cannot add this person as staff!", inline=True)
+            await ctx.send(embed=embed)
+
+        # Move onto adding the airport
+        else:
+            # Check if airport is already in the list
+            if (name in airportCodesList[0] or code in airportCodesList[1]):
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"{name} Airport is already in the list",
+                                inline=True)
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)
+            # Add airport
+            else:
+                airportCodesListLocal = [airportCodesList[0], airportCodesList[1]]  # Duplicate list for saving to file purposes
+
+                airportCodesListLocal[0].append(name)  # Add their ID
+                airportCodesListLocal[1].append(code)  # Add their display name
+                # Fix the ldl_staff.py file
+                with open("ldl_staff.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "airportCodesList = [" + str(airportCodesListLocal[0]) + "," + str(airportCodesListLocal[1]) + "]"
+                    file.write(string)
+                    file.close()
+                embed = discord.Embed(color=ctx.author.color.value)  # Make embed
+                embed.add_field(name="**Success**", value=f"{name} Airport has been added!",
+                                inline=True)  # Make sucess message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+
 def setup(bot):
     bot.add_cog(Trivia(bot))
