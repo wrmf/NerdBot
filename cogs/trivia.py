@@ -138,17 +138,13 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
 
         x+=1
 
-    counter = 0
-    highestScore = 0
     highestScoreUser = 0
+    highestScore = 0
 
-    while counter < len(correctAnswers[0]):
-        if correctAnswers[1][counter] > highestScore:
-            highestScore = correctAnswers[1][counter]
-            highestScoreUser = correctAnswers[0][counter]
-            await ctx.send(highestScoreUser)
-
-        counter += 1
+    for n in correctAnswers[0]:
+        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore:
+            highestScore = correctAnswers[1][correctAnswers[0].index(n)]
+            highestScoreUser = n
 
     embed = discord.Embed(title="Trivia",
                           description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore/questions*100}% correct rate!",
