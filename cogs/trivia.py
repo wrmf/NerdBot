@@ -129,7 +129,7 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
 
         except asyncio.TimeoutError:  # Timeout
             embed = discord.Embed(title="Trivia",
-                                  description=f"Question timed out! No one answered correctly! The correct answer was {airportCodesList[1][num]}!",
+                                  description=f"Question timed out! No one answered correctly! The correct answer was {airportCodesList[1][num]} (number {placementOfRightAnswer})!",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
