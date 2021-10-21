@@ -190,7 +190,7 @@ class Trivia(commands.Cog):
     @commands.command(aliases=['triviastart'])
     async def triviaStart(self, ctx, category: str = None):
         msg = 0
-        importlib.reload(airportCodesTriviaFile)
+        importlib.reload("airportCodesTriviaFile.py")
 
         def check(message: discord.Message):
             return message.channel == ctx.channel
