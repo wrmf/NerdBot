@@ -74,7 +74,7 @@ async def getCategory(self, ctx, category, check):
 async def airportCodesTrivia(self, ctx, questions, originalChannel):
     listOfQuestions = []
     correctAnswers = [[],[]]
-    x = 1
+    x = 0
     await ctx.send(f"x = {x}, questions = {questions}")
 
     while x < questions:
