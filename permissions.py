@@ -22,6 +22,14 @@ def is_nuke(ctx: commands.Context):
 def is_owner(ctx: commands.Context):
     return ctx.author.id == TNMN
 
+def is_plane(ctx: commands.Context):
+    if ctx.author.id == TNMN:
+        return True
+    elif ctx.author.id == Likeusb:
+        return True
+    else:
+        return False
+
 
 def is_admin(ctx: commands.Context):
     member: discord.Member = ctx.author

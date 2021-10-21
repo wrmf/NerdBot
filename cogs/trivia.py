@@ -179,6 +179,10 @@ class Trivia(commands.Cog):
 
     @commands.command(aliases=['triviacategories'])
     async def triviaCategories(self, ctx):
+        """
+        Get a list of all available trivia categories
+        @author Nerd#2021
+        """
 
         embed = discord.Embed(title="Trivia", description=f"The available trivia categories are:",
                               color=ctx.message.author.top_role.color) #Create embed
@@ -190,6 +194,11 @@ class Trivia(commands.Cog):
 
     @commands.command(aliases=['triviastart'])
     async def triviaStart(self, ctx, category: str = None):
+        """
+        Start trivia game
+        @param category: category to start the game in
+        @author Nerd#2021
+        """
 
         def check(message: discord.Message): #Check for getting the number of questions
             return message.channel == ctx.channel
@@ -206,17 +215,19 @@ class Trivia(commands.Cog):
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        else:
-            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check)
+        else: #Run game
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check) #Get the number of questions
             if numQuestions is not None:
-                if category == triviaCategoriesList[0]:
-                    await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel, originalAuthor=ctx.message.author.id)
+                if category == triviaCategoriesList[0]: #Airport Codes trivia
+                    await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel, originalAuthor=ctx.message.author.id) #Run game
 
     @commands.command(aliases=['addairport'])
-    @commands.check(is_mod)
+    @commands.check(is_plane)
     async def addAirport(self, ctx: commands.Context, name: str, code: str):
         """
         Add airport name and code to trivia list
+        @param name: name of airport to add
+        @param code: code for the airport being added
         @author Nerd#2021
         """
 
@@ -225,12 +236,6 @@ class Trivia(commands.Cog):
             embed = discord.Embed(color=ctx.author.color.value)
             embed.add_field(name="**ERROR**", value="You cannot set the name or code to be none", inline=True)
             await ctx.send(embed=embed)
-
-        # Make sure person isn't trying to add themself or TNMN as staff
-        #if (ctx.message.author.id != 308270212359258113 or ctx.message.author.id != 555207100603826177):
-        #    embed = discord.Embed(color=ctx.author.color.value)
-        #    embed.add_field(name="**ERROR**", value="You do not have permission to use this command", inline=True)
-        #    await ctx.send(embed=embed)
 
         # Move onto adding the airport
         else:
