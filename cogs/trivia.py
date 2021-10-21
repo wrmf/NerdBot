@@ -202,7 +202,7 @@ class Trivia(commands.Cog):
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        elif category not in triviaCategoriesList: #error if category is not valid
+        elif category not in triviaCategoriesList.lower(): #error if category is not valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
