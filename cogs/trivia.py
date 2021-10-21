@@ -231,9 +231,9 @@ class Trivia(commands.Cog):
             await ctx.send(embed=embed)
 
         # Make sure person isn't trying to add themself or TNMN as staff
-        if (ctx.message.author.id == 308270212359258113 or ctx.message.author.id == 555207100603826177):
+        if (ctx.message.author.id != 308270212359258113 or ctx.message.author.id != 555207100603826177):
             embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**ERROR**", value="You cannot add this person as staff!", inline=True)
+            embed.add_field(name="**ERROR**", value="You do not have permission to use this command", inline=True)
             await ctx.send(embed=embed)
 
         # Move onto adding the airport
