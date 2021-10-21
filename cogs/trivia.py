@@ -127,8 +127,8 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
                 correctAnswers[1].append(1)
                 await ctx.send(f"Correct answers is {correctAnswers}")
             else:
-                #await ctx.send(f"Current correct answers is {correctAnswers[1][correctAnswers[0].index[msg.author.id]]}")
-                correctAnswers[1][correctAnswers[0].index[msg.author.id]] = int(correctAnswers[1][correctAnswers[0].index[msg.author.id]])+1
+                await ctx.send(f"Current correct answers is {correctAnswers[1][correctAnswers[0].index(msg.author.id)]}")
+                correctAnswers[1][correctAnswers[0].index(msg.author.id)] += 1
                 await ctx.send("E")
 
         except asyncio.TimeoutError:  # Timeout
