@@ -191,16 +191,18 @@ class Trivia(commands.Cog):
     @commands.command(aliases=['triviastart'])
     async def triviaStart(self, ctx, category: str = None):
 
+        category = category.lower()
+
         def check(message: discord.Message): #Check for getting the number of questions
             return message.channel == ctx.channel
 
-        if category.lower is None: #Error if the user did not provide a category
+        if category is None: #Error if the user did not provide a category
             embed = discord.Embed(title="ERROR",
                                   description=f"Please chose a category and try again",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        elif category.lower not in triviaCategoriesList: #error if category is not valid
+        elif category not in triviaCategoriesList: #error if category is not valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
