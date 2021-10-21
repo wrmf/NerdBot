@@ -101,10 +101,10 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
 
         while counter2 < 4:
             if counter2 == placementOfRightAnswer:
-                embed.add_field(name=counter2, value=airportCodesList[1][num], inline=True)  #Get right answer added
+                embed.add_field(name=counter2, value=airportCodesList[1][num], inline=False)  #Get right answer added
                 counter2+=1
             else:
-                embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=True)  # Set title for first embed
+                embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
                 counterWrongAnswer+=1
                 counter2+=1
         await ctx.send(embed=embed)
@@ -139,18 +139,37 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel):
 
         x+=1
 
-    highestScoreUser = 0
-    highestScore = 0
+    highestScoreUser = [0]
+    highestScore = [0]
+    multipleUsers = False
 
     for n in correctAnswers[0]:
-        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore:
+        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore[0]:
+            multipleUsers = False
+            highestScore.clear()
+            highestScoreUser.clear()
             highestScore = correctAnswers[1][correctAnswers[0].index(n)]
             highestScoreUser = n
+        elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore[0]:
+            multipleUsers = True
+            highestScoreUser.append(n)
+            highestScore.append(correctAnswers[1][correctAnswers[0].index(n)])
 
-    embed = discord.Embed(title="Trivia",
-                          description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore/questions*100}% correct rate!",
-                          color=ctx.message.author.top_role.color)  # Create embed
-    await ctx.send(embed=embed)  # Send embed
+    if not multipleUsers:
+        embed = discord.Embed(title="Trivia",
+                              description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore / questions * 100}% correct rate!",
+                              color=ctx.message.author.top_role.color)  # Create embed
+        await ctx.send(embed=embed)  # Send embed
+    else:
+        embed = discord.Embed(title="Trivia",
+                              description=f"Game over! The winners are:",
+                              color=ctx.message.author.top_role.color)  # Create embed
+
+        for n in highestScoreUser:
+            embed.add_field(title="Winner!", value=f"<@{n}>", inline=True)
+        embed.add_field(title="~", value=f"each with {highestScore} questions correct! That's a {highestScore/questions*100}% correct rate!", inline=True)
+        await ctx.send(embed=embed)  # Send embed
+
     return
 
 class Trivia(commands.Cog):
