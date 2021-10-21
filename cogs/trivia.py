@@ -112,16 +112,11 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
         def checkCustom(message: discord.Message):
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
                 return True
-            elif message.content.lower == "stop":
-                return True
             else:
                 return False
 
         try:
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
-
-            if msg.content.lower == "stop" and msg.author.id == originalAuthor:
-
 
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
@@ -195,20 +190,17 @@ class Trivia(commands.Cog):
 
     @commands.command(aliases=['triviastart'])
     async def triviaStart(self, ctx, category: str = None):
-        msg = 0
 
-        def check(message: discord.Message):
+        def check(message: discord.Message): #Check for getting the number of questions
             return message.channel == ctx.channel
 
-
-
-        if category is None:
+        if category.lower is None: #Error if the user did not provide a category
             embed = discord.Embed(title="ERROR",
                                   description=f"Please chose a category and try again",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        elif category not in triviaCategoriesList:
+        elif category.lower not in triviaCategoriesList: #error if category is not valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
