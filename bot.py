@@ -1,5 +1,5 @@
 import json
-from random import random
+import random
 
 import discord
 from ids import *
@@ -13,6 +13,7 @@ from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
 from tokenfile import token
 import logging
 import os
+
 
 
 logger = logging.getLogger('bot')
