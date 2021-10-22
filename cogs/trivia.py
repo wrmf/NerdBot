@@ -278,7 +278,7 @@ class Trivia(commands.Cog):
                                   description=f"Please enter a category and try again",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
-        elif category.lower() not in triviaCategoriesList: #Make sure category is valid
+        elif category not in triviaCategoriesList: #Make sure category is valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
@@ -287,7 +287,7 @@ class Trivia(commands.Cog):
             embed = discord.Embed(title="Trivia",
                                   description=f"The questions in category {category} are:",
                                   color=ctx.message.author.top_role.color)  # Create embed
-            if category.lower() == triviaCategoriesList[0]:
+            if category == triviaCategoriesList[0]:
                 counter = 1;
                 for n in airportCodesList[0]: #Loop through questions
                     embed.add_field(name=counter, value=f"{n}/n", inline=False)
