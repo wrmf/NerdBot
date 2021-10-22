@@ -59,11 +59,6 @@ class Bot(AutoShardedBot):
 									  color=ctx.message.author.top_role.color)  # Create error embed
 				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
 
-				if(random.choice([True, False])):
-					await self.edit(nick="Cheese sucks")
-				else:
-					await self.edit(nick="NerdBot [~]")
-
 				await ctx.send(embed=embed)  # Send embed
 			else:
 				embed = discord.Embed(title="PING",
