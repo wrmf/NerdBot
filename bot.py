@@ -60,7 +60,7 @@ class Bot(AutoShardedBot):
 				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
 
 				if(random.choice([True, False])):
-					await ctx.message.author.edit(nick="You messed with the wrong bot Cheese")
+					await ctx.message.author.edit(nick="Serial pinger")
 
 				await ctx.send(embed=embed)  # Send embed
 			else:
