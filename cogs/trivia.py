@@ -115,7 +115,7 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
         def checkCustom(message: discord.Message): #Check for message
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer and message.author.id not in thisQuestionAnswers:
                 return True
-            else
+            else:
                 thisQuestionAnswers.append(message.channel.id)
                 return False
 
