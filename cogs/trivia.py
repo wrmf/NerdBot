@@ -297,8 +297,9 @@ class Trivia(commands.Cog):
                         embed = discord.Embed(title="Trivia",
                                               description=f"Embed ran out of space, continuing!",
                                               color=ctx.message.author.top_role.color)  # Create embed
+                    elif (airportCodesList.index(n) == len(airportCodesList[0]) - 1):
+                        await ctx.send(embed=embed)  # Send embed
 
-                await ctx.send(embed=embed)  # Send embed
             else:
                 embed = discord.Embed(title="ERROR",
                                       description=f"While category {category} is a valid trivia category, it is currently not supported by this function. Please contact Nerd#2021 to have it added ASAP.",
