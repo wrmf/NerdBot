@@ -291,7 +291,7 @@ class Trivia(commands.Cog):
                 counter = 1;
                 for n in airportCodesList[0]: #Loop through questions
                     embed.add_field(name=counter, value=f"{n}/n", inline=False)
-                    counter++
+                    counter+=1
                 await ctx.send(embed=embed)  # Send embed
             else:
                 embed = discord.Embed(title="ERROR",
