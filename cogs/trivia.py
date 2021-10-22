@@ -290,8 +290,14 @@ class Trivia(commands.Cog):
             if category == triviaCategoriesList[0]:
                 counter = 1;
                 for n in airportCodesList[0]: #Loop through questions
-                    embed.add_field(name=counter, value=f"{n}/n", inline=False)
-                    counter+=1
+                    embed.add_field(name=counter, value=f"{n}\n", inline=False)
+                    counter+=1 #Make sure
+                    if counter%26 == 0 and counter != 0:
+                        await ctx.send(embed=embed)  # Send embed
+                        embed = discord.Embed(title="Trivia",
+                                              description=f"Embed ran out of space, continuing!",
+                                              color=ctx.message.author.top_role.color)  # Create embed
+
                 await ctx.send(embed=embed)  # Send embed
             else:
                 embed = discord.Embed(title="ERROR",
