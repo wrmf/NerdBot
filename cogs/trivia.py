@@ -11,7 +11,7 @@ import random
 import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
-from airportCodesTriviaFile import airportCodesList
+from airportCodes import airportCodesList
 import importlib
 
 maxTriviaQuestions = len(airportCodesList[0])
@@ -253,7 +253,7 @@ class Trivia(commands.Cog):
                 airportCodesListLocal[0].append(name)  # Add their ID
                 airportCodesListLocal[1].append(code)  # Add their display name
                 # Fix the ldl_staff.py file
-                with open("airportCodesTriviaFile.py", 'r+') as file:
+                with open("airportCodes.py", 'r+') as file:
                     file.truncate(0)
                     string = "airportCodesList = [" + str(airportCodesListLocal[0]) + "," + str(airportCodesListLocal[1]) + "]"
                     file.write(string)
@@ -263,6 +263,42 @@ class Trivia(commands.Cog):
                                 inline=True)  # Make sucess message
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
+
+    @commands.command(aliases=['printquestions'])
+    @commands.check(is_owner)
+    async def printQuestions(self, ctx: commands.Context, category: str = None):
+        """
+        Print out all of the questions for a specified category
+        @param category: category to print questions from
+        @author Nerd#2021
+        """
+
+        if category == None: #Make sure user entered a category
+            embed = discord.Embed(title="ERROR",
+                                  description=f"Please enter a category and try again",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+        elif category.lower() not in triviaCategoriesList: #Make sure category is valid
+            embed = discord.Embed(title="ERROR",
+                                  description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+        else: #Print it out
+            embed = discord.Embed(title="Trivia",
+                                  description=f"The questions in category {category} are:",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            if category.lower() == triviaCategoriesList[0]:
+                counter = 1;
+                for n in airportCodesList[0]: #Loop through questions
+                    embed.add_field(name=counter, value=f"{n}/n", inline=False)
+                    counter++
+                await ctx.send(embed=embed)  # Send embed
+            else:
+                embed = discord.Embed(title="ERROR",
+                                      description=f"While category {category} is a valid trivia category, it is currently not supported by this function. Please contact Nerd#2021 to have it added ASAP.",
+                                      color=ctx.message.author.top_role.color)  # Create embed
+                await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
