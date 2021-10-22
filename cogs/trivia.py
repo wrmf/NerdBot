@@ -78,6 +78,9 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
     x = 0
 
     while x < questions: #Multiple questions
+
+        thisQuestionAnswers = []
+
         num = random.randint(0, len(airportCodesList[0]) - 1) #Correct answer
         while num in listOfQuestions: #Make sure this question has not been asked already this game
             num = random.randint(0, len(airportCodesList[0]) - 1)
@@ -110,9 +113,10 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
         await ctx.send(embed=embed) #Send embed
 
         def checkCustom(message: discord.Message): #Check for message
-            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
+            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer and message.author.id not in thisQuestionAnswers:
                 return True
-            else:
+            else
+                thisQuestionAnswers.append(message.channel.id)
                 return False
 
         try:
