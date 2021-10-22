@@ -77,56 +77,56 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
     correctAnswers = [[],[]]
     x = 0
 
-    while x < questions:
-        num = random.randint(0, len(airportCodesList[0]) - 1)
-        while num in listOfQuestions:
+    while x < questions: #Multiple questions
+        num = random.randint(0, len(airportCodesList[0]) - 1) #Correct answer
+        while num in listOfQuestions: #Make sure this question has not been asked already this game
             num = random.randint(0, len(airportCodesList[0]) - 1)
-        listOfQuestions.append(num)
+        listOfQuestions.append(num) #Add correct answer
         embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
                               color=ctx.message.author.top_role.color)  # Create embed
-        listOfAnswers = []
-        counter = 0
+        listOfAnswers = [] #Wrong answer array
+        counter = 0 #Counter for wrong answer number
         while counter < 3:
-            num2 = random.randint(0, (len(airportCodesList[0])-1))
+            num2 = random.randint(0, (len(airportCodesList[0])-1)) #Generate location
             if num2 in listOfAnswers or num2 == num:
-                pass
+                pass #Do nothing if that answer has already been selected
             else:
-                listOfAnswers.append(num2)
-                counter+=1
+                listOfAnswers.append(num2) #Add to list
+                counter+=1 #Increment to make sure we only get 3 wrong answers
 
-        placementOfRightAnswer = random.randint(0, 3)
-        counterWrongAnswer = 0
+        placementOfRightAnswer = random.randint(0, 3) #Randomly generate right answer location
+        counterWrongAnswer = 0 #Counter for the number of wrong answers place (for wrong answer array)
 
         counter2 = 0
 
-        while counter2 < 4:
-            if counter2 == placementOfRightAnswer:
+        while counter2 < 4: #Place answers in embed
+            if counter2 == placementOfRightAnswer: #Place correct answer
                 embed.add_field(name=counter2, value=airportCodesList[1][num], inline=False)  #Get right answer added
                 counter2+=1
-            else:
+            else: #Place wrong answers
                 embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
                 counterWrongAnswer+=1
                 counter2+=1
-        await ctx.send(embed=embed)
+        await ctx.send(embed=embed) #Send embed
 
-        def checkCustom(message: discord.Message):
+        def checkCustom(message: discord.Message): #Check for message
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer:
                 return True
             else:
                 return False
 
         try:
-            msg = await client.wait_for('message', timeout=15.0, check=checkCustom)
+            msg = await client.wait_for('message', timeout=15.0, check=checkCustom) #Wait on player answer
 
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
             if msg.author.id not in correctAnswers[0]:
-                correctAnswers[0].append(msg.author.id)
-                correctAnswers[1].append(1)
+                correctAnswers[0].append(msg.author.id) #Add them to the correct answer list
+                correctAnswers[1].append(1) #Add their score to the correct answer list
             else:
-                correctAnswers[1][correctAnswers[0].index(msg.author.id)] += 1
+                correctAnswers[1][correctAnswers[0].index(msg.author.id)] += 1  #Increment number of correct answers by player
 
         except asyncio.TimeoutError:  # Timeout
             embed = discord.Embed(title="Trivia",
@@ -136,35 +136,33 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
 
         x+=1
 
-    highestScoreUser = [0]
-    highestScore = [0]
-    multipleUsers = False
+    highestScoreUser = [0] #Player(s) with highest score
+    highestScore = 0 #highest score
+    multipleUsers = False #Bool for if there was a tie or not
 
-    for n in correctAnswers[0]:
-        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore[0]:
-            multipleUsers = False
-            highestScore.clear()
-            highestScoreUser.clear()
-            highestScore = correctAnswers[1][correctAnswers[0].index(n)]
-            highestScoreUser = n
-        elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore[0]:
-            multipleUsers = True
-            highestScoreUser.append(n)
-            highestScore.append(correctAnswers[1][correctAnswers[0].index(n)])
+    for n in correctAnswers[0]: #Loop through everyone who got an answer correct
+        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore[0]: #If they are the new high score
+            multipleUsers = False #Set tie bool to false
+            highestScoreUser.clear() #Clear array of people
+            highestScore = correctAnswers[1][correctAnswers[0].index(n)] #Make sure highest score is correct
+            highestScoreUser = n #Set highest score user
+        elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore[0]: #If they tied
+            multipleUsers = True #Tie bool to true
+            highestScoreUser.append(n) #Add user to list
 
-    if not multipleUsers:
+    if not multipleUsers: #Print solo win message if there was one winner
         embed = discord.Embed(title="Trivia",
                               description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore / questions * 100}% correct rate!",
                               color=ctx.message.author.top_role.color)  # Create embed
         await ctx.send(embed=embed)  # Send embed
-    else:
+    else: #Print win message if there was a tie (supports up to a 25 way tie)
         embed = discord.Embed(title="Trivia",
                               description=f"Game over! The winners are:",
                               color=ctx.message.author.top_role.color)  # Create embed
 
-        for n in highestScoreUser:
-            embed.add_field(title="Winner!", value=f"<@{n}>", inline=True)
-        embed.add_field(title="~", value=f"each with {highestScore} questions correct! That's a {highestScore/questions*100}% correct rate!", inline=True)
+        for n in highestScoreUser: #Loop through people to print out
+            embed.add_field(title="Winner!", value=f"<@{n}>", inline=True) #Add people
+        embed.add_field(title="~", value=f"They each had {highestScore} questions correct! That's a {highestScore/questions*100}% correct rate!", inline=True) #Embed stating score
         await ctx.send(embed=embed)  # Send embed
 
     return
