@@ -47,10 +47,20 @@ class Bot(AutoShardedBot):
 			logger.error(repr(e))
 
 		if msg.guild.me in msg.mentions:
-			if(ctx.message.author.id == TNMN or ctx.message.author.id == Cheese):
+			if(ctx.message.author.id == TNMN):
 				pass
+			elif (ctx.message.author.id == Cheese):
+				embed = discord.Embed(title="PING",
+									  description=f"S̴̡̨̡̨̡̛̞̲̦̱̗̣̪͙̫̙̞͇͔͚͖͖͚̝͕̣͈̳͔̰̫̫̮͍̤̪̬͂̄̀̾̿̍̈͛̏̈́̑̂͛̂͐̿̉́̂̽͗͐͌͂̉̀͑̊̇̊̆́̓̕͜͜͝͠ͅt̵̗̪̹̮͓͕̺̤̣̲͈̮̤̙͚͇͙͕̠̯̻͚͔̠̮̾̆́̆̈́̉́͌͗̎̃̋͐͛̓̅͛̈́̀̃̚̚͜͜͝͝ͅǪ̷̪̱̱̪̯͖̬̎̓̓́͌͛̇́̌̽̓̂͂̅̂̈́̈̈́̐͌̐̊͛̀̕̕̚͜͝ͅp̵̧̧̧̪̫͕̳̯̥̪͙͖͎̺̟̞̥̺̋̔͗̃̂̂͋̔͊̌͊̍̒̆͌̀̓̔͐̽̎̔̀̈̌͗͂̃̎̚͘͝͝͝ ̵̛̙̙͓͎̥͚͙̪͎̫̤̠͈̙̫̭͈͍͎̬̝̩̹̬̝͉̪̺̓̓̈̈͂͆̾͑͗̐̔̽̅̈́͋͌̒̌͗̈́̂͑̔́̔̀̐̓̚͘͜͝͠͝P̸̧̺̞̹̼̥̤̠̳̥̪͚̝̤̫͖̟̙̗͓̜͓̥̞̯̰͈̺̙̜̥͆̀͌̏̊̏̔͋̓̅̔̚͜ͅͅͅͅi̸̡̢̢̢̧̡̨̛̠̻͈̖̻̣̘̯̞͙̝͖̣͕̗͔̻̮̘̜̗͈̭͓̫͔̱̦̞̖̭̱̫͉͕͙̱͎̜͑̈́̀̾͐͌̃͜͜͜Ń̶̛̼͌͗̑̎͊̾̏̔̓͗̾̾̂̎͒̓̀̾̅́̀̓̂͌̆̚g̷̯̣̭̣̃͋̎̌̾̊̊̑́̓̽͂́̐̎̊̎̀̆͒̑̏̐̄́͆̈̓̑̑̑̄̈́̌́͛̔̓̀͘̚͠͠͠͠I̴̢̡̜̙̞̦̙̜̤͕̥̟͑́̎̓͑̾̽͂̋͂́̒̿̋̇̅̈͛̓̎̎̿̿͋̅͐̓̈̈́̊͝͠͠n̴̨̗̦̝̜̤̝̟̞̖̳͔̟̺̲̤̖͚͚̿̏̿́͛̍͑͆̅̎͜͝G̶̛̺̤͎͎͓̖̜̬͇͓̙̤̦͙͎̗̈́̋̋̄̃͜ͅͅ ̴̡̧̢̨̧̯̼̯̱̺͉̰̹̳͓̱̞̗͎̝͚̪̥̝̲̖̝͔̪̣̟͙̞̜͍̭͓͚̮̀̈́͒̔͒̓̊̎̎͛̃̒̌̆̑̇̌͛͌͑̓͆̆̓̎̈́̑̌̆̃̈́́̈́́̐̅̃̈́̑͜͝m̵̛̝̠̼̲̮͓̟̩̝̤̺̪̻̫̳̬̥̠̟̬̜̰̫̮̞̭̦͓͉͚̗͙̣̬̻͈̀̍͊̑̿̌͋̈̂͑͜ͅE̸̛̛͚͇͖̻̹̺̠͓̙͛̀̋́͗̍̊͋͐͒̈́́̓̀͛͋̅͌̊͌͆̃͗͒͊̈̈́̉̑̃̍̀̅̕͘̕̚̚͝͝͠͠͝ ̵̫̗͚̝̍̒̐̓̅̒́͋͋̒̊̍̾́͛̉̊̅̀͆̀̀̉̃̽̅̈͛̔̔̈́̇͆͊͝͝͝͝c̵̡̛͔̝͓͈͇̼̞̭̠͉͓̟͙̻͗̑̃͗͛̇̈͋͑͑̅̔̏̍̒͋̀̓̊̇̅̀̄͜͝H̷̡̛̛͈̻̦̘͇̰͕̯̫̲̮̦͎̣̜͓̩͕͓̱͆̏͌̇͛̔̐͌͐̏̾̒̑̂̆͒͋̈́͂̆̃͂͋̋̆̀̈͂͂̀̄̄̚̚̕͝e̴̲̙͕̘̤̔͐͋͆͂͋͊̀̿͂̆͑͋͊̈̾̎̏̈́̕͝Ễ̶̢̢̧̨̡̛̹̯̳̫̰͔͖̥͔̘̞̳̗̣̼̖̻̫͓͍̬̮̼̞͙̘͇̣̞̦̠̰̜͈͔̎̓̆̔͂̑̌͑̈̈́̾̅́̐͒̌͑̈́̄̀̈́͑̓̉̽͛̓̽͊̀͘͜͝͝s̵̡̢̧̢͍̩̦͖͙̯͉̖̤̦̦̗̮̟̟̲̗̙͍̪̠͉͈̬̪̰͙̱͚̩͙̖͙̦͛̄͛̉͗͆́̈Ȩ̸̧͎̲̪̦͚̪̫͎̗̰͉̮̬̣̳̞͙̲͉͈̭̙̭̬̠̼̠͚͖̤̖͎͖͖͍̾͂̋͋̂̏̊̉͗̎̂̓̅͗́̋̋̒̋͒͊̾̓̐͗̓̀͂̇͋͒̈́̍͌̕͜͜͝͠",
+									  color=ctx.message.author.top_role.color)  # Create error embed
+				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+				await ctx.send(embed=embed)  # Send embed
 			else:
-				await ctx.send("My prefix is ~. You can get my command list by doing ~help")
+				embed = discord.Embed(title="PING",
+									  description=f"My prefix is ~. You can get my command list by doing ~help",
+									  color=ctx.message.author.top_role.color)  # Create error embed
+				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+				await ctx.send(embed=embed)  # Send embed
 
 		if "nayle" in msg.clean_content.lower():
 			if(ctx.guild.id == NAYLE_2021_staff):
