@@ -50,9 +50,9 @@ class Bot(AutoShardedBot):
 			logger.error(repr(e))
 
 		if msg.guild.me in msg.mentions:
-			if(ctx.message.author.id == TNMN):
+			if ctx.message.author.id == TNMN:
 				pass
-			elif (ctx.message.author.id == Cheese):
+			elif ctx.message.author.id == Cheese:
 				possibleMessages = ["STOP PINGING ME CHEESE", "WHY AM I HERE JUST TO SUFFER", "STOP NOW", "I WARNED YOU", "SO YOU HAVE CHOSEN DEATH", "YOU WILL LEARN TO FEAR ME MORTAL", "CHEESE IS BRUH", "BRUH", "YOU MESSED WITH THE WRONG BOT", "https://media.giphy.com/media/11tTNkNy1SdXGg/giphy.gif", "😡"]
 				embed = discord.Embed(title="PING",
 									  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
@@ -60,12 +60,20 @@ class Bot(AutoShardedBot):
 				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
 
 				await ctx.send(embed=embed)  # Send embed
+			#elif ctx.message.author.id == 191221766625034240 or ctx.message.author.id == 272413868033179649:
+			#	me = await client.get_user_info(TNMN)
+			#	await client.send_message(me, "Hello!")
+				#await ctx.message.author.send(f"d̷̨̧̬̜̮̤̓͆̈́͌̑͐͌̚̕͘͠u̵̡̞̳̻̠̭̟̠͎͍͈͉̞̳̒͆̈́͜͠ͅḿ̵̡̛̛̩̦̬̳̃̾͐͗̈́̇̊̉͊̊̊̍͘b̶̝͕̗͚̭͖̓̀̄́a̴̧̛̪̓̍̂̊͠s̸̡̡̟̤͍̟̰̼͊͛̽̇̎̈́́ş̷͇̘̖͎̖̓́͗ {ctx.message.author} pinged lockdown again")
 			else:
 				embed = discord.Embed(title="PING",
 									  description=f"My prefix is ~. You can get my command list by doing ~help",
 									  color=ctx.message.author.top_role.color)  # Create error embed
 				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
 				await ctx.send(embed=embed)  # Send embed
+
+		if 'testu1234' in msg.clean_content.lower():
+			me = await client.get_user_info(TNMN)
+			await client.send_message(me, "Hello!")
 
 		if "nayle" in msg.clean_content.lower():
 			if(ctx.guild.id == NAYLE_2021_staff):
