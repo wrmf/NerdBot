@@ -60,20 +60,12 @@ class Bot(AutoShardedBot):
 				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
 
 				await ctx.send(embed=embed)  # Send embed
-			#elif ctx.message.author.id == 191221766625034240 or ctx.message.author.id == 272413868033179649:
-			#	me = await client.get_user_info(TNMN)
-			#	await client.send_message(me, "Hello!")
-				#await ctx.message.author.send(f"d̷̨̧̬̜̮̤̓͆̈́͌̑͐͌̚̕͘͠u̵̡̞̳̻̠̭̟̠͎͍͈͉̞̳̒͆̈́͜͠ͅḿ̵̡̛̛̩̦̬̳̃̾͐͗̈́̇̊̉͊̊̊̍͘b̶̝͕̗͚̭͖̓̀̄́a̴̧̛̪̓̍̂̊͠s̸̡̡̟̤͍̟̰̼͊͛̽̇̎̈́́ş̷͇̘̖͎̖̓́͗ {ctx.message.author} pinged lockdown again")
 			else:
 				embed = discord.Embed(title="PING",
 									  description=f"My prefix is ~. You can get my command list by doing ~help",
 									  color=ctx.message.author.top_role.color)  # Create error embed
 				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
 				await ctx.send(embed=embed)  # Send embed
-
-		if 'testu1234' in msg.clean_content.lower():
-			me = await client.get_user_info(TNMN)
-			await client.send_message(me, "Hello!")
 
 		if "nayle" in msg.clean_content.lower():
 			if(ctx.guild.id == NAYLE_2021_staff):
@@ -94,6 +86,11 @@ class Bot(AutoShardedBot):
 					pass
 				else:
 					if(m.id == Lockdown):
+						if ctx.message.author.id == 191221766625034240 or ctx.message.author.id == 272413868033179649:
+							embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+							embed.add_field(name=f"Bruh", value=f"Bruh")
+							await ctx.send(embed=embed)
+
 						user = ctx.message.author
 						await ctx.send(f"{user.mention} please refrain from pinging Lockdown! Feel free to ping any admin or mod if you have a question! **WARNING**")
 						channel = discord.utils.get(user.guild.channels, name="logs")
