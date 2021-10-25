@@ -13,13 +13,16 @@ from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 from airportCodes import airportCodesList
 import importlib
-
-maxTriviaQuestions = len(airportCodesList[0])
 numUnansweredMax = 3
 
 
-async def getNumQuestions(self, ctx, maxQuestions, check):
+async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
+
+    if category == triviaCategoriesList[0]:
+        maxTriviaQuestions = len(airportCodesList[0])
+    else:
+        maxTriviaQuestions = 0
 
     embed = discord.Embed(title="Trivia",
                           description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
@@ -72,7 +75,7 @@ async def getCategory(self, ctx, category, check):
         return
 
 
-async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuthor):
+async def startTrivia(self, ctx, questions, originalChannel, questionsList):
     listOfQuestions = []
     correctAnswers = [[],[]]
     x = 0
@@ -81,16 +84,16 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
 
         thisQuestionAnswers = []
 
-        num = random.randint(0, len(airportCodesList[0]) - 1) #Correct answer
+        num = random.randint(0, len(questionsList[0]) - 1) #Correct answer
         while num in listOfQuestions: #Make sure this question has not been asked already this game
-            num = random.randint(0, len(airportCodesList[0]) - 1)
+            num = random.randint(0, len(questionsList[0]) - 1)
         listOfQuestions.append(num) #Add correct answer
-        embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{airportCodesList[0][num]}**",
+        embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{questionsList[0][num]}**",
                               color=ctx.message.author.top_role.color)  # Create embed
         listOfAnswers = [] #Wrong answer array
         counter = 0 #Counter for wrong answer number
         while counter < 3:
-            num2 = random.randint(0, (len(airportCodesList[0])-1)) #Generate location
+            num2 = random.randint(0, (len(questionsList[0])-1)) #Generate location
             if num2 in listOfAnswers or num2 == num:
                 pass #Do nothing if that answer has already been selected
             else:
@@ -104,10 +107,10 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
 
         while counter2 < 4: #Place answers in embed
             if counter2 == placementOfRightAnswer: #Place correct answer
-                embed.add_field(name=counter2, value=airportCodesList[1][num], inline=False)  #Get right answer added
+                embed.add_field(name=counter2, value=questionsList[1][num], inline=False)  #Get right answer added
                 counter2+=1
             else: #Place wrong answers
-                embed.add_field(name=counter2, value=airportCodesList[1][listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
+                embed.add_field(name=counter2, value=questionsList[1][listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
                 counterWrongAnswer+=1
                 counter2+=1
         await ctx.send(embed=embed) #Send embed
@@ -139,6 +142,7 @@ async def airportCodesTrivia(self, ctx, questions, originalChannel, originalAuth
             await ctx.send(embed=embed)  # Send embed
 
         x+=1
+
 
     highestScoreUser = [0] #Player(s) with highest score
     highestScore = 0 #highest score
@@ -218,10 +222,10 @@ class Trivia(commands.Cog):
             await ctx.send(embed=embed)  # Send embed
 
         else: #Run game
-            numQuestions = await getNumQuestions(self=self, ctx=ctx, maxQuestions=maxTriviaQuestions, check=check) #Get the number of questions
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category) #Get the number of questions
             if numQuestions is not None:
                 if category == triviaCategoriesList[0]: #Airport Codes trivia
-                    await airportCodesTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel= ctx.message.channel, originalAuthor=ctx.message.author.id) #Run game
+                    startTrivia(questions=numQuestions, originalChannel=ctx.message.channel, questionsList=airportCodesList)
 
     @commands.command(aliases=['addairport'])
     @commands.check(is_plane)
