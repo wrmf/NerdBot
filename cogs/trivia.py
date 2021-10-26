@@ -80,6 +80,9 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
     correctAnswers = [[],[]]
     x = 0
 
+    await ctx.send(questionList)
+    await ctx.send(airportCodesList[1])
+
     await ctx.send("lol")
 
     while x < questions: #Multiple questions
