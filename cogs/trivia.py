@@ -198,7 +198,7 @@ class Trivia(commands.Cog):
             i+=i
         await ctx.send(embed=embed) #Send embed
 
-    @commands.command(aliases=['triviastart'])
+    @commands.command(aliases=['triviastart', 'startTrivia', 'starttrivia'])
     async def triviaStart(self, ctx, category: str = None):
         """
         Start trivia game
@@ -225,7 +225,7 @@ class Trivia(commands.Cog):
             numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category) #Get the number of questions
             if numQuestions is not None:
                 if category == triviaCategoriesList[0]: #Airport Codes trivia
-                    startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel, question="What is the airport code for", questionList=airportCodesList[0], answerList=airportCodesList[1])
+                    await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel, question="What is the airport code for", questionList=airportCodesList[0], answerList=airportCodesList[1])
 
     @commands.command(aliases=['addairport'])
     @commands.check(is_plane)
