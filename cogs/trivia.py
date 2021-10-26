@@ -119,7 +119,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         await ctx.send(embed=embed) #Send embed
 
         def checkCustom(message: discord.Message): #Check for message
-            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer-1 and message.author.id not in thisQuestionAnswers:
+            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer+1 and message.author.id not in thisQuestionAnswers:
                 return True
             else:
                 thisQuestionAnswers.append(message.channel.id)
@@ -140,7 +140,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         except asyncio.TimeoutError:  # Timeout
             embed = discord.Embed(title="Trivia",
-                                  description=f"Question timed out! No one answered correctly! The correct answer was {airportCodesList[1][num]} (number {placementOfRightAnswer})!",
+                                  description=f"Question timed out! No one answered correctly! The correct answer was {answerList[num]} (number {placementOfRightAnswer+1})!",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
