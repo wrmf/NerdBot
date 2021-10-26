@@ -80,16 +80,24 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
     correctAnswers = [[],[]]
     x = 0
 
+    await ctx.send("I blame <@868928903878697020> lol")
+
     while x < questions: #Multiple questions
 
         thisQuestionAnswers = []
 
         num = random.randint(0, len(questionList[0]) - 1) #Correct answer
+
+        await ctx.send("I blame <@868928903878697020> lol")
+
         while num in listOfQuestions: #Make sure this question has not been asked already this game
             num = random.randint(0, len(questionList[0]) - 1)
         listOfQuestions.append(num) #Add correct answer
         embed = discord.Embed(title=f"Question {(x)+1}", description=f"{question} **{questionList[num]}**?",
                               color=ctx.message.author.top_role.color)  # Create embed
+
+        await ctx.send("I blame <@868928903878697020> lol")
+
         listOfAnswers = [] #Wrong answer array
         counter = 0 #Counter for wrong answer number
         while counter < 3:
