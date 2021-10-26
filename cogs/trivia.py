@@ -109,6 +109,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
             if num2 in listOfAnswers or num2 == num:
                 pass #Do nothing if that answer has already been selected
             else:
+                await ctx.send("We got here")
                 listOfAnswers.append(num2) #Add to list
                 counter+=1 #Increment to make sure we only get 3 wrong answers
 
