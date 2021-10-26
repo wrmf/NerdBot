@@ -1,1 +1,1 @@
-triviaCategoriesList = ["Airport Codes"]
+triviaCategoriesList = ["Airport Codes", "Airport Names"]

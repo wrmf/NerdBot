@@ -143,14 +143,9 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         x+=1
 
-    await ctx.send("E")
-
     highestScoreUser = [0] #Player(s) with highest score
     highestScore = 0 #highest score
     multipleUsers = False #Bool for if there was a tie or not
-
-    await ctx.send("E")
-    await ctx.send(correctAnswers)
 
     for n in correctAnswers[0]: #Loop through everyone who got an answer correct
         if correctAnswers[1][correctAnswers[0].index(n)] > highestScore: #If they are the new high score
@@ -161,8 +156,6 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore: #If they tied
             multipleUsers = True #Tie bool to true
             highestScoreUser.append(n) #Add user to list
-
-    await ctx.send("E")
 
     if not multipleUsers: #Print solo win message if there was one winner
         embed = discord.Embed(title="Trivia",
@@ -231,7 +224,13 @@ class Trivia(commands.Cog):
             numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category) #Get the number of questions
             if numQuestions is not None:
                 if category == triviaCategoriesList[0]: #Airport Codes trivia
-                    await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel, question="What is the airport code for", questionList=airportCodesList[0], answerList=airportCodesList[1])
+                    await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
+                                      question="What is the airport code for", questionList=airportCodesList[0],
+                                      answerList=airportCodesList[1])
+                elif category == triviaCategoriesList[1]: #Airport Codes trivia
+                    await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
+                                      question="What airport has code", questionList=airportCodesList[1],
+                                      answerList=airportCodesList[0])
 
     @commands.command(aliases=['addairport'])
     @commands.check(is_plane)
@@ -299,7 +298,7 @@ class Trivia(commands.Cog):
             embed = discord.Embed(title="Trivia",
                                   description=f"The questions in category {category} are:",
                                   color=ctx.message.author.top_role.color)  # Create embed
-            if category == triviaCategoriesList[0]:
+            if category == triviaCategoriesList[0]: #Airport Codes
                 counter = 1;
                 for n in airportCodesList[0]: #Loop through questions
                     embed.add_field(name=counter, value=f"{n}\n", inline=False)
@@ -310,6 +309,19 @@ class Trivia(commands.Cog):
                                               description=f"Embed ran out of space, continuing!",
                                               color=ctx.message.author.top_role.color)  # Create embed
                     elif (airportCodesList[0].index(n) == len(airportCodesList[0]) - 1):
+                        await ctx.send(embed=embed)  # Send embed
+
+            elif category == triviaCategoriesList[1]: #Airport Names
+                counter = 1;
+                for n in airportCodesList[1]: #Loop through questions
+                    embed.add_field(name=counter, value=f"{n}\n", inline=False)
+                    counter+=1 #Make sure
+                    if counter%26 == 0 and counter != 0:
+                        await ctx.send(embed=embed)  # Send embed
+                        embed = discord.Embed(title="Trivia",
+                                              description=f"Embed ran out of space, continuing!",
+                                              color=ctx.message.author.top_role.color)  # Create embed
+                    elif (airportCodesList[1].index(n) == len(airportCodesList[0]) - 1):
                         await ctx.send(embed=embed)  # Send embed
 
             else:
