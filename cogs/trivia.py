@@ -119,7 +119,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         await ctx.send(embed=embed) #Send embed
 
         def checkCustom(message: discord.Message): #Check for message
-            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer and message.author.id not in thisQuestionAnswers:
+            if message.channel == originalChannel and (int(message.content)+1) == placementOfRightAnswer and message.author.id not in thisQuestionAnswers:
                 return True
             else:
                 thisQuestionAnswers.append(message.channel.id)
