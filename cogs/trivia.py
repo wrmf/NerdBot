@@ -75,7 +75,7 @@ async def getCategory(self, ctx, category, check):
         return
 
 
-async def startTrivia(self, ctx, questions, originalChannel, questionsList):
+async def startTrivia(self, ctx, questions, originalChannel, question, questionList, answerList):
     listOfQuestions = []
     correctAnswers = [[],[]]
     x = 0
@@ -84,16 +84,16 @@ async def startTrivia(self, ctx, questions, originalChannel, questionsList):
 
         thisQuestionAnswers = []
 
-        num = random.randint(0, len(questionsList[0]) - 1) #Correct answer
+        num = random.randint(0, len(questionList[0]) - 1) #Correct answer
         while num in listOfQuestions: #Make sure this question has not been asked already this game
-            num = random.randint(0, len(questionsList[0]) - 1)
+            num = random.randint(0, len(questionList[0]) - 1)
         listOfQuestions.append(num) #Add correct answer
-        embed = discord.Embed(title=f"Question {(x)+1}", description=f"What is the airport code for **{questionsList[0][num]}**",
+        embed = discord.Embed(title=f"Question {(x)+1}", description=f"{question} **{questionList[num]}**?",
                               color=ctx.message.author.top_role.color)  # Create embed
         listOfAnswers = [] #Wrong answer array
         counter = 0 #Counter for wrong answer number
         while counter < 3:
-            num2 = random.randint(0, (len(questionsList[0])-1)) #Generate location
+            num2 = random.randint(0, (len(questionList[0])-1)) #Generate location
             if num2 in listOfAnswers or num2 == num:
                 pass #Do nothing if that answer has already been selected
             else:
@@ -107,10 +107,10 @@ async def startTrivia(self, ctx, questions, originalChannel, questionsList):
 
         while counter2 < 4: #Place answers in embed
             if counter2 == placementOfRightAnswer: #Place correct answer
-                embed.add_field(name=counter2, value=questionsList[1][num], inline=False)  #Get right answer added
+                embed.add_field(name=counter2, value=answerList[num], inline=False)  #Get right answer added
                 counter2+=1
             else: #Place wrong answers
-                embed.add_field(name=counter2, value=questionsList[1][listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
+                embed.add_field(name=counter2, value=answerList[listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
                 counterWrongAnswer+=1
                 counter2+=1
         await ctx.send(embed=embed) #Send embed
@@ -225,7 +225,7 @@ class Trivia(commands.Cog):
             numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category) #Get the number of questions
             if numQuestions is not None:
                 if category == triviaCategoriesList[0]: #Airport Codes trivia
-                    startTrivia(questions=numQuestions, originalChannel=ctx.message.channel, questionsList=airportCodesList)
+                    startTrivia(questions=numQuestions, originalChannel=ctx.message.channel, question="What is the airport code for", questionList=airportCodesList[0], answerList=airportCodesList[1])
 
     @commands.command(aliases=['addairport'])
     @commands.check(is_plane)
