@@ -80,50 +80,34 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
     correctAnswers = [[],[]]
     x = 0
 
-    await ctx.send(questionList)
-    await ctx.send(airportCodesList[1])
-
-    await ctx.send("lol")
-
     while x < questions: #Multiple questions
 
         thisQuestionAnswers = []
 
-        num = random.randint(0, len(questionList[0]) - 1) #Correct answer
-
-        await ctx.send("lol")
+        num = random.randint(0, len(questionList) - 1) #Correct answer
 
         while num in listOfQuestions: #Make sure this question has not been asked already this game
-            num = random.randint(0, len(questionList[0]) - 1)
+            num = random.randint(0, len(questionList) - 1)
         listOfQuestions.append(num) #Add correct answer
         embed = discord.Embed(title=f"Question {(x)+1}", description=f"{question} **{questionList[num]}**?",
                               color=ctx.message.author.top_role.color)  # Create embed
 
-        await ctx.send("lol")
-
         listOfAnswers = [] #Wrong answer array
         counter = 0 #Counter for wrong answer number
 
-        await ctx.send("lol")
-
         while counter < 3:
-            await ctx.send(len(questionList[0]))
-            num2 = random.randint(0, (len(questionList[0])-1)) #Generate location
+            await ctx.send(len(questionList))
+            num2 = random.randint(0, (len(questionList)-1)) #Generate location
             if num2 in listOfAnswers or num2 == num:
                 pass #Do nothing if that answer has already been selected
             else:
-                await ctx.send("We got here")
                 listOfAnswers.append(num2) #Add to list
                 counter+=1 #Increment to make sure we only get 3 wrong answers
-
-        await ctx.send("lol")
 
         placementOfRightAnswer = random.randint(0, 3) #Randomly generate right answer location
         counterWrongAnswer = 0 #Counter for the number of wrong answers place (for wrong answer array)
 
         counter2 = 0
-
-        await ctx.send("lol")
 
         while counter2 < 4: #Place answers in embed
             if counter2 == placementOfRightAnswer: #Place correct answer
@@ -134,8 +118,6 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                 counterWrongAnswer+=1
                 counter2+=1
         await ctx.send(embed=embed) #Send embed
-
-        await ctx.send("bruh")
 
         def checkCustom(message: discord.Message): #Check for message
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer and message.author.id not in thisQuestionAnswers:
@@ -164,10 +146,6 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
             await ctx.send(embed=embed)  # Send embed
 
         x+=1
-
-        await ctx.send("lol")
-
-    await ctx.send("scoring!")
 
     highestScoreUser = [0] #Player(s) with highest score
     highestScore = 0 #highest score
