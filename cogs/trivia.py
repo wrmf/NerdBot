@@ -96,7 +96,6 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         counter = 0 #Counter for wrong answer number
 
         while counter < 3:
-            await ctx.send(len(questionList))
             num2 = random.randint(0, (len(questionList)-1)) #Generate location
             if num2 in listOfAnswers or num2 == num:
                 pass #Do nothing if that answer has already been selected
@@ -162,10 +161,16 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
             highestScoreUser.append(n) #Add user to list
 
     if not multipleUsers: #Print solo win message if there was one winner
-        embed = discord.Embed(title="Trivia",
-                              description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore / questions * 100}% correct rate!",
-                              color=ctx.message.author.top_role.color)  # Create embed
-        await ctx.send(embed=embed)  # Send embed
+        if(highestScoreUser != 0):
+            embed = discord.Embed(title="Trivia",
+                                  description=f"Game over! The winner was <@{highestScoreUser}> with {highestScore} answers correct! That's a {highestScore / questions * 100}% correct rate!",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+        else:
+            embed = discord.Embed(title="Trivia",
+                                  description=f"Game over! No one got any answers correct!",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
     else: #Print win message if there was a tie (supports up to a 25 way tie)
         embed = discord.Embed(title="Trivia",
                               description=f"Game over! The winners are:",
@@ -232,7 +237,6 @@ class Trivia(commands.Cog):
                                       question="What is the airport code for", questionList=airportCodesList[0],
                                       answerList=airportCodesList[1])
                 elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
-                    await ctx.send("Attempting to start")
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
