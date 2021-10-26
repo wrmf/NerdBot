@@ -20,7 +20,7 @@ async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
 
     if category == triviaCategoriesList[0]:
-        maxTriviaQuestions = len(airportCodesList[0])
+        maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList.index(category)])
     else:
         maxTriviaQuestions = 0
 
