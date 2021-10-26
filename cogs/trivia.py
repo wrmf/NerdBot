@@ -143,10 +143,13 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         x+=1
 
+    await ctx.send("E")
 
     highestScoreUser = [0] #Player(s) with highest score
     highestScore = 0 #highest score
     multipleUsers = False #Bool for if there was a tie or not
+
+    await ctx.send("E")
 
     for n in correctAnswers[0]: #Loop through everyone who got an answer correct
         if correctAnswers[1][correctAnswers[0].index(n)] > highestScore[0]: #If they are the new high score
@@ -157,6 +160,8 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore[0]: #If they tied
             multipleUsers = True #Tie bool to true
             highestScoreUser.append(n) #Add user to list
+
+    await ctx.send("E")
 
     if not multipleUsers: #Print solo win message if there was one winner
         embed = discord.Embed(title="Trivia",
