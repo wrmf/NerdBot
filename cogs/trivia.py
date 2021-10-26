@@ -89,7 +89,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         while num in listOfQuestions: #Make sure this question has not been asked already this game
             num = random.randint(0, len(questionList) - 1)
         listOfQuestions.append(num) #Add correct answer
-        embed = discord.Embed(title=f"Question {(x)+1}", description=f"{question} **{questionList[num]}**?",
+        embed = discord.Embed(title=f"Question {x+1}", description=f"{question} **{questionList[num]}**?",
                               color=ctx.message.author.top_role.color)  # Create embed
 
         listOfAnswers = [] #Wrong answer array
