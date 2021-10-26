@@ -150,14 +150,15 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
     multipleUsers = False #Bool for if there was a tie or not
 
     await ctx.send("E")
+    await ctx.send(correctAnswers)
 
     for n in correctAnswers[0]: #Loop through everyone who got an answer correct
-        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore[0]: #If they are the new high score
+        if correctAnswers[1][correctAnswers[0].index(n)] > highestScore: #If they are the new high score
             multipleUsers = False #Set tie bool to false
             highestScoreUser.clear() #Clear array of people
             highestScore = correctAnswers[1][correctAnswers[0].index(n)] #Make sure highest score is correct
             highestScoreUser = n #Set highest score user
-        elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore[0]: #If they tied
+        elif correctAnswers[1][correctAnswers[0].index(n)] == highestScore: #If they tied
             multipleUsers = True #Tie bool to true
             highestScoreUser.append(n) #Add user to list
 
