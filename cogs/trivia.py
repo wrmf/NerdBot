@@ -104,6 +104,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         await ctx.send("lol")
 
         while counter < 3:
+            await ctx.send(len(questionList[0]))
             num2 = random.randint(0, (len(questionList[0])-1)) #Generate location
             if num2 in listOfAnswers or num2 == num:
                 pass #Do nothing if that answer has already been selected
