@@ -51,7 +51,7 @@ async def getCategory(self, ctx, category, check):
     embed = discord.Embed(title="Trivia", description=f"Please select a trivia category from the following categories:",
                           color=ctx.message.author.top_role.color)  # Create embed
     i = 1
-    for category in triviaCategoriesList:
+    for category in triviaCategoriesList[0]:
         embed.add_field(name=i, value=category, inline=True)  # Set title for first embed
         i += i
     await ctx.send(embed=embed)  # Send embed
@@ -192,7 +192,7 @@ class Trivia(commands.Cog):
         embed = discord.Embed(title="Trivia", description=f"The available trivia categories are:",
                               color=ctx.message.author.top_role.color) #Create embed
         i = 1
-        for category in triviaCategoriesList:
+        for category in triviaCategoriesList[0]:
             embed.add_field(name=i, value=category, inline=True) #Set title for first embed
             i+=i
         await ctx.send(embed=embed) #Send embed
@@ -214,7 +214,7 @@ class Trivia(commands.Cog):
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        elif category not in triviaCategoriesList: #error if category is not valid
+        elif category not in triviaCategoriesList[0]: #error if category is not valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
@@ -223,11 +223,11 @@ class Trivia(commands.Cog):
         else: #Run game
             numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category) #Get the number of questions
             if numQuestions is not None:
-                if category == triviaCategoriesList[0]: #Airport Codes trivia
+                if category == triviaCategoriesList[0][0]: #Airport Codes trivia
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What is the airport code for", questionList=airportCodesList[0],
                                       answerList=airportCodesList[1])
-                elif category == triviaCategoriesList[1]: #Airport Codes trivia
+                elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
@@ -289,7 +289,7 @@ class Trivia(commands.Cog):
                                   description=f"Please enter a category and try again",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
-        elif category not in triviaCategoriesList: #Make sure category is valid
+        elif category not in triviaCategoriesList[0]: #Make sure category is valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
@@ -298,7 +298,7 @@ class Trivia(commands.Cog):
             embed = discord.Embed(title="Trivia",
                                   description=f"The questions in category {category} are:",
                                   color=ctx.message.author.top_role.color)  # Create embed
-            if category == triviaCategoriesList[0]: #Airport Codes
+            if category == triviaCategoriesList[0][0]: #Airport Codes
                 counter = 1;
                 for n in airportCodesList[0]: #Loop through questions
                     embed.add_field(name=counter, value=f"{n}\n", inline=False)
@@ -311,7 +311,7 @@ class Trivia(commands.Cog):
                     elif (airportCodesList[0].index(n) == len(airportCodesList[0]) - 1):
                         await ctx.send(embed=embed)  # Send embed
 
-            elif category == triviaCategoriesList[1]: #Airport Names
+            elif category == triviaCategoriesList[0][1]: #Airport Names
                 counter = 1;
                 for n in airportCodesList[1]: #Loop through questions
                     embed.add_field(name=counter, value=f"{n}\n", inline=False)
