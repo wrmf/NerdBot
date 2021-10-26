@@ -89,7 +89,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         while num in listOfQuestions: #Make sure this question has not been asked already this game
             num = random.randint(0, len(questionList) - 1)
         listOfQuestions.append(num) #Add correct answer
-        embed = discord.Embed(title=f"Question {x+1}", description=f"{question} **{questionList[num]}**?",
+        embed = discord.Embed(title=f"Question {(x)+1}", description=f"{question} **{questionList[num]}**?",
                               color=ctx.message.author.top_role.color)  # Create embed
 
         listOfAnswers = [] #Wrong answer array
@@ -110,10 +110,10 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         while counter2 < 4: #Place answers in embed
             if counter2 == placementOfRightAnswer: #Place correct answer
-                embed.add_field(name=counter2, value=answerList[num], inline=False)  #Get right answer added
+                embed.add_field(name=counter2+1, value=answerList[num], inline=False)  #Get right answer added
                 counter2+=1
             else: #Place wrong answers
-                embed.add_field(name=counter2, value=answerList[listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
+                embed.add_field(name=counter2+1, value=answerList[listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
                 counterWrongAnswer+=1
                 counter2+=1
         await ctx.send(embed=embed) #Send embed
