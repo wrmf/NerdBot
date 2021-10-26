@@ -19,13 +19,8 @@ numUnansweredMax = 3
 async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
 
-    await ctx.send(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
-    await ctx.send(category)
-    await ctx.send(len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)]))
-
     if category in triviaCategoriesList[0]:
-        maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
-        await ctx.send(maxTriviaQuestions)
+        maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])HQ
     else:
         maxTriviaQuestions = 0
 
@@ -233,6 +228,7 @@ class Trivia(commands.Cog):
                                       question="What is the airport code for", questionList=airportCodesList[0],
                                       answerList=airportCodesList[1])
                 elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
+                    await ctx.send("Attempting to start")
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
