@@ -308,7 +308,10 @@ class Trivia(commands.Cog):
                                   description=f"The questions in category {category} are:",
                                   color=ctx.message.author.top_role.color)  # Create embed
             counter = 1;
-            list = random.shuffle(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
+            list = triviaCategoriesList[1][triviaCategoriesList[0].index(category)]
+            await ctx.send(list)
+            random.shuffle(list)
+            await ctx.send(list)
             for n in list: #Loop through questions
                 embed.add_field(name=counter, value=f"{n}\n", inline=False)
                 counter+=1 #Make sure
