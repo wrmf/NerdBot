@@ -14,7 +14,6 @@ from triviaCategoriesList import triviaCategoriesList
 from airportCodes import airportCodesList
 import importlib
 numUnansweredMax = 3
-correctlyAnswered = False
 
 
 async def getNumQuestions(self, ctx, check, category):
@@ -121,19 +120,13 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         def checkCustom(message: discord.Message): #Check for message
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer+1 and message.author.id not in thisQuestionAnswers:
-                correctlyAnswered = True
                 return True
             else:
                 thisQuestionAnswers.append(message.author.id)
                 return False
 
         try:
-            await ctx.send(thisQuestionAnswers)
-            await ctx.send(f"Looking for {placementOfRightAnswer+1}")
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom) #Wait on player answer
-            await ctx.send(correctlyAnswered)
-            if correctlyAnswered:
-                pass
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
                                   color=ctx.message.author.top_role.color)  # Create embed
