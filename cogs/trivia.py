@@ -308,7 +308,8 @@ class Trivia(commands.Cog):
                                   description=f"The questions in category {category} are:",
                                   color=ctx.message.author.top_role.color)  # Create embed
             counter = 1;
-            for n in triviaCategoriesList[1][triviaCategoriesList[0].index(category)]: #Loop through questions
+            list = random.shuffle(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
+            for n in list: #Loop through questions
                 embed.add_field(name=counter, value=f"{n}\n", inline=False)
                 counter+=1 #Make sure
                 if counter%26 == 0 and counter != 0:
@@ -316,7 +317,7 @@ class Trivia(commands.Cog):
                     embed = discord.Embed(title="Trivia",
                                           description=f"Embed ran out of space, continuing!",
                                           color=ctx.message.author.top_role.color)  # Create embed
-                elif (triviaCategoriesList[1][triviaCategoriesList[0].index(category)].index(n) == len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)]) - 1):
+                elif (list.index(n) == len(list) - 1):
                     await ctx.send(embed=embed)  # Send embed
 
 
