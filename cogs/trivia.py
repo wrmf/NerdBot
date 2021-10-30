@@ -130,7 +130,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         try:
             await ctx.send(thisQuestionAnswers)
-            await ctx.send(f"Looking for {placementOfRightAnswer+1})
+            await ctx.send(f"Looking for {placementOfRightAnswer+1}")
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom) #Wait on player answer
             await ctx.send(correctlyAnswered)
             if correctlyAnswered:
