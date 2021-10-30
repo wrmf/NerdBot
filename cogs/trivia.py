@@ -307,37 +307,21 @@ class Trivia(commands.Cog):
             embed = discord.Embed(title="Trivia",
                                   description=f"The questions in category {category} are:",
                                   color=ctx.message.author.top_role.color)  # Create embed
-            if category == triviaCategoriesList[0][0]: #Airport Codes
-                counter = 1;
-                for n in airportCodesList[0]: #Loop through questions
-                    embed.add_field(name=counter, value=f"{n}\n", inline=False)
-                    counter+=1 #Make sure
-                    if counter%26 == 0 and counter != 0:
-                        await ctx.send(embed=embed)  # Send embed
-                        embed = discord.Embed(title="Trivia",
-                                              description=f"Embed ran out of space, continuing!",
-                                              color=ctx.message.author.top_role.color)  # Create embed
-                    elif (airportCodesList[0].index(n) == len(airportCodesList[0]) - 1):
-                        await ctx.send(embed=embed)  # Send embed
+            counter = 1;
+            for n in triviaCategoriesList[1][triviaCategoriesList[0].index(category)]: #Loop through questions
+                embed.add_field(name=counter, value=f"{n}\n", inline=False)
+                counter+=1 #Make sure
+                if counter%26 == 0 and counter != 0:
+                    await ctx.send(embed=embed)  # Send embed
+                    embed = discord.Embed(title="Trivia",
+                                          description=f"Embed ran out of space, continuing!",
+                                          color=ctx.message.author.top_role.color)  # Create embed
+                elif (triviaCategoriesList[1][triviaCategoriesList[0].index(category)].index(n) == len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)]) - 1):
+                    await ctx.send(embed=embed)  # Send embed
 
-            elif category == triviaCategoriesList[0][1]: #Airport Names
-                counter = 1;
-                for n in airportCodesList[1]: #Loop through questions
-                    embed.add_field(name=counter, value=f"{n}\n", inline=False)
-                    counter+=1 #Make sure
-                    if counter%26 == 0 and counter != 0:
-                        await ctx.send(embed=embed)  # Send embed
-                        embed = discord.Embed(title="Trivia",
-                                              description=f"Embed ran out of space, continuing!",
-                                              color=ctx.message.author.top_role.color)  # Create embed
-                    elif (airportCodesList[1].index(n) == len(airportCodesList[0]) - 1):
-                        await ctx.send(embed=embed)  # Send embed
 
-            else:
-                embed = discord.Embed(title="ERROR",
-                                      description=f"While category {category} is a valid trivia category, it is currently not supported by this function. Please contact Nerd#2021 to have it added ASAP.",
-                                      color=ctx.message.author.top_role.color)  # Create embed
-                await ctx.send(embed=embed)
+
+
 
 
 def setup(bot):
