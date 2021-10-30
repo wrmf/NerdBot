@@ -314,6 +314,7 @@ class Trivia(commands.Cog):
                 embed.add_field(name=counter, value=f"{n}\n", inline=False)
                 counter+=1 #Make sure
                 if counter%26 == 0 and counter != 0:
+                    embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                     await ctx.send(embed=embed)  # Send embed
                     embed = discord.Embed(title="Trivia",
                                           description=f"Embed ran out of space, continuing!",
