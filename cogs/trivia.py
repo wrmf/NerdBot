@@ -319,6 +319,7 @@ class Trivia(commands.Cog):
                                           description=f"Embed ran out of space, continuing!",
                                           color=ctx.message.author.top_role.color)  # Create embed
                 elif (list.index(n) == len(list) - 1):
+                    embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                     await ctx.send(embed=embed)  # Send embed
 
 
