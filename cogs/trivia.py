@@ -119,8 +119,6 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                 counter2+=1
         await ctx.send(embed=embed) #Send embed
 
-        correctlyAnswered = False
-
         def checkCustom(message: discord.Message): #Check for message
             if message.channel == originalChannel and int(message.content) == placementOfRightAnswer+1 and message.author.id not in thisQuestionAnswers:
                 correctlyAnswered = True
@@ -135,15 +133,16 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom) #Wait on player answer
             await ctx.send(correctlyAnswered)
             if correctlyAnswered:
-                embed = discord.Embed(title="Trivia",
-                                      description=f"{msg.author.mention} has won this round!",
-                                      color=ctx.message.author.top_role.color)  # Create embed
-                await ctx.send(embed=embed)  # Send embed
-                if msg.author.id not in correctAnswers[0]:
-                    correctAnswers[0].append(msg.author.id) #Add them to the correct answer list
-                    correctAnswers[1].append(1) #Add their score to the correct answer list
-                else:
-                    correctAnswers[1][correctAnswers[0].index(msg.author.id)] += 1  #Increment number of correct answers by player
+                pass
+            embed = discord.Embed(title="Trivia",
+                                  description=f"{msg.author.mention} has won this round!",
+                                  color=ctx.message.author.top_role.color)  # Create embed
+            await ctx.send(embed=embed)  # Send embed
+            if msg.author.id not in correctAnswers[0]:
+                correctAnswers[0].append(msg.author.id) #Add them to the correct answer list
+                correctAnswers[1].append(1) #Add their score to the correct answer list
+            else:
+                correctAnswers[1][correctAnswers[0].index(msg.author.id)] += 1  #Increment number of correct answers by player
 
         except asyncio.TimeoutError:  # Timeout
             embed = discord.Embed(title="Trivia",
