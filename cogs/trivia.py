@@ -118,7 +118,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                 counter2+=1
         await ctx.send(embed=embed) #Send embed
 
-        def checkCustom(message: discord.Message): #Check for message
+        async def checkCustom(message: discord.Message): #Check for message
             await ctx.send(thisQuestionAnswers)
             await ctx.send(placementOfRightAnswer)
             if message.author.id not in thisQuestionAnswers:
