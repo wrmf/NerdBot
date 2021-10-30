@@ -121,9 +121,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         correctlyAnswered = False
 
         def checkCustom(message: discord.Message): #Check for message
-            if message.author.id not in thisQuestionAnswers:
-                return False
-            elif message.channel == originalChannel and int(message.content) == placementOfRightAnswer+1:
+            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer+1 and message.author.id not in thisQuestionAnswers:
                 correctlyAnswered = True
                 return True
             else:
@@ -132,8 +130,9 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
 
         try:
             await ctx.send(thisQuestionAnswers)
-            await ctx.send(placementOfRightAnswer)
+            await ctx.send(f"Looking for {placementOfRightAnswer+1})
             msg = await client.wait_for('message', timeout=15.0, check=checkCustom) #Wait on player answer
+            await ctx.send(correctlyAnswered)
             if correctlyAnswered:
                 embed = discord.Embed(title="Trivia",
                                       description=f"{msg.author.mention} has won this round!",
