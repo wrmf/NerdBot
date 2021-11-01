@@ -11,7 +11,6 @@ import random
 import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
-from airportCodes import airportCodesList
 import importlib
 numUnansweredMax = 3
 
