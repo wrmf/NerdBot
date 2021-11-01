@@ -1,3 +1,3 @@
 from airportCodes import airportCodesList
 
-triviaCategoriesList = [["airport codes", "Airport Names"], [airportCodesList[0], airportCodesList[1]]]
+triviaCategoriesList = [["airport codes", "airport names"], [airportCodesList[0], airportCodesList[1]]]

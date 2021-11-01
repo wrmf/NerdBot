@@ -229,13 +229,14 @@ class Trivia(commands.Cog):
             await ctx.send(embed=embed)  # Send embed
 
         else: #Run game
+            category = category.lower()
             numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category.lower()) #Get the number of questions
             if numQuestions is not None:
-                if category.lower() == triviaCategoriesList[0][0]: #Airport Codes trivia
+                if category == triviaCategoriesList[0][0]: #Airport Codes trivia
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What is the airport code for", questionList=airportCodesList[0],
                                       answerList=airportCodesList[1])
-                elif category.lower() == triviaCategoriesList[0][1]: #Airport Codes trivia
+                elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
