@@ -222,20 +222,20 @@ class Trivia(commands.Cog):
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        elif category not in triviaCategoriesList[0]: #error if category is not valid
+        elif category.lower() not in triviaCategoriesList[0]: #error if category is not valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
         else: #Run game
-            numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category) #Get the number of questions
+            numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category.lower()) #Get the number of questions
             if numQuestions is not None:
-                if category == triviaCategoriesList[0][0]: #Airport Codes trivia
+                if category.lower() == triviaCategoriesList[0][0]: #Airport Codes trivia
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What is the airport code for", questionList=airportCodesList[0],
                                       answerList=airportCodesList[1])
-                elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
+                elif category.lower() == triviaCategoriesList[0][1]: #Airport Codes trivia
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
