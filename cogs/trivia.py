@@ -319,7 +319,7 @@ class Trivia(commands.Cog):
                 airportCodesListLocal[0].append(name)  # Add their ID
                 airportCodesListLocal[1].append(abb)  # Add their display name
                 # Fix the ldl_staff.py file
-                with open("trivia/triviaElements.py", 'r+') as file:
+                with open("triviaElements.py", 'r+') as file:
                     file.truncate(0)
                     string = "triviaElementsList = [" + str(triviaElementsList[0]) + "," + str(
                         triviaElementsList[1]) + "]"
