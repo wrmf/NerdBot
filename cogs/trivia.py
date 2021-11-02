@@ -212,6 +212,7 @@ class Trivia(commands.Cog):
         @param category: category to start the game in
         @author Nerd#2021
         """
+        await ctx.send(triviaCategoriesList)
 
         def check(message: discord.Message): #Check for getting the number of questions
             return message.channel == ctx.channel
