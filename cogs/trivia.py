@@ -240,7 +240,8 @@ class Trivia(commands.Cog):
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
-                elif category == triviaCategoriesList[0][2]: #Airport Codes trivia
+                elif category == triviaCategoriesList[0][2]: #Elements trivia
+                    await ctx.send(triviaElementsList)
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What element has abbreviation", questionList=triviaElementsList[1],
                                       answerList=triviaElementsList[0])
