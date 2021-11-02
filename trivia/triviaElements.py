@@ -1,1 +1,1 @@
-triviaElementsList = [[],[]]
+triviaElementsList = [['Hydrogen', 'Lithium', 'Beryllium'],['H', 'Li', 'BE']]
