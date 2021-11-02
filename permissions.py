@@ -22,15 +22,6 @@ def is_nuke(ctx: commands.Context):
 def is_owner(ctx: commands.Context):
     return ctx.author.id == TNMN
 
-def is_plane(ctx: commands.Context):
-    if ctx.author.id == TNMN:
-        return True
-    elif ctx.author.id == Likeusb:
-        return True
-    else:
-        return False
-
-
 def is_admin(ctx: commands.Context):
     member: discord.Member = ctx.author
     roles: List[discord.Role] = member.roles
@@ -50,3 +41,10 @@ def is_LDL_channel(ctx: commands.Context):
             return False
     else:
         return True
+
+
+def is_plane(ctx: commands.Context):
+    if ctx.author.id == TNMN or ctx.author.id == Likeusb:
+        return True
+    else:
+        return False
