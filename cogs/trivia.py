@@ -317,7 +317,7 @@ class Trivia(commands.Cog):
                 triviaElementsListLocal[0].append(name)  # Add their ID
                 triviaElementsListLocal[1].append(abb)  # Add their display name
                 # Fix the ldl_staff.py file
-                with open("triviaElements.py", 'r+') as file:
+                with open("trivia/triviaElements.py", 'r+') as file:
                     file.truncate(0)
                     string = "triviaElementsList = [" + str(triviaElementsListLocal[0]) + "," + str(
                         triviaElementsListLocal[1]) + "]"
