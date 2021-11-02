@@ -20,11 +20,16 @@ async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
 
     await ctx.send(triviaCategoriesList[0].index(category))
+    await ctx.send(len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)]))
 
     if category in triviaCategoriesList[0]:
         maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
     else:
         maxTriviaQuestions = 0
+        embed = discord.Embed(title="ERROR",
+                              description=f"Unknown category somehow. Contact Nerd#2021",
+                              color=ctx.message.author.top_role.color)  # Create question embed
+        await ctx.send(embed=embed)  # Send embed
 
     embed = discord.Embed(title="Trivia",
                           description=f"How many questions would you like? You can have up to {maxTriviaQuestions} questions",
