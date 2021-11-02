@@ -1,4 +1,4 @@
-from trivia.airportCodes import airportCodesList
+from airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
 
 
