@@ -11,7 +11,7 @@ from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 import importlib
 from airportCodes import airportCodesList
-#from trivia.triviaElements import *
+from trivia.triviaElements import *
 
 numUnansweredMax = 3
 
