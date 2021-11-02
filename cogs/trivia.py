@@ -2,7 +2,6 @@ import discord
 from discord.ext import commands
 
 from nukeIgnore import *
-from bot import *
 import logging
 import discord
 from discord.ext import commands
@@ -13,7 +12,7 @@ from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 import importlib
 from airportCodes import airportCodesList
-from trivia.triviaElements import *
+#from trivia.triviaElements import *
 
 numUnansweredMax = 3
 
