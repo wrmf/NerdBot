@@ -2,12 +2,11 @@ import discord
 from discord.ext import commands
 
 from nukeIgnore import *
-from bot import *
 import logging
 import discord
 from discord.ext import commands
-from bot import *
 import random
+from ids import *
 
 logger = logging.getLogger("bot")
 
