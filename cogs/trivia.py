@@ -20,6 +20,7 @@ async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
 
     await ctx.send(triviaCategoriesList[0].index(category))
+    await ctx.send(len(triviaCategoriesList[1]))
     await ctx.send(len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)]))
 
     if category in triviaCategoriesList[0]:
