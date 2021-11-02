@@ -294,6 +294,9 @@ class Trivia(commands.Cog):
         @author Nerd#2021
         """
 
+        await ctx.send(f"{name}, {abb}")
+        await ctx.send(triviaElementsList)
+
         # Check if user is none so bot doesn't crash
         if name is None or abb is None:
             embed = discord.Embed(color=ctx.author.color.value)
