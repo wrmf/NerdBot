@@ -11,7 +11,7 @@ from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 import importlib
 from airportCodes import airportCodesList
-from trivia.triviaElements import *
+from trivia.triviaElements import triviaElementsList
 
 numUnansweredMax = 3
 
@@ -240,6 +240,10 @@ class Trivia(commands.Cog):
                     await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                       question="What airport has code", questionList=airportCodesList[1],
                                       answerList=airportCodesList[0])
+                elif category == triviaCategoriesList[0][2]: #Airport Codes trivia
+                    await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
+                                      question="What element has abbreviation", questionList=triviaElementsList[1],
+                                      answerList=triviaElementsList[0])
 
     @commands.command(aliases=['addairport'])
     @commands.check(is_plane)
