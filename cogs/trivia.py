@@ -286,7 +286,7 @@ class Trivia(commands.Cog):
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
 
-    @commands.command(aliases=['addairport'])
+    @commands.command(aliases=['addelement'])
     @commands.check(is_admin)
     async def addElement(self, ctx: commands.Context, name: str, abb: str):
         """
@@ -300,8 +300,7 @@ class Trivia(commands.Cog):
         if name is None or abb is None:
             embed = discord.Embed(color=ctx.author.color.value)
             embed.add_field(name="**ERROR**", value="You cannot set the name or abbreviation to be none", inline=True)
-            await
-            ctx.send(embed=embed)
+            await ctx.send(embed=embed)
 
         # Move onto adding the airport
         else:
