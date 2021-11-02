@@ -313,16 +313,16 @@ class Trivia(commands.Cog):
                 await ctx.send(embed=embed)
             # Add airport
             else:
-                airportCodesListLocal = [airportCodesList[0],
-                                         airportCodesList[1]]  # Duplicate list for saving to file purposes
+                triviaElementsListLocal = [triviaElementsList[0],
+                                         triviaElementsList[1]]  # Duplicate list for saving to file purposes
 
-                airportCodesListLocal[0].append(name)  # Add their ID
-                airportCodesListLocal[1].append(abb)  # Add their display name
+                triviaElementsListLocal[0].append(name)  # Add their ID
+                triviaElementsListLocal[1].append(abb)  # Add their display name
                 # Fix the ldl_staff.py file
                 with open("triviaElements.py", 'r+') as file:
                     file.truncate(0)
-                    string = "triviaElementsList = [" + str(triviaElementsList[0]) + "," + str(
-                        triviaElementsList[1]) + "]"
+                    string = "triviaElementsList = [" + str(triviaElementsListLocal[0]) + "," + str(
+                        triviaElementsListLocal[1]) + "]"
                     file.write(string)
                     file.close()
                 embed = discord.Embed(color=ctx.author.color.value)  # Make embed
