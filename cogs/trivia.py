@@ -237,17 +237,24 @@ class Trivia(commands.Cog):
 
         #else: #Run game
         category = category.lower()
+        await ctx.send("240")
         numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category.lower()) #Get the number of questions
+        await ctx.send(f"numQuestions is {numQuestions}")
         if numQuestions is not None:
+            await ctx.send("244")
             if category == triviaCategoriesList[0][0]: #Airport Codes trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                   question="What is the airport code for", questionList=airportCodesList[0],
                                   answerList=airportCodesList[1])
-            elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
+                return
+            await ctx.send("250")
+            if category == triviaCategoriesList[0][1]: #Airport Codes trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                   question="What airport has code", questionList=airportCodesList[1],
                                   answerList=airportCodesList[0])
-            elif category == triviaCategoriesList[0][2]: #Elements trivia
+                return
+            await ctx.send("256")
+            if category == triviaCategoriesList[0][2]: #Elements trivia
                 await ctx.send(triviaElementsList)
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                   question="What element has abbreviation", questionList=triviaElementsList[1],
