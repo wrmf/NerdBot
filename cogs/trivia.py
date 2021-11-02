@@ -19,6 +19,8 @@ numUnansweredMax = 3
 async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
 
+    await ctx.send(triviaCategoriesList[0].index(category))
+
     if category in triviaCategoriesList[0]:
         maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
     else:
