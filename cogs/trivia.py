@@ -12,8 +12,8 @@ import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 import importlib
-from NerdBot.airportCodes import airportCodesList
-from NerdBot.trivia.triviaElements import *
+from airportCodes import airportCodesList
+from trivia.triviaElements import *
 
 numUnansweredMax = 3
 
