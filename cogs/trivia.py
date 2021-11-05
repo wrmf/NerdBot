@@ -356,7 +356,7 @@ class Trivia(commands.Cog):
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
 
-    @commands.command(aliases=['printquestions'])
+    @commands.command(aliases=['printquestions', 'triviaQuestions', 'triviaquestions'])
     @commands.check(is_owner)
     async def printQuestions(self, ctx: commands.Context, category: str = None):
         """
