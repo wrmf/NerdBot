@@ -20,10 +20,6 @@ numUnansweredMax = 3
 async def getNumQuestions(self, ctx, check, category):
     """Get the number of questions for a trivia game"""
 
-    await ctx.send(triviaCategoriesList[0].index(category))
-    await ctx.send(len(triviaCategoriesList[1]))
-    await ctx.send(len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)]))
-
     if category in triviaCategoriesList[0]:
         maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
     else:
@@ -221,7 +217,6 @@ class Trivia(commands.Cog):
         @param category: category to start the game in
         @author Nerd#2021
         """
-        await ctx.send(triviaCategoriesList[0])
 
         def check(message: discord.Message): #Check for getting the number of questions
             return message.channel == ctx.channel
@@ -233,37 +228,28 @@ class Trivia(commands.Cog):
             await ctx.send(embed=embed)  # Send embed
             return
 
-        await ctx.send("got here")
-
-        if category.lower() not in triviaCategoriesList[0]: #error if category is not valid
+        elif category.lower() not in triviaCategoriesList[0]: #error if category is not valid
             embed = discord.Embed(title="ERROR",
                                   description=f"Category **{category}** is not a valid category. Please do ~triviaCategories for the full list of categories",
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
             return
 
-        await ctx.send("got here lmao")
-
         #else: #Run game
         category = category.lower()
-        await ctx.send("240")
         numQuestions = await getNumQuestions(self=self, ctx=ctx, check=check, category=category.lower()) #Get the number of questions
-        await ctx.send(f"numQuestions is {numQuestions}")
         if numQuestions is not None:
-            await ctx.send("244")
             if category == triviaCategoriesList[0][0]: #Airport Codes trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                   question="What is the airport code for", questionList=airportCodesList[0],
                                   answerList=airportCodesList[1])
                 return
-            await ctx.send("250")
-            if category == triviaCategoriesList[0][1]: #Airport Codes trivia
+            elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                   question="What airport has code", questionList=airportCodesList[1],
                                   answerList=airportCodesList[0])
                 return
-            await ctx.send("256")
-            if category == triviaCategoriesList[0][2]: #Elements trivia
+            elif category == triviaCategoriesList[0][2]: #Elements trivia
                 await ctx.send(triviaElementsList)
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
                                   question="What element has abbreviation", questionList=triviaElementsList[1],
