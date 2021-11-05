@@ -12,6 +12,7 @@ from triviaCategoriesList import triviaCategoriesList
 import importlib
 from airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
+from bot.py import *
 
 numUnansweredMax = 3
 
