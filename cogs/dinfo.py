@@ -128,11 +128,6 @@ class Discord_Info(commands.Cog):
         @author Nerd#2021
         """
 
-        if role in ctx.guild.members:
-            await ctx.send("E")
-
-        await ctx.send(ctx.guild.get_role(role.id))
-
         # Make sure user isn't none
         if role is None or ctx.guild.get_role(role.id) is None:
             embed.add_field(name="**ERROR**", value="Invalid role", inline=True) #Set title for first embed
