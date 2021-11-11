@@ -141,7 +141,7 @@ class Discord_Info(commands.Cog):
             embed.add_field(name="Name", value=role.name, inline=False)  # Add name field
             embed.add_field(name="ID", value=role.id, inline=False)  # Add name field
             embed.add_field(name="Color", value=role.color.value, inline=False)  # Add color field
-            embed.add_field(name="Permissions", value=role.permissions, inline=False) #Add permissions field
+            embed.add_field(name="Permissions info", value=role.permissions, inline=False) #Add permissions field
             embed.add_field(name="Created at", value=role.created_at, inline=False)  # Add permissions field
 
 
