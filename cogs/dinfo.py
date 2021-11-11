@@ -128,6 +128,8 @@ class Discord_Info(commands.Cog):
         @author Nerd#2021
         """
 
+        if role in ctx.guild.members:
+            await ctx.send("E")
 
         await ctx.send(ctx.guild.get_role(role.id))
 
