@@ -128,10 +128,11 @@ class Discord_Info(commands.Cog):
         @author Nerd#2021
         """
 
-        await ctx.send(ctx.guild.has_role(name=role.name))
+
+        await ctx.send(ctx.guild.get_role(role.id))
 
         # Make sure user isn't none
-        if role is None or not ctx.guild.has_role(name=role.name):
+        if role is None or ctx.guild.get_role(role.id) is None:
             embed.add_field(name="**ERROR**", value="Invalid role", inline=True) #Set title for first embed
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Send embed
