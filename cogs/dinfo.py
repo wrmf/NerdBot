@@ -128,17 +128,18 @@ class Discord_Info(commands.Cog):
         @author Nerd#2021
         """
 
+        await ctx.send(ctx.guild.has_role(name=role.name))
+
         # Make sure user isn't none
-        if role is None or role not in ctx.guild.roles:
+        if role is None or not ctx.guild.has_role(name=role.name):
             embed.add_field(name="**ERROR**", value="Invalid role", inline=True) #Set title for first embed
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Send embed
 
         if (is_LDL_channel(ctx)):
-            embed = discord.Embed(color=user.color.value)  # Create embed
-            embed.set_thumbnail(url=user.avatar_url)  # Create embed thumbnail
+            embed = discord.Embed(color=ctx.message.author.color.value)  # Create embed
 
-            embed.add_field(name="Name", value=user, inline=True)  # Add name field
+            embed.add_field(name="Name", value=role.name, inline=True)  # Add name field
             embed.add_field(name="Nickname", value=user.nick if hasattr(user, "nick") else "None",
                             inline=True)  # Add nickname field
             embed.add_field(name="Account created", value=fmt(user.created_at),
