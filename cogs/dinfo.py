@@ -139,11 +139,11 @@ class Discord_Info(commands.Cog):
 
             embed.add_field(name="Name", value=role.name, inline=True)  # Add name field
             #embed.add_field(name="Nickname", value=user.nick if hasattr(user, "nick") else "None",
-                            inline=True)  # Add nickname field
+            #                inline=True)  # Add nickname field
             #embed.add_field(name="Account created", value=fmt(user.created_at),
-                            inline=True)  # Add when their account was created
+            #                inline=True)  # Add when their account was created
             #embed.add_field(name=f"Joined {ctx.guild.name}", value=fmt(user.joined_at),
-                            inline=True)  # Add when their account joined this server
+            #                inline=True)  # Add when their account joined this server
 
             #roles = user.roles  # Get roles that the user has
             #roles.reverse()  # Reverse roles
