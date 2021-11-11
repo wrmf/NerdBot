@@ -147,8 +147,7 @@ class Discord_Info(commands.Cog):
                                            ) as resp:
                 if resp.status in [400, 404]:
                     return await ctx.send("Hex code appears invalid.")
-                out = await
-                resp.json()
+                out = await resp.json()
 
             emb = ctx.default_embed()
             emb.color = int(code, 16)
