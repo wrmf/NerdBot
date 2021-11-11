@@ -27,6 +27,10 @@ class Moderation(commands.Cog):
     async def nick(self, ctx, id: discord.Member, *, nickname: str):
         """Changes a user's nickname"""
 
+        if ctx.message.author.id == 868928903878697020:
+            await ctx.send("oof lmao")
+            return
+
         guild_id = ctx.guild.name
         try:
             await id.edit(nick=nickname)
