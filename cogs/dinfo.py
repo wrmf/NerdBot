@@ -146,8 +146,7 @@ class Discord_Info(commands.Cog):
                                            headers=dict(Authorization=config.flipnote_key)
                                            ) as resp:
                 if resp.status in [400, 404]:
-                    return await
-                    ctx.send("Hex code appears invalid.")
+                    return await ctx.send("Hex code appears invalid.")
                 out = await
                 resp.json()
 
