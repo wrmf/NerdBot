@@ -138,28 +138,13 @@ class Discord_Info(commands.Cog):
         if (is_LDL_channel(ctx)):
             embed = discord.Embed(color=role.color.value) #Create embed
 
-            embed.add_field(name="Name", value=role.name, inline=True)  # Add name field
+            embed.add_field(name="Name", value=role.name, inline=False)  # Add name field
+            embed.add_field(name="ID", value=role.id, inline=False)  # Add name field
+            embed.add_field(name="Color", value=role.color.value, inline=False)  # Add color field
+            embed.add_field(name="Permissions", value=role.permissions, inline=False) #Add permissions field
+            embed.add_field(name="AFK Channel", value=role.afk_channel, inline=False)  # Add permissions field
+            embed.add_field(name="AFK Timeout", value=role.afk_permissions, inline=False)  # Add permissions field
 
-            code = role.color.value #Set role color
-
-            async with ctx.bot.session.get(f"https://api.alexflipnote.dev/color/{code}",
-                                           headers=dict(Authorization=config.flipnote_key)
-                                           ) as resp:
-                if resp.status in [400, 404]:
-                    return await ctx.send("Hex code appears invalid.")
-                out = await resp.json()
-
-            emb = ctx.default_embed()
-            emb.color = int(code, 16)
-
-            emb.add_field(name="Hex code", value=out["hex"])
-            emb.add_field(name="Int code", value=out["int"])
-            rgb_list = out["rgb"][3:]
-            emb.add_field(name="RGB values", value=rgb_list)
-            emb.add_field(name="Name", value=out["name"])
-            emb.add_field(name="Brightness", value=out["brightness"])
-            best_color = "Lighter" if out["blackorwhite_text"] == "#ffffff" else "Darker"
-            emb.add_field(name="Text color", value=f"{best_color} text works best over this color.")
 
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Send embed
