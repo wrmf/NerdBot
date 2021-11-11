@@ -9,32 +9,7 @@ from discord.ext import commands
 from bot import *
 import random
 from permissions import *
-import base64
-import binascii
-import datetime
-import io
-import json
-import math
-import os
-import random
-import re
-import typing
-import unicodedata
-import uuid
-from urllib.parse import quote as urlquote
 
-import aiohttp
-import discord
-import gtts
-import pyqrcode
-import requests
-from PIL import Image
-import steam
-from discord.ext import commands
-
-import config
-from .utils import async_executor, Embedinator, escape_codeblocks, format_json, human_join, human_timedelta
-from .utils import purge_from_list
 
 
 class Discord_Info(commands.Cog):
@@ -167,7 +142,6 @@ class Discord_Info(commands.Cog):
 
             code = role.color.value #Set role color
 
-            code = code.lstrip("#").replace("0x", "")
             async with ctx.bot.session.get(f"https://api.alexflipnote.dev/color/{code}",
                                            headers=dict(Authorization=config.flipnote_key)
                                            ) as resp:
