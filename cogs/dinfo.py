@@ -120,6 +120,47 @@ class Discord_Info(commands.Cog):
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed) #Send embed
 
+    @commands.command()
+    @commands.guild_only()
+    async def role(self, ctx, role: discord.Role):
+        """
+        Get user information
+        @author Paladin Of Ioun#5905
+        @author Nerd#2021
+        """
+
+        # Make sure user isn't none
+        if role is None:
+            embed.add_field(name="**ERROR**", value="Invalid role", inline=True) #Set title for first embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Send embed
+
+        if (is_LDL_channel(ctx)):
+            embed = discord.Embed(color=user.color.value)  # Create embed
+            embed.set_thumbnail(url=user.avatar_url)  # Create embed thumbnail
+
+            embed.add_field(name="Name", value=user, inline=True)  # Add name field
+            embed.add_field(name="Nickname", value=user.nick if hasattr(user, "nick") else "None",
+                            inline=True)  # Add nickname field
+            embed.add_field(name="Account created", value=fmt(user.created_at),
+                            inline=True)  # Add when their account was created
+            embed.add_field(name=f"Joined {ctx.guild.name}", value=fmt(user.joined_at),
+                            inline=True)  # Add when their account joined this server
+
+            roles = user.roles  # Get roles that the user has
+            roles.reverse()  # Reverse roles
+
+            embed.add_field(
+                name="Roles",
+                value=', '.join([f"<@&{x.id}>" for x in roles if x is not ctx.guild.default_role]) if len(
+                    user.roles) > 1 else f"No roles in {ctx.guild.name}",
+                inline=False
+            )  # Add their roles to the embed
+
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await
+            ctx.send(embed=embed)  # Send embed
+
     @commands.group()
     @commands.guild_only()
     async def server(self, ctx):
