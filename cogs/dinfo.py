@@ -124,8 +124,7 @@ class Discord_Info(commands.Cog):
     @commands.guild_only()
     async def role(self, ctx, role: discord.Role):
         """
-        Get user information
-        @author Paladin Of Ioun#5905
+        Get role information
         @author Nerd#2021
         """
 
@@ -158,8 +157,7 @@ class Discord_Info(commands.Cog):
             )  # Add their roles to the embed
 
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-            await
-            ctx.send(embed=embed)  # Send embed
+            await ctx.send(embed=embed)  # Send embed
 
     @commands.group()
     @commands.guild_only()
