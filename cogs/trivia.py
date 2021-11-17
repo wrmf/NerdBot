@@ -411,6 +411,7 @@ class Trivia(commands.Cog):
                 await ctx.send(embed=embed)
             # Add airport
             else:
+                await ctx.send(LDLTriviaQuestions[0])
                 LDLTriviaQuestionsLocal = [LDLTriviaQuestions[0],
                                            LDLTriviaQuestions[1], LDLTriviaQuestions[2]]  # Duplicate list for saving to file purposes
 
