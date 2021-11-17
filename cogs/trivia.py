@@ -462,9 +462,9 @@ class Trivia(commands.Cog):
                                            LDLTriviaQuestions[1],
                                            LDLTriviaQuestions[2]]  # Duplicate list for saving to file purposes
 
-                LDLTriviaQuestionsLocal[0].remove(LDLTriviaQuestionsLocal[1].index(answer)) # Remove question
+                LDLTriviaQuestionsLocal[0].pop(LDLTriviaQuestionsLocal[1].index(answer)) # Remove question
                 LDLTriviaQuestionsLocal[1].remove(answer)  # Add answer
-                LDLTriviaQuestionsLocal[2].remove(LDLTriviaQuestionsLocal[1].index(answer))  # Remove timeout
+                LDLTriviaQuestionsLocal[2].pop(LDLTriviaQuestionsLocal[1].index(answer))  # Remove timeout
                 # Fix the ldl_staff.py file
                 with open("trivia/LDLTriviaQuestions.py", 'r+') as file:
                     file.truncate(0)
