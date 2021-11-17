@@ -12,6 +12,7 @@ from triviaCategoriesList import triviaCategoriesList
 import importlib
 from airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
+from trivia.LDLTriviaQuestions import LDLTriviaQuestions
 from bot import *
 
 numUnansweredMax = 3
@@ -381,10 +382,53 @@ class Trivia(commands.Cog):
                     embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                     await ctx.send(embed=embed)  # Send embed
 
+    @commands.command(aliases=['addldlquestion', 'addLDLquestion'])
+    @commands.check(is_plane)
+    async def addLDLQuestion(self, ctx: commands.Context, question: str, answer: str, timeout: int):
+        """
+        Add command to LDL trivia night
+        @param question: the full question
+        @param answer: the answer
+        @param timeout: the timeout
+        @author Nerd#2021
+        """
 
+        # Check if user is none so bot doesn't crash
+        if question is None or answer is None or timeout is None:
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value="You cannot set the name, abbreviation or timeout to be none", inline=True)
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)
 
+        # Move onto adding the airport
+        else:
+            # Check if airport is already in the list
+            if (question in LDLTriviaQuestions[0]):
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"{question} is already in the list",
+                                inline=True)
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)
+            # Add airport
+            else:
+                LDLTriviaQuestionsLocal = [LDLTriviaQuestions[0],
+                                           LDLTriviaQuestions[1], LDLTriviaQuestions[2]]  # Duplicate list for saving to file purposes
 
-
+                LDLTriviaQuestionsLocal[0].append(question)  # Add question
+                LDLTriviaQuestionsLocal[1].append(answer)  # Add answer
+                LDLTriviaQuestionsLocal[2].append(timeout)  # Added timeout
+                # Fix the ldl_staff.py file
+                with open("trivia/LDLTriviaQuestions.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "LDLTriviaQuestions = [" + str(LDLTriviaQuestionsLocal[0]) + "," + str(
+                        LDLTriviaQuestionsLocal[1]) + "," + str(LDLTriviaQuestionsLocal)+ "]"
+                    file.write(string)
+                    file.close()
+                embed = discord.Embed(color=ctx.author.color.value)  # Make embed
+                embed.add_field(name="**Success**", value=f"'{question}' has been added!",
+                                inline=True)  # Make sucess message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
 
 def setup(bot):
     bot.add_cog(Trivia(bot))
