@@ -524,11 +524,15 @@ class Trivia(commands.Cog):
 
         numQuestions = len(LDLTriviaQuestions)
 
+        await ctx.send(f"numQuestions is {numQuestions}")
+
         listOfQuestions = []
         correctAnswers = [[], []]
         counterx = 0
 
         while counterx < numQuestions:  # Multiple questions
+
+            await ctx.send(counterx)
 
             thisQuestionAnswers = []
 
