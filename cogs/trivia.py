@@ -518,7 +518,7 @@ class Trivia(commands.Cog):
         def check(message: discord.Message):  # Check for getting the number of questions
             return message.channel == ctx.channel
 
-        numQuestions = len(LDLTriviaQuestions[0]-1)
+        numQuestions = len(LDLTriviaQuestions[0])-1
 
         listOfQuestions = []
         correctAnswers = [[], []]
