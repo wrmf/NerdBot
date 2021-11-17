@@ -415,14 +415,19 @@ class Trivia(commands.Cog):
                 LDLTriviaQuestionsLocal = [LDLTriviaQuestions[0],
                                            LDLTriviaQuestions[1], LDLTriviaQuestions[2]]  # Duplicate list for saving to file purposes
 
+                await ctx.send(LDLTriviaQuestionsLocal)
+
                 LDLTriviaQuestionsLocal[0].append(question)  # Add question
                 LDLTriviaQuestionsLocal[1].append(answer)  # Add answer
                 LDLTriviaQuestionsLocal[2].append(timeout)  # Added timeout
+
+                await ctx.send(LDLTriviaQuestionsLocal)
+
                 # Fix the ldl_staff.py file
                 with open("trivia/LDLTriviaQuestions.py", 'r+') as file:
                     file.truncate(0)
                     string = "LDLTriviaQuestions = [" + str(LDLTriviaQuestionsLocal[0]) + "," + str(
-                        LDLTriviaQuestionsLocal[1]) + "," + str(LDLTriviaQuestionsLocal)+ "]"
+                        LDLTriviaQuestionsLocal[1]) + "," + str(LDLTriviaQuestionsLocal[2])+ "]"
                     file.write(string)
                     file.close()
                 embed = discord.Embed(color=ctx.author.color.value)  # Make embed
