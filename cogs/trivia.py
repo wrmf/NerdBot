@@ -430,6 +430,54 @@ class Trivia(commands.Cog):
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
 
+    @commands.command(aliases=['delldlquestion', 'delLDLquestion'])
+    @commands.check(is_plane)
+    async def delLDLQuestion(self, ctx: commands.Context, answer: str):
+        """
+        Del command to LDL trivia night
+        @param answer: the answer
+        @author Nerd#2021
+        """
+
+        # Check if user is none so bot doesn't crash
+        if answer is None:
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**ERROR**", value=f"{answer} is not a valid question",
+                            inline=True)
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)
+
+        # Move onto adding the airport
+        else:
+            # Check if airport is already in the list
+            if (question not in LDLTriviaQuestions[0]):
+                embed = discord.Embed(color=ctx.author.color.value)
+                embed.add_field(name="**ERROR**", value=f"{answer} is not in the answer list",
+                                inline=True)
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)
+            # Add airport
+            else:
+                LDLTriviaQuestionsLocal = [LDLTriviaQuestions[0],
+                                           LDLTriviaQuestions[1],
+                                           LDLTriviaQuestions[2]]  # Duplicate list for saving to file purposes
+
+                LDLTriviaQuestionsLocal[0].remove(LDLTriviaQuestionsLocal[1].index(answer)) # Remove question
+                LDLTriviaQuestionsLocal[1].remove(answer)  # Add answer
+                LDLTriviaQuestionsLocal[2].remove(LDLTriviaQuestionsLocal[1].index(answer))  # Remove timeout
+                # Fix the ldl_staff.py file
+                with open("trivia/LDLTriviaQuestions.py", 'r+') as file:
+                    file.truncate(0)
+                    string = "LDLTriviaQuestions = [" + str(LDLTriviaQuestionsLocal[0]) + "," + str(
+                        LDLTriviaQuestionsLocal[1]) + "," + str(LDLTriviaQuestionsLocal) + "]"
+                    file.write(string)
+                    file.close()
+                embed = discord.Embed(color=ctx.author.color.value)  # Make embed
+                embed.add_field(name="**Success**", value=f"**'{answer}'** has been removed!",
+                                inline=True)  # Make sucess message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+
     @commands.command(aliases=['ldlQuestions', 'ldlquestions', 'printldlquestions'])
     @commands.check(is_plane)
     async def printLDLQuestions(self, ctx: commands.Context):
