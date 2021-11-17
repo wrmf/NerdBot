@@ -587,7 +587,7 @@ class Trivia(commands.Cog):
                     return False
 
             try:
-                msg = await client.wait_for('message', timeout=LDLTriviaQuestions[2], check=checkCustom)  # Wait on player answer
+                msg = await client.wait_for('message', timeout=LDLTriviaQuestions[2][num], check=checkCustom)  # Wait on player answer
                 embed = discord.Embed(title="Trivia",
                                       description=f"{msg.author.mention} has won this round!",
                                       color=ctx.message.author.top_role.color)  # Create embed
