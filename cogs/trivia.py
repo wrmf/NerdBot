@@ -450,7 +450,7 @@ class Trivia(commands.Cog):
         # Move onto adding the airport
         else:
             # Check if airport is already in the list
-            if (question not in LDLTriviaQuestions[0]):
+            if (answer not in LDLTriviaQuestions[1]):
                 embed = discord.Embed(color=ctx.author.color.value)
                 embed.add_field(name="**ERROR**", value=f"{answer} is not in the answer list",
                                 inline=True)
