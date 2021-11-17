@@ -541,8 +541,10 @@ class Trivia(commands.Cog):
             while num in listOfQuestions:  # Make sure this question has not been asked already this game
                 num = random.randint(0, len(LDLTriviaQuestions) - 1)
             listOfQuestions.append(num)  # Add correct answer
-            embed = discord.Embed(title=f"Question {(counterx) + 1}", description=f"{LDLTriviaQuestions[0][num]} **{LDLTriviaQuestions[1][num]}**?",
+            embed = discord.Embed(title=f"Question {(counterx) + 1}", description=f"{LDLTriviaQuestions[0][num]}?",
                                   color=ctx.message.author.top_role.color)  # Create embed
+
+            await ctx.send("Figured out what the right answer will be")
 
             listOfAnswers = []  # Wrong answer array
             counter = 0  # Counter for wrong answer number
@@ -555,10 +557,14 @@ class Trivia(commands.Cog):
                     listOfAnswers.append(num2)  # Add to list
                     counter += 1  # Increment to make sure we only get 3 wrong answers
 
+            await ctx.send("Figured out what the wrong answers will be")
+
             placementOfRightAnswer = random.randint(0, 3)  # Randomly generate right answer location
             counterWrongAnswer = 0  # Counter for the number of wrong answers place (for wrong answer array)
 
             counter2 = 0
+
+            await ctx.send("Figured out where the right answer will go")
 
             while counter2 < 4:  # Place answers in embed
                 if counter2 == placementOfRightAnswer:  # Place correct answer
@@ -569,6 +575,7 @@ class Trivia(commands.Cog):
                                     inline=False)  # Set title for first embed
                     counterWrongAnswer += 1
                     counter2 += 1
+                await ctx.send("Help me")
             await ctx.send(embed=embed)  # Send embed
 
             def checkCustom(message: discord.Message):  # Check for message
