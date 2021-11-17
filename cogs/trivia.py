@@ -425,8 +425,36 @@ class Trivia(commands.Cog):
                     file.write(string)
                     file.close()
                 embed = discord.Embed(color=ctx.author.color.value)  # Make embed
-                embed.add_field(name="**Success**", value=f"'{question}' has been added!",
+                embed.add_field(name="**Success**", value=f"**'{question}'** has been added!",
                                 inline=True)  # Make sucess message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+
+    @commands.command(aliases=['ldlQuestions', 'ldlquestions', 'printldlquestions'])
+    @commands.check(is_plane)
+    async def printLDLQuestions(self, ctx: commands.Context):
+        """
+        Print out all of the questions for a specified category
+        @param category: category to print questions from
+        @author Nerd#2021
+        """
+
+        embed = discord.Embed(title="Trivia",
+                              description=f"The questions for the LDL trivia night are:",
+                              color=ctx.message.author.top_role.color)  # Create embed
+        counter = 1;
+        list = LDLTriviaQuestions[0]
+        random.shuffle(list)
+        for n in list: #Loop through questions
+            embed.add_field(name=counter, value=f"{n}\n", inline=False)
+            counter+=1 #Make sure
+            if counter%25 == 0 and counter != 0:
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+                embed = discord.Embed(title="Trivia",
+                                      description=f"Embed ran out of space, continuing!",
+                                      color=ctx.message.author.top_role.color)  # Create embed
+            elif (list.index(n) == len(list) - 1):
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
 
