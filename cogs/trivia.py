@@ -550,7 +550,7 @@ class Trivia(commands.Cog):
             counter = 0  # Counter for wrong answer number
 
             while counter < 3:
-                num2 = random.randint(0, (len(LDLTriviaQuestions) - 1))  # Generate location
+                num2 = random.randint(0, (len(LDLTriviaQuestions[0]) - 1))  # Generate location
                 if num2 in listOfAnswers or num2 == num:
                     pass  # Do nothing if that answer has already been selected
                 else:
