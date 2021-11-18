@@ -536,7 +536,7 @@ class Trivia(commands.Cog):
             while num in listOfQuestions:  # Make sure this question has not been asked already this game
                 num = random.randint(0, len(LDLTriviaQuestions) - 1)
             listOfQuestions.append(num)  # Add correct answer
-            embed = discord.Embed(title=f"Question {(counterx) + 1}", description=f"{LDLTriviaQuestions[0][num][0]}?",
+            embed = discord.Embed(title=f"Question {(counterx) + 1}", description=f"{LDLTriviaQuestions[0][num]}?",
                                   color=ctx.message.author.top_role.color)  # Create embed
 
             listOfAnswers = []  # Wrong answer array
