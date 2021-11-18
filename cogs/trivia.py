@@ -384,7 +384,7 @@ class Trivia(commands.Cog):
 
     @commands.command(aliases=['addldlquestion', 'addLDLquestion'])
     @commands.check(is_plane)
-    async def addLDLQuestion(self, ctx: commands.Context, question: str, answer: str, timeout: int):
+    async def addLDLQuestion(self, ctx: commands.Context, question: str, answer: str, wrong1: str, wrong2: str, wrong3: str, timeout: int):
         """
         Add command to LDL trivia night
         @param question: the full question
@@ -396,12 +396,15 @@ class Trivia(commands.Cog):
         # Check if user is none so bot doesn't crash
         if question is None or answer is None or timeout is None:
             embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**ERROR**", value="You cannot set the name, abbreviation or timeout to be none", inline=True)
+            embed.add_field(name="**ERROR**", value="You gave an empty answer", inline=True)
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)
 
         # Move onto adding the airport
         else:
+
+            thisQuestion = [answer, wrong1, wrong2, wrong3]
+
             # Check if airport is already in the list
             if (question in LDLTriviaQuestions[0]):
                 embed = discord.Embed(color=ctx.author.color.value)
@@ -416,7 +419,7 @@ class Trivia(commands.Cog):
 
 
                 LDLTriviaQuestionsLocal[0].append(question)  # Add question
-                LDLTriviaQuestionsLocal[1].append(answer)  # Add answer
+                LDLTriviaQuestionsLocal[1].append(thisQuestion)  # Add answer
                 LDLTriviaQuestionsLocal[2].append(timeout)  # Added timeout
 
                 # Fix the ldl_staff.py file
@@ -533,7 +536,7 @@ class Trivia(commands.Cog):
             while num in listOfQuestions:  # Make sure this question has not been asked already this game
                 num = random.randint(0, len(LDLTriviaQuestions) - 1)
             listOfQuestions.append(num)  # Add correct answer
-            embed = discord.Embed(title=f"Question {(counterx) + 1}", description=f"{LDLTriviaQuestions[0][num]}?",
+            embed = discord.Embed(title=f"Question {(counterx) + 1}", description=f"{LDLTriviaQuestions[0][num][0]}?",
                                   color=ctx.message.author.top_role.color)  # Create embed
 
             listOfAnswers = []  # Wrong answer array
@@ -554,10 +557,10 @@ class Trivia(commands.Cog):
 
             while counter2 < 4:  # Place answers in embed
                 if counter2 == placementOfRightAnswer:  # Place correct answer
-                    embed.add_field(name=counter2 + 1, value=LDLTriviaQuestions[1][num], inline=False)  # Get right answer added
+                    embed.add_field(name=counter2 + 1, value=LDLTriviaQuestions[1][num][0], inline=False)  # Get right answer added
                     counter2 += 1
                 else:  # Place wrong answers
-                    embed.add_field(name=counter2 + 1, value=LDLTriviaQuestions[1][listOfAnswers[counterWrongAnswer]],
+                    embed.add_field(name=counter2 + 1, value=LDLTriviaQuestions[1][num][counterWrongAnswer+1],
                                     inline=False)  # Set title for first embed
                     counterWrongAnswer += 1
                     counter2 += 1
