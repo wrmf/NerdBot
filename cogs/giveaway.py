@@ -13,7 +13,7 @@ class Giveaway(commands.Cog):
         self.bot = bot
 
     @commands.command(pass_context=True)
-    @commands.check(is_admin)
+    @commands.check(is_plane_or_admin)
     async def giveaway(self, ctx: commands.Context, item: str):
         """
         Create a giveaway

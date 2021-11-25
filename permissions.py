@@ -47,3 +47,8 @@ def is_plane(ctx: commands.Context):
         return True
     else:
         return False
+def is_plane_or_admin(ctx: commands.Context):
+    if is_plane(ctx) or is_admin(ctx):
+        return True
+    else:
+        return False
