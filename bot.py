@@ -77,8 +77,9 @@ class Bot(AutoShardedBot):
 
 		if "christopher" in msg.clean_content.lower() or "chris" in msg.clean_content.lower() or "ches" in msg.clean_content.lower():
 			if(ctx.guild.id == LDL_server and ctx.message.author.id == 538719895186047006 or ctx.message.author.id == TNMN):
-				me = await client.get_user_info('868928903878697020')
-				await client.send_message(me, f"{ctx.message.author.mention} called you {msg}")
+				await ctx.channel.purge(limit=1)
+				user = client.get_user(868928903878697020)
+				await user.send(f"{ctx.message.author.mention} called you {msg}")
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
