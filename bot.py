@@ -75,12 +75,14 @@ class Bot(AutoShardedBot):
 			if(ctx.guild.id == NAYLE_2021_staff):
 				await ctx.send("ARE WE THERE YET?")
 
-		if "christopher" in msg.clean_content.lower() or "chris" in msg.clean_content.lower() or "testu1234" in msg.clean_content.lower():
+		if "christopher" in msg.clean_content.lower() or "chris" in msg.clean_content.lower() or "ches" in msg.clean_content.lower():
 			if(ctx.guild.id == LDL_server and ctx.message.author.id == 538719895186047006 or ctx.message.author.id == TNMN):
 				await ctx.channel.purge(limit=1)
 				user = await ctx.guild.fetch_member(868928903878697020)
-				await ctx.send(user)
-				await user.send(f"{ctx.message.author.mention} called you {msg.clean_content}")
+				embed = discord.Embed(color=ctx.author.color.value)
+				embed.add_field(name="**ERROR**", value=f"{ctx.message.author.mention} called you {msg.clean_content}",
+								inline=True)
+				await user.send(embed=embed)
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
