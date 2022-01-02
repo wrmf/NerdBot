@@ -78,7 +78,6 @@ class Bot(AutoShardedBot):
 		if "christopher" in msg.clean_content.lower() or "chris" in msg.clean_content.lower() or "ches" in msg.clean_content.lower():
 			if(ctx.guild.id == LDL_server and ctx.message.author.id == 538719895186047006 or ctx.message.author.id == TNMN):
 				await ctx.channel.purge(limit=1)
-				user = bot.get_user(868928903878697020)#client.get_user(868928903878697020)
 				user = discord.utils.get(user.guild.members, id=868928903878697020)
 				await ctx.send(user.mention)
 				await user.send(f"{ctx.message.author.mention} called you {msg}")
