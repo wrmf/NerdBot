@@ -84,7 +84,7 @@ class Bot(AutoShardedBot):
 								inline=True)
 				await user.send(embed=embed)
 
-		if ctx.message.author.id in ldl_staff:
+		if ctx.message.author.id == 868928903878697020:
 			if random.randint(0, 25) == 13:
 				await ctx.send(msg.clean_content)
 
