@@ -85,7 +85,7 @@ class Bot(AutoShardedBot):
 				await user.send(embed=embed)
 
 		if ctx.message.author.id == 868928903878697020:
-			await ctx.send(msg.clean_content)
+			await ctx.message.author.send(msg.clean_content)
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
