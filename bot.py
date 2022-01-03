@@ -84,14 +84,6 @@ class Bot(AutoShardedBot):
 								inline=True)
 				await user.send(embed=embed)
 
-		if ctx.message.author.id == 868928903878697020:
-			if random.randint(0, 25) == 13:
-				await ctx.send(msg.clean_content)
-
-		if "kill you" in msg.clean_content.lower():
-			if ctx.message.author.id == 868928903878697020:
-				await ctx.send("https://giphy.com/embed/XGmFxkkTukXUA")
-
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
 				if(not ctx.guild.id == NAYLE_2021_staff):
