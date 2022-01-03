@@ -53,7 +53,7 @@ class Bot(AutoShardedBot):
 			if ctx.message.author.id == TNMN:
 				pass
 			elif ctx.message.author.id == Cheese:
-				possibleMessages = ["STOP PINGING ME CHEESE", "WHY AM I HERE JUST TO SUFFER", "STOP NOW", "I WARNED YOU", "SO YOU HAVE CHOSEN DEATH", "YOU WILL LEARN TO FEAR ME MORTAL", "CHEESE IS BRUH", "BRUH", "YOU MESSED WITH THE WRONG BOT", "https://media.giphy.com/media/11tTNkNy1SdXGg/giphy.gif", "😡"]
+				possibleMessages = ["STOP PINGING ME CHEESE", "WHY AM I HERE JUST TO SUFFER", "STOP NOW", "I WARNED YOU", "SO YOU HAVE CHOSEN DEATH", "YOU WILL LEARN TO FEAR ME MORTAL", "CHEESE IS BRUH", "BRUH", "YOU MESSED WITH THE WRONG BOT", "https://giphy.com/embed/11tTNkNy1SdXGg", "😡"]
 				embed = discord.Embed(title="PING",
 									  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
 									  color=ctx.message.author.top_role.color)  # Create error embed
@@ -85,7 +85,7 @@ class Bot(AutoShardedBot):
 				await user.send(embed=embed)
 
 		if ctx.message.author.id in ldl_staff:
-			if random.randint(0, 50) == 26:
+			if random.randint(0, 25) == 13:
 				await ctx.send(msg.clean_content)
 
 		if "kill you" in msg.clean_content.lower():
