@@ -84,11 +84,11 @@ class Bot(AutoShardedBot):
 								inline=True)
 				await user.send(embed=embed)
 
-		if ctx.message.author.id in ldl_staff:
+		if ctx.message.author.id in ldl_staff and msg.guild.id == LDL_server:
 			if random.randint(0, 50) == 26:
 				await ctx.send(msg.clean_content)
 
-		if "kill you" in msg.clean_content.lower:
+		if "kill you" in msg.clean_content.lower and msg.guild.id == LDL_server:
 			if ctx.message.author.id == 868928903878697020:
 				await ctx.send("https://giphy.com/embed/XGmFxkkTukXUA")
 
