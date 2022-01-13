@@ -85,10 +85,10 @@ class Bot(AutoShardedBot):
 				await user.send(embed=embed)
 
 		if ctx.message.author.id == 570335330616606724:
+			id = ctx.message.author.edit(nick="lol")
 			if random.randint(0,20) == 3:
 				await ctx.send(ctx.message.content)
-			id = ctx.message.author
-			await id.edit(nick="lol")
+
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
