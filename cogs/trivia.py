@@ -26,7 +26,7 @@ async def getNumQuestions(self, ctx, check, category):
     else:
         maxTriviaQuestions = 0
         embed = discord.Embed(title="ERROR",
-                              description=f"Unknown category somehow. Contact Nerd#2021",
+                              description=f"Unknown category somehow. Contact Nerd#2022",
                               color=ctx.message.author.top_role.color)  # Create question embed
         await ctx.send(embed=embed)  # Send embed
 
@@ -200,7 +200,7 @@ class Trivia(commands.Cog):
     async def triviaCategories(self, ctx):
         """
         Get a list of all available trivia categories
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         embed = discord.Embed(title="Trivia", description=f"The available trivia categories are:",
@@ -216,7 +216,7 @@ class Trivia(commands.Cog):
         """
         Start trivia game
         @param category: category to start the game in
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         def check(message: discord.Message): #Check for getting the number of questions
@@ -262,7 +262,7 @@ class Trivia(commands.Cog):
         Add airport name and code to trivia list
         @param name: name of airport to add
         @param code: code for the airport being added
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Check if user is none so bot doesn't crash
@@ -305,7 +305,7 @@ class Trivia(commands.Cog):
         Add airport name and code to trivia list
         @param name: name of airport to add
         @param abb: code for the airport being added
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Check if user is none so bot doesn't crash
@@ -349,7 +349,7 @@ class Trivia(commands.Cog):
         """
         Print out all of the questions for a specified category
         @param category: category to print questions from
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         if category == None: #Make sure user entered a category
@@ -390,7 +390,7 @@ class Trivia(commands.Cog):
         @param question: the full question
         @param answer: the answer
         @param timeout: the timeout
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Check if user is none so bot doesn't crash
@@ -441,7 +441,7 @@ class Trivia(commands.Cog):
         """
         Del command to LDL trivia night
         @param answer: the answer
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Check if user is none so bot doesn't crash
@@ -489,7 +489,7 @@ class Trivia(commands.Cog):
         """
         Print out all of the questions for a specified category
         @param category: category to print questions from
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         embed = discord.Embed(title="Trivia",
@@ -515,7 +515,7 @@ class Trivia(commands.Cog):
     async def startLDLTrivia(self, ctx):
         """
         Start trivia game (for ldl Trivia Night)
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         def check(message: discord.Message):  # Check for getting the number of questions
