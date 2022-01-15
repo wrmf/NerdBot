@@ -33,7 +33,7 @@ class Text(commands.Cog):
 
         while i < num:
             await ctx.send(message) #Send message
-            i++
+            i+=1
 
 def setup(bot):
     bot.add_cog(Text(bot))
