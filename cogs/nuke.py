@@ -21,7 +21,7 @@ class Nuke(commands.Cog):
         """
         Nuke a large number of messages
         @author Paladin Of Ioun #5905
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Check if the user is nuke ignored
@@ -53,7 +53,7 @@ class Nuke(commands.Cog):
     async def addNukeIgnore(self, ctx: commands.Context, user: discord.Member = None, guild: str = None):
         """
         Add a person to the Nuke ignore list
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Check if user is none so bot doesn't crash
@@ -113,7 +113,7 @@ class Nuke(commands.Cog):
     async def delNukeIgnore(self, ctx: commands.Context, user: discord.Member = None, guild: str = None):
         """
         Remove person from nuke ignore list
-        @author Nerd#2021
+        @author Nerd#2022
         """
         #Make sure user isn't none so the bot doesn't die
         if user is None:

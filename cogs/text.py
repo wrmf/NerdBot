@@ -24,7 +24,7 @@ class Text(commands.Cog):
         async def echo(self, ctx: commands.Context, message: str):
             """
             Echo a message
-            @author Nerd#2021
+            @author Nerd#2022
             """
 
             await ctx.channel.purge(limit=1) #Delete original message

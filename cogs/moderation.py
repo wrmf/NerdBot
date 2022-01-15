@@ -87,7 +87,7 @@ class Moderation(commands.Cog):
         Unbans a user
         Param user: User you want to unban
         Param silent: 0 for not silent, 1 for silent. Defaults to 0
-        @author Nerd#2021
+        @author Nerd#2022
         """
         author = ctx.author
         try:
@@ -138,7 +138,7 @@ class Moderation(commands.Cog):
     async def makeadmin(self, ctx: commands.Context, name: str, color: discord.Color):
         """
         Makes you an admin
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Delete message if possible
@@ -250,7 +250,7 @@ class Moderation(commands.Cog):
     async def togglePrefix(self, ctx: commands.Context):
         """
         Toggle if owner prefix is on
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         if(owner_no_prefix is False):

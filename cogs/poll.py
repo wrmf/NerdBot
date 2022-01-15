@@ -23,7 +23,7 @@ class Poll(commands.Cog):
         """
         Creates a poll.
         @author Paladin Of Ioun#5905
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Check if channel is an LDL channel
@@ -52,7 +52,7 @@ class Poll(commands.Cog):
         """
         Tally poll
         @author Paladin Of Ioun#5905
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Check if channel is an LDL channel

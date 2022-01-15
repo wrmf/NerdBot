@@ -24,7 +24,7 @@ class Stream(commands.Cog):
     async def startStream(self, ctx, status: str = None):
         """
         Change bot's status to streaming
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Make sure bot doesn't error when no status is given
@@ -42,7 +42,7 @@ class Stream(commands.Cog):
     async def stopStream(self, ctx, status: str = None):
         """
         Change bot's status from streaming
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Make sure bot doesn't error when no status is given

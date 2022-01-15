@@ -25,7 +25,7 @@ class Discord_Info(commands.Cog):
     async def getGuilds(self, ctx):
         """
         Get the list of guilds that the bot is in
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         embed = discord.Embed(color=ctx.author.color.value) #Create embed
@@ -46,7 +46,7 @@ class Discord_Info(commands.Cog):
         """
         Get the avatar of you or someone else
         @author Paladin Of Ioun#5905
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Make sure bot doesn't crash if user doesn't exist
@@ -62,7 +62,7 @@ class Discord_Info(commands.Cog):
     async def roles(self, ctx):
         """
         Get all roles in current server
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         allroles = "" #Make an empty string with roles
@@ -92,7 +92,7 @@ class Discord_Info(commands.Cog):
         """
         Get user information
         @author Paladin Of Ioun#5905
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         #Make sure user isn't none
@@ -126,7 +126,7 @@ class Discord_Info(commands.Cog):
     async def role(self, ctx, role: discord.Role):
         """
         Get role information
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Make sure user isn't none
@@ -154,7 +154,7 @@ class Discord_Info(commands.Cog):
         """
         Check info about current server
         @author Paladin Of Ioun#5905
-        @author Nerd#2021
+        @author Nerd#2022
         """
         if (is_LDL_channel(ctx)):
             if ctx.invoked_subcommand is None:
@@ -195,7 +195,7 @@ class Discord_Info(commands.Cog):
     async def emoji(self, ctx):
         """
         Get all emojis in a server
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         if (is_LDL_channel(ctx)):

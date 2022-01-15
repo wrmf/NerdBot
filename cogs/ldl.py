@@ -20,7 +20,7 @@ class ldl(commands.Cog):
     async def addLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
         """
         Add person as staff on LDL server
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Check if user is none so bot doesn't crash
@@ -71,7 +71,7 @@ class ldl(commands.Cog):
     async def delLdlStaff(self, ctx: commands.Context, user: discord.Member = None):
         """
         Remove person from ignore list
-        @author Nerd#2021
+        @author Nerd#2022
         """
 
         # Make sure user isn't none so the bot doesn't die
