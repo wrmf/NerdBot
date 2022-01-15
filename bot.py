@@ -13,6 +13,7 @@ from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
 from tokenfile import token
 import logging
 import os
+from possibleMessages import possibleMessages
 
 
 
@@ -48,12 +49,11 @@ class Bot(AutoShardedBot):
 				await msg.delete()
 		except BaseException as e:
 			logger.error(repr(e))
-
 		if msg.guild.me in msg.mentions:
 			if ctx.message.author.id == TNMN:
 				pass
 			elif ctx.message.author.id == Cheese:
-				possibleMessages = ["STOP PINGING ME CHEESE", "WHY AM I HERE JUST TO SUFFER", "STOP NOW", "I WARNED YOU", "SO YOU HAVE CHOSEN DEATH", "YOU WILL LEARN TO FEAR ME MORTAL", "CHEESE IS BRUH", "BRUH", "YOU MESSED WITH THE WRONG BOT", "https://giphy.com/embed/11tTNkNy1SdXGg", "😡"]
+				possibleMes
 				embed = discord.Embed(title="PING",
 									  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
 									  color=ctx.message.author.top_role.color)  # Create error embed
