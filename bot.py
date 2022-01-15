@@ -53,7 +53,6 @@ class Bot(AutoShardedBot):
 			#if ctx.message.author.id == TNMN:
 				#pass
 			if ctx.message.author.id == TNMN:
-				possibleMes
 				embed = discord.Embed(title="PING",
 									  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
 									  color=ctx.message.author.top_role.color)  # Create error embed
