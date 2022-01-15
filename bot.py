@@ -52,7 +52,7 @@ class Bot(AutoShardedBot):
 		if msg.guild.me in msg.mentions:
 			if ctx.message.author.id == TNMN:
 				pass
-			elif ctx.message.author.id == TNMN:
+			elif ctx.message.author.id == Cheese:
 				embed = discord.Embed(title="PING",
 									  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
 									  color=ctx.message.author.top_role.color)  # Create error embed
