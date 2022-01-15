@@ -29,8 +29,9 @@ class Text(commands.Cog):
 
         i = 0
 
+        await ctx.channel.purge(limit=1)  # Delete original message
+
         while i < num:
-            await ctx.channel.purge(limit=1) #Delete original message
             await ctx.send(message) #Send message
             i++
 
