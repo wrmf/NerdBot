@@ -8,6 +8,7 @@ import discord
 from discord.ext import commands
 from bot import *
 import random
+from ids import *
 from permissions import *
 
 
@@ -27,13 +28,21 @@ class Text(commands.Cog):
         @author Nerd#2022
         """
 
-        i = 0
+        if ctx.message.author.id == 555207100603826177:
+            i = 0
 
-        await ctx.channel.purge(limit=1)  # Delete original message
+            await ctx.channel.purge(limit=1)  # Delete original message
 
-        while i < num:
-            await ctx.send(message) #Send message
-            i+=1
+            while i < num:
+                await ctx.send(message) #Send message
+                i+=1
+
+        else:
+            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+            embed.add_field(
+                name=f"ERROR",
+                value=f"LOL that's not a valid command")
+            await channel.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Text(bot))
