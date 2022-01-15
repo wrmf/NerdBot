@@ -19,16 +19,16 @@ class Text(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-        @commands.command()
-        @commands.check(is_admin)
-        async def echo(self, ctx: commands.Context, message: str):
-            """
-            Echo a message
-            @author Nerd#2022
-            """
+    @commands.command()
+    @commands.check(is_admin)
+    async def echo(self, ctx: commands.Context, message: str):
+        """
+        Echo a message
+        @author Nerd#2022
+        """
 
-            await ctx.channel.purge(limit=1) #Delete original message
-            await ctx.send(message) #Send message
+        await ctx.channel.purge(limit=1) #Delete original message
+        await ctx.send(message) #Send message
 
 def setup(bot):
     bot.add_cog(Text(bot))
