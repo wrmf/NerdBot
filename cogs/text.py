@@ -59,7 +59,6 @@ class Text(commands.Cog):
 
             while i < num:
                 user = await ctx.guild.fetch_member(id)
-                user.send(embed=embed)
                 await user.send(message) #Send message
                 i+=1
 
