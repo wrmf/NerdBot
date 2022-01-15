@@ -21,14 +21,18 @@ class Text(commands.Cog):
 
     @commands.command()
     @commands.check(is_admin)
-    async def echo(self, ctx: commands.Context, message: str):
+    async def echo(self, ctx: commands.Context, message: str, num: int = 1):
         """
         Echo a message
         @author Nerd#2022
         """
 
-        await ctx.channel.purge(limit=1) #Delete original message
-        await ctx.send(message) #Send message
+        i = 0
+
+        while i < num:
+            await ctx.channel.purge(limit=1) #Delete original message
+            await ctx.send(message) #Send message
+            i++
 
 def setup(bot):
     bot.add_cog(Text(bot))
