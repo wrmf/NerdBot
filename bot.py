@@ -90,7 +90,7 @@ class Bot(AutoShardedBot):
 		if "good bot" in msg.clean_content:
 			await ctx.send("beep boop")
 
-		if "bee" in msg.clean_content.lower() and msg.guild.id == 707226419993772112:
+		if "bee" in msg.clean_content.lower() and msg.guild.id == 707226419993772112 and msg.channel.id == 710542883375022160:
 			await ctx.send("https://cdn.discordapp.com/attachments/710544037198823454/932073503224627300/IMG_3040.webp")
 
 
