@@ -87,6 +87,9 @@ class Bot(AutoShardedBot):
 			if random.randint(0,20) == 0:
 				await ctx.send(ctx.message.content)
 
+		if "good bot" in msg.clean_content:
+			await ctx.send("beep boop")
+
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
