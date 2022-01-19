@@ -93,6 +93,8 @@ class Bot(AutoShardedBot):
 		if "bee" in msg.clean_content.lower() and msg.channel.id in [710542883375022160, 829711652382441503]:
 			await ctx.send("https://cdn.discordapp.com/attachments/710544037198823454/932073503224627300/IMG_3040.webp")
 
+		if "uwu" in msg.clean_content.lower() and ctx.message.guild.id == LDL_server:
+			await ctx.send("Stop it. Get some help")
 
 		for m in msg.mentions:
 			if await self.is_owner(m) and not await self.is_owner(msg.author):
