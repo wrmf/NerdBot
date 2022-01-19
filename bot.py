@@ -83,7 +83,7 @@ class Bot(AutoShardedBot):
 								inline=True)
 				await user.send(embed=embed)
 
-		if ctx.message.author.id == 570335330616606724 or ctx.message.author.id == 609355069212852244:
+		if ctx.message.author.id == 609355069212852244:
 			if random.randint(0,20) == 0:
 				await ctx.send(ctx.message.content)
 
