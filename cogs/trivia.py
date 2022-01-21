@@ -125,7 +125,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         await ctx.send(embed=embed) #Send embed
 
         def checkNameorNum(message: discord.Message):
-            if int(message.content) == placementOfRightAnswer+1 or str(message.content.lower) == listOfQuestions[numQuestionCounter]:
+            if int(message.content) == placementOfRightAnswer+1 or str(message.content.lower) == str(listOfQuestions[numQuestionCounter]).lower:
                 return True
             else:
                 return False
@@ -138,6 +138,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                 return False
 
         try:
+            await ctx.send(listOfQuestions[numQuestionCounter])
             msg = await client.wait_for('message', timeout=15.0, check=checkIfCorrect) #Wait on player answer
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
