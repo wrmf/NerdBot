@@ -112,20 +112,26 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         placementOfRightAnswer = random.randint(0, 3) #Randomly generate right answer location
         counterWrongAnswer = 0 #Counter for the number of wrong answers place (for wrong answer array)
 
-        counter2 = 0
+        counter = 0 #Reset counter
 
-        while counter2 < 4: #Place answers in embed
-            if counter2 == placementOfRightAnswer: #Place correct answer
-                embed.add_field(name=counter2+1, value=answerList[num], inline=False)  #Get right answer added
-                counter2+=1
+        while counter < 4: #Place answers in embed
+            if counter == placementOfRightAnswer: #Place correct answer
+                embed.add_field(name=counter+1, value=answerList[num], inline=False)  #Get right answer added
+                counter+=1
             else: #Place wrong answers
-                embed.add_field(name=counter2+1, value=answerList[listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
+                embed.add_field(name=counter+1, value=answerList[listOfAnswers[counterWrongAnswer]], inline=False)  # Set title for first embed
                 counterWrongAnswer+=1
-                counter2+=1
+                counter+=1
         await ctx.send(embed=embed) #Send embed
 
+        def checkNameorNum(message: discord.Message):
+            if int(message.content) == placementOfRightAnswer+1 or str(message.content.lower) == listOfQuestions[x]:
+                return True
+            else:
+                return False
+
         def checkCustom(message: discord.Message): #Check for message
-            if message.channel == originalChannel and int(message.content) == placementOfRightAnswer+1 and message.author.id not in thisQuestionAnswers:
+            if message.channel == originalChannel and checkNameorNum(message=message) and message.author.id not in thisQuestionAnswers:
                 return True
             else:
                 thisQuestionAnswers.append(message.author.id)
