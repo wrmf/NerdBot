@@ -125,7 +125,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         await ctx.send(embed=embed) #Send embed
 
         def checkNameorNum(message: discord.Message):
-            if int(message.content) == placementOfRightAnswer+1 or str(message.content) == answerList[listOfQuestions[numQuestionCounter]]:
+            if int(message.content) == placementOfRightAnswer+1 or message.content == answerList[listOfQuestions[numQuestionCounter]]:
                 return True
             else:
                 return False
