@@ -84,9 +84,9 @@ async def getCategory(self, ctx, category, check):
 async def startTrivia(self, ctx, questions, originalChannel, question, questionList, answerList):
     listOfQuestions = []
     correctAnswers = [[],[]]
-    x = 0
+    numQuestionCounter = 0
 
-    while x < questions: #Multiple questions
+    while numQuestionCounter < questions: #Multiple questions
 
         thisQuestionAnswers = []
 
@@ -95,7 +95,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         while num in listOfQuestions: #Make sure this question has not been asked already this game
             num = random.randint(0, len(questionList) - 1)
         listOfQuestions.append(num) #Add correct answer
-        embed = discord.Embed(title=f"Question {(x)+1}", description=f"{question} **{questionList[num]}**?",
+        embed = discord.Embed(title=f"Question {(numQuestionCounter)+1}", description=f"{question} **{questionList[num]}**?",
                               color=ctx.message.author.top_role.color)  # Create embed
 
         listOfAnswers = [] #Wrong answer array
@@ -125,12 +125,12 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
         await ctx.send(embed=embed) #Send embed
 
         def checkNameorNum(message: discord.Message):
-            if int(message.content) == placementOfRightAnswer+1 or str(message.content.lower) == listOfQuestions[x]:
+            if int(message.content) == placementOfRightAnswer+1 or str(message.content.lower) == listOfQuestions[numQuestionCounter]:
                 return True
             else:
                 return False
 
-        def checkCustom(message: discord.Message): #Check for message
+        def checkIfCorrect(message: discord.Message): #Check for message
             if message.channel == originalChannel and checkNameorNum(message=message) and message.author.id not in thisQuestionAnswers:
                 return True
             else:
@@ -138,7 +138,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                 return False
 
         try:
-            msg = await client.wait_for('message', timeout=15.0, check=checkCustom) #Wait on player answer
+            msg = await client.wait_for('message', timeout=15.0, check=checkIfCorrect) #Wait on player answer
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
                                   color=ctx.message.author.top_role.color)  # Create embed
@@ -155,7 +155,7 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                                   color=ctx.message.author.top_role.color)  # Create embed
             await ctx.send(embed=embed)  # Send embed
 
-        x+=1
+        numQuestionCounter+=1
 
     highestScoreUser = [0] #Player(s) with highest score
     highestScore = 0 #highest score
