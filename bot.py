@@ -83,14 +83,14 @@ class Bot(AutoShardedBot):
 								inline=True)
 				await user.send(embed=embed)
 
-		if ctx.message.author.id == 609355069212852244:
+		if ctx.message.author.id == 609355069212852244 and ctx.message.guild.id == 707226419993772112:
 			if random.randint(0,20) == 0:
 				await ctx.send(ctx.message.content)
 
 		if "good bot" in msg.clean_content:
 			await ctx.send("beep boop")
 
-		if "bee" in msg.clean_content.lower() and msg.channel.id in [710542883375022160, 829711652382441503]:
+		if "bee " in msg.clean_content.lower() and msg.channel.id in [710542883375022160, 829711652382441503]:
 			await ctx.send("https://cdn.discordapp.com/attachments/710544037198823454/932073503224627300/IMG_3040.webp")
 
 		if "uwu" in msg.clean_content.lower() and ctx.message.guild.id == LDL_server:
