@@ -32,7 +32,7 @@ class Stream(commands.Cog):
             status = "Minecraft I'm sure"
 
         await self.bot.change_presence(activity=discord.Streaming(name=status,
-                                                                  url="https://twitch.tv/EndermanEmerald")) #Set status
+                                                                  url="https://twitch.tv/EmerqldEnderman")) #Set status
         embed = discord.Embed(title="Stream", description=f"Status has been updated to streaming!",
                               color=ctx.message.author.top_role.color) #Create embed
         await ctx.send(embed=embed) #Send embed
@@ -47,7 +47,7 @@ class Stream(commands.Cog):
 
         #Make sure bot doesn't error when no status is given
         if(status is None):
-            status = "nothing, working on switching to JDA currently"
+            status = "nothing, I'm not switching to JDA"
 
         await self.bot.change_presence(activity=discord.Game(name=status)) #Set status
         embed = discord.Embed(title="Stream", description=f"Bot's status is no longer streaming",

@@ -21,53 +21,37 @@ class Text(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.check(is_admin)
+    @commands.check(is_owner)
     async def echo(self, ctx: commands.Context, message: str, num: int = 1):
         """
         Echo a message
         @author Nerd#2022
         """
+        
+        counter = 0
 
-        if ctx.message.author.id == 555207100603826177:
-            i = 0
+        await ctx.channel.purge(limit=1)  # Delete original message
 
-            await ctx.channel.purge(limit=1)  # Delete original message
-
-            while i < num:
-                await ctx.send(message) #Send message
-                i+=1
-
-        else:
-            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-            embed.add_field(
-                name=f"ERROR",
-                value=f"LOL that's not a valid command")
-            await channel.send(embed=embed)
+        while counter < num:
+            await ctx.send(message) #Send message
+            counter+=1
 
     @commands.command()
-    @commands.check(is_admin)
+    @commands.check(is_owner)
     async def dm(self, ctx: commands.Context, id: int, message: str, num: int = 1):
         """
         Direct message a user a message
         @author Nerd#2022
         """
 
-        if ctx.message.author.id == 555207100603826177:
-            i = 0
+        counter = 0
 
-            await ctx.channel.purge(limit=1)  # Delete original message
+        await ctx.channel.purge(limit=1)  # Delete original message
 
-            while i < num:
-                user = await ctx.guild.fetch_member(id)
-                await user.send(message) #Send message
-                i+=1
-
-        else:
-            embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-            embed.add_field(
-                name=f"ERROR",
-                value=f"LOL that's not a valid command")
-            await channel.send(embed=embed)
+        while counter < num:
+            user = await ctx.guild.fetch_member(id)
+            await user.send(message) #Send message
+            counter+=1
 
 
 

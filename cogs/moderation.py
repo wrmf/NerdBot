@@ -27,10 +27,6 @@ class Moderation(commands.Cog):
     async def nick(self, ctx, id: discord.Member, *, nickname: str):
         """Changes a user's nickname"""
 
-        if ctx.message.author.id == 868928903878697020:
-            await ctx.send("oof lmao")
-            return
-
         guild_id = ctx.guild.name
         try:
             await id.edit(nick=nickname)
@@ -244,38 +240,6 @@ class Moderation(commands.Cog):
 
         else:
             await user.remove_roles(role)  # Add role
-
-    @commands.command(aliases=['toggleprefix'])
-    @commands.check(is_owner)
-    async def togglePrefix(self, ctx: commands.Context):
-        """
-        Toggle if owner prefix is on
-        @author Nerd#2022
-        """
-
-        if(owner_no_prefix is False):
-            with open("ownerPrefix.py", 'r+') as file:
-                file.truncate(0)
-                string = "owner_no_prefix = True"
-                file.write(string)
-                file.close()
-            embed = discord.Embed(color=ctx.author.color.value)  # Make embed
-            embed.add_field(name="**Success**", value=f"Owner no prefix has been enabled", inline=True)  # Make sucess message
-            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-            await ctx.send(embed=embed)  # Send embed
-            importlib.reload(string)
-        elif(owner_no_prefix is True):
-            with open("ownerPrefix.py", 'r+') as file:
-                file.truncate(0)
-                string = "owner_no_prefix = False"
-                file.write(string)
-                file.close()
-            embed = discord.Embed(color=ctx.author.color.value)  # Make embed
-            embed.add_field(name="**Success**", value=f"Owner no prefix has been disabled", inline=True)  # Make sucess message
-            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-            await ctx.send(embed=embed)  # Send embed
-            importlib.reload(string)
-
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

@@ -12,6 +12,7 @@ logger = logging.getLogger("bot")
 
 def fmt(d):
     return d.strftime('%A, %B %e %Y at %H:%M:%S')
+
 def is_nuke(ctx: commands.Context):
     member: discord.Member = ctx.author
     roles: List[discord.Role] = member.roles
@@ -19,10 +20,7 @@ def is_nuke(ctx: commands.Context):
     return is_mod(ctx) or is_admin(ctx) or is_owner(ctx)
 
 def is_owner(ctx: commands.Context):
-    if ctx.author.id == TNMN or ctx.author.id == 610138729138618371:
-        return True
-    else:
-        return False
+    return ctx.author.id == TNMN or ctx.author.id == Tester
 
 def is_admin(ctx: commands.Context):
     member: discord.Member = ctx.author
@@ -43,7 +41,6 @@ def is_LDL_channel(ctx: commands.Context):
             return False
     else:
         return True
-
 
 def is_plane(ctx: commands.Context):
     if ctx.author.id == TNMN or ctx.author.id == Likeusb:
