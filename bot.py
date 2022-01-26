@@ -90,7 +90,7 @@ class Bot(AutoShardedBot):
 		if "good bot" in msg.clean_content:
 			await ctx.send("beep boop")
 
-		if "bee " in msg.clean_content.lower() and msg.channel.id in [710542883375022160, 829711652382441503]:
+		if "bee " in msg.clean_content.lower() and msg.channel.id in [710542883375022160, 829711652382441503, 901267588041044059]:
 			await ctx.send("https://cdn.discordapp.com/attachments/710544037198823454/932073503224627300/IMG_3040.webp")
 
 		if "uwu" in msg.clean_content.lower() and ctx.message.guild.id == LDL_server:
