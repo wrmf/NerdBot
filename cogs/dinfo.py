@@ -36,6 +36,10 @@ class Discord_Info(commands.Cog):
         async for guild in client.fetch_guilds(limit=200):
             counter = counter+1
             embed.add_field(name=counter, value=guild.name, inline=True)
+            if counter == 24:
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+                counter = 0
 
         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
         await ctx.send(embed=embed) #Send embed
