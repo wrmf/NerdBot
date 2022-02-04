@@ -39,6 +39,8 @@ class Discord_Info(commands.Cog):
             if counter == 24:
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
+                embed = discord.Embed(color=ctx.author.color.value)  # Create embed
+                embed.add_field(name="**Guilds**", value="-", inline=True)  # Add title
                 counter = 0
 
         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
