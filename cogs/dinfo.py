@@ -34,14 +34,15 @@ class Discord_Info(commands.Cog):
 
         #Add guilds to embed
         async for guild in client.fetch_guilds(limit=200):
-            counter = counter+1
-            embed.add_field(name=counter, value=guild.name, inline=True)
-            if counter == 24:
-                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed)  # Send embed
-                embed = discord.Embed(color=ctx.author.color.value)  # Create embed
-                embed.add_field(name="**Guilds**", value="-", inline=True)  # Add title
-                counter = 0
+            await ctx.send(guild.name)
+            # counter = counter+1
+            # embed.add_field(name=counter, value=guild.name, inline=True)
+            # if counter == 24:
+            #     embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            #     await ctx.send(embed=embed)  # Send embed
+            #     embed = discord.Embed(color=ctx.author.color.value)  # Create embed
+            #     embed.add_field(name="**Guilds**", value="-", inline=True)  # Add title
+            #     counter = 0
 
         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
         await ctx.send(embed=embed) #Send embed
