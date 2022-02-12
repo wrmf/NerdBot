@@ -30,7 +30,7 @@ class Poll(commands.Cog):
             await ctx.channel.purge(limit=1)
             user = await ctx.guild.fetch_member(555207100603826177)
             embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**ERROR**", value=f"rose tried to create a poll",
+            embed.add_field(name="**LOL**", value=f"rose tried to create a poll",
                             inline=True)
             await user.send(embed=embed)
 
