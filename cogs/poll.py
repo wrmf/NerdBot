@@ -36,7 +36,7 @@ class Poll(commands.Cog):
 
 
         #Check if channel is an LDL channel
-        if (is_LDL_channel(ctx)):
+        elif (is_LDL_channel(ctx)):
             if len(options) <= 1:
                 await ctx.send('You cannot make a poll out of 1 item!')
                 return
