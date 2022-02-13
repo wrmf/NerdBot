@@ -26,17 +26,17 @@ class Poll(commands.Cog):
         @author Nerd#2022
         """
 
-        if ctx.message.author.id == 460177059189096458:
-            await ctx.channel.purge(limit=1)
-            user = await ctx.guild.fetch_member(555207100603826177)
-            embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**LOL**", value=f"rose tried to create a poll",
-                            inline=True)
-            await user.send(embed=embed)
+        # if ctx.message.author.id == 460177059189096458:
+        #     await ctx.channel.purge(limit=1)
+        #     user = await ctx.guild.fetch_member(555207100603826177)
+        #     embed = discord.Embed(color=ctx.author.color.value)
+        #     embed.add_field(name="**LOL**", value=f"rose tried to create a poll",
+        #                     inline=True)
+        #     await user.send(embed=embed)
 
 
         #Check if channel is an LDL channel
-        elif (is_LDL_channel(ctx)):
+        if (is_LDL_channel(ctx)):
             if len(options) <= 1:
                 await ctx.send('You cannot make a poll out of 1 item!')
                 return
