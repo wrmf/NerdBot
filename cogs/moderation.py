@@ -91,8 +91,6 @@ class Moderation(commands.Cog):
 
         users = list.splitlines()
 
-        await ctx.send(len(users))
-
         for u in users:
             member = await ctx.bot.fetch_user(int(users[0]))
             if u == TNMN or u == TNMB or u == Tester:
@@ -100,7 +98,7 @@ class Moderation(commands.Cog):
                 embed.add_field(
                     name=f"Error",
                     value=f"I cannot ban that person")
-                await author.send(embed=embed)  # Say in chat
+                await ctx.send(embed=embed)  # Say in chat
             else:
                 try:
                     await ctx.guild.ban(member)
@@ -108,13 +106,13 @@ class Moderation(commands.Cog):
                     embed.add_field(
                         name=f"Ban",
                         value=f"User {member} has been banned... L")
-                    await author.send(embed=embed)  # Say in chat
+                    await ctx.send(embed=embed)  # Say in chat
                 except discord.Forbidden:
                     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                     embed.add_field(
                         name=f"Error",
                         value=f"Error banning: I don't have permissions **{member}**")
-                    await author.send(embed=embed)  # Say in chat
+                    await ctx.send(embed=embed)  # Say in chat
 
 
     @commands.command()
