@@ -88,9 +88,19 @@ class Moderation(commands.Cog):
 
         users = users.split(" ")
 
-        member = await ctx.bot.fetch_user(int(users[0]))
-        await ctx.guild.ban(member)
-        await ctx.send(users[0])
+        for u in users:
+            try:
+                member = await ctx.bot.fetch_user(int(users[0]))
+                await ctx.send(member)
+                await ctx.guild.ban(member)
+            except discord.Forbidden:
+                embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                embed.add_field(
+                    name=f"Error",
+                    value=f"Error banning: I don't have permissions {member}")
+                await author.send(embed=embed)  # Say in chat
+
+
 
         #
         # if users.id:
