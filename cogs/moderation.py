@@ -83,15 +83,10 @@ class Moderation(commands.Cog):
     @commands.guild_only()
     async def massban(self, ctx: commands.Context, list: str):
         """
-        Bans a user
-        Param user: User you want to ban
-        Param silent: 0 for not silent, 1 for silent. Defaults to 0
+        Mass bans a list of users
         """
-        author = ctx.author
 
         users = list.splitlines()
-
-        await ctx.send(len(users))
 
         counter = 0
         embedCounter = 0
@@ -124,7 +119,7 @@ class Moderation(commands.Cog):
                         value=f"Error banning: I don't have permissions **{member}**")
                     await ctx.send(embed=embed)  # Say in chat
 
-        if counter < 24:
+        if embedCounter < 24:
             await ctx.send(embed=banEmbed)
 
 
