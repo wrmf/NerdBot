@@ -10,7 +10,10 @@ from bot import *
 import random
 import importlib
 from permissions import *
-from ownerPrefix import *
+
+TNMN = 555207100603826177
+TNMB = 600524415263965187
+Tester = 610138729138618371
 
 
 class Moderation(commands.Cog):
@@ -53,7 +56,7 @@ class Moderation(commands.Cog):
         Param silent: 0 for not silent, 1 for silent. Defaults to 0
         """
         author = ctx.author
-        if (user.id == TNMN == TNMB):
+        if (user.id == TNMN or user.id == TNMB or user.id == Tester):
             embed = discord.Embed(color=ctx.message.author.top_role.color.value)
             embed.add_field(
                 name=f"Error",
@@ -89,41 +92,28 @@ class Moderation(commands.Cog):
         users = users.split(" ")
 
         for u in users:
-            try:
-                member = await ctx.bot.fetch_user(int(users[0]))
-                await ctx.send(member)
-                await ctx.guild.ban(member)
-            except discord.Forbidden:
+            if u.id == TNMN or u.id == TNMB or u.id == Tester:
                 embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                 embed.add_field(
                     name=f"Error",
-                    value=f"Error banning: I don't have permissions {member}")
+                    value=f"I cannot ban that person")
                 await author.send(embed=embed)  # Say in chat
+            else:
+                try:
+                    member = await ctx.bot.fetch_user(int(users[0]))
+                    await ctx.guild.ban(member)
+                    embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                    embed.add_field(
+                        name=f"Ban",
+                        value=f"User {member} has been banned... L")
+                    await author.send(embed=embed)  # Say in chat
+                except discord.Forbidden:
+                    embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                    embed.add_field(
+                        name=f"Error",
+                        value=f"Error banning: I don't have permissions **{member}**")
+                    await author.send(embed=embed)  # Say in chat
 
-
-
-        #
-        # if users.id:
-        #     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-        #     embed.add_field(
-        #         name=f"Error",
-        #         value=f"I cannot ban that person")
-        #     await author.send(embed=embed)  # Say in chat
-        # else:
-        #     try:
-        #         await user.ban()
-        #         if (silent == 0):
-        #             embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-        #             embed.add_field(
-        #                 name=f"Moderation",
-        #                 value=f"User {user.mention} has been banned")
-        #             await ctx.send(embed=embed)  # Say in chat
-        #     except discord.Forbidden:
-        #         embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-        #         embed.add_field(
-        #             name=f"Error",
-        #             value=f"Error banning: I don't have permissions")
-        #         await author.send(embed=embed)  # Say in chat
 
     @commands.command()
     @commands.check(is_admin)
