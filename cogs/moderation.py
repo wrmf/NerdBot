@@ -113,7 +113,7 @@ class Moderation(commands.Cog):
                         await ctx.send(embed=embed)
                         banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
                         banEmbed.add_field(name="**Bans**", value="-", inline=True)  # Set title for first embed
-                    embed.add_field(name=counter, value=f"**{member}**", inline=True)
+                    banEmbed.add_field(name=counter, value=f"**{member}**", inline=True)
                     counter += 1
                     embedCounter += 1
                 except discord.Forbidden:
