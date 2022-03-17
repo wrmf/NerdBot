@@ -94,7 +94,11 @@ class Moderation(commands.Cog):
         await ctx.send(len(users))
 
         for u in users:
+            counter = 0
+            embedCounter = 0
             member = await ctx.bot.fetch_user(int(u))
+            banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
+            banEmbed.add_field(name="**Bans**", value="-", inline=True)  # Set title for first embed
             if u == TNMN or u == TNMB or u == Tester:
                 embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                 embed.add_field(
@@ -104,11 +108,14 @@ class Moderation(commands.Cog):
             else:
                 try:
                     await ctx.guild.ban(member)
-                    embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-                    embed.add_field(
-                        name=f"Ban",
-                        value=f"User {member} has been banned... L")
-                    await ctx.send(embed=embed)  # Say in chat
+                    if embedCounter > 24:
+                        embedCounter = 0
+                        await ctx.send(embed=embed)
+                        banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
+                        banEmbed.add_field(name="**Bans**", value="-", inline=True)  # Set title for first embed
+                    embed.add_field(name=counter, value=f"**{member}**", inline=True)
+                    counter += 1
+                    embedCounter += 1
                 except discord.Forbidden:
                     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                     embed.add_field(
