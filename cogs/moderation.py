@@ -93,12 +93,13 @@ class Moderation(commands.Cog):
 
         await ctx.send(len(users))
 
+        counter = 0
+        embedCounter = 0
+        banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
+        banEmbed.add_field(name="**Bans**", value="-", inline=True)  # Set title for first embed
+
         for u in users:
-            counter = 0
-            embedCounter = 0
             member = await ctx.bot.fetch_user(int(u))
-            banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
-            banEmbed.add_field(name="**Bans**", value="-", inline=True)  # Set title for first embed
             if u == TNMN or u == TNMB or u == Tester:
                 embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                 embed.add_field(
@@ -122,6 +123,9 @@ class Moderation(commands.Cog):
                         name=f"Error",
                         value=f"Error banning: I don't have permissions **{member}**")
                     await ctx.send(embed=embed)  # Say in chat
+
+        if counter < 24:
+            await ctx.send(embed=banEmbed)
 
 
     @commands.command()
