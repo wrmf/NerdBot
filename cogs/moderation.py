@@ -75,6 +75,44 @@ class Moderation(commands.Cog):
                     value=f"Error banning: I don't have permissions")
                 await author.send(embed=embed)  # Say in chat
 
+    @commands.command(aliases=['massBan', 'MassBan'])
+    @commands.check(is_admin)
+    @commands.guild_only()
+    async def massban(self, ctx: commands.Context, users: str):
+        """
+        Bans a user
+        Param user: User you want to ban
+        Param silent: 0 for not silent, 1 for silent. Defaults to 0
+        """
+        author = ctx.author
+
+        users = users.split(" ")
+
+        member = ctx.guild.get_member(int(users[0]))
+        await ctx.send(users[0], member)
+        #
+        # if users.id:
+        #     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+        #     embed.add_field(
+        #         name=f"Error",
+        #         value=f"I cannot ban that person")
+        #     await author.send(embed=embed)  # Say in chat
+        # else:
+        #     try:
+        #         await user.ban()
+        #         if (silent == 0):
+        #             embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+        #             embed.add_field(
+        #                 name=f"Moderation",
+        #                 value=f"User {user.mention} has been banned")
+        #             await ctx.send(embed=embed)  # Say in chat
+        #     except discord.Forbidden:
+        #         embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+        #         embed.add_field(
+        #             name=f"Error",
+        #             value=f"Error banning: I don't have permissions")
+        #         await author.send(embed=embed)  # Say in chat
+
     @commands.command()
     @commands.check(is_admin)
     @commands.guild_only()
