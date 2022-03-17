@@ -88,11 +88,9 @@ class Moderation(commands.Cog):
 
         users = users.split(" ")
 
-        member = ctx.guild.get_member(int(users[0]))
+        member = await ctx.bot.fetch_user(int(users[0]))
+        await ctx.guild.ban(member)
         await ctx.send(users[0])
-        await ctx.send(member)
-
-        await member.ban()
 
         #
         # if users.id:
