@@ -89,10 +89,11 @@ class Moderation(commands.Cog):
         """
         author = ctx.author
 
-        users = users.split(" ")
+        users = users.splitlines
 
         for u in users:
-            if u.id == TNMN or u.id == TNMB or u.id == Tester:
+            member = await ctx.bot.fetch_user(int(users[0]))
+            if u == TNMN or u == TNMB or u == Tester:
                 embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                 embed.add_field(
                     name=f"Error",
@@ -100,7 +101,6 @@ class Moderation(commands.Cog):
                 await author.send(embed=embed)  # Say in chat
             else:
                 try:
-                    member = await ctx.bot.fetch_user(int(users[0]))
                     await ctx.guild.ban(member)
                     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                     embed.add_field(
