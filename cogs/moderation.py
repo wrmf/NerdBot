@@ -89,7 +89,8 @@ class Moderation(commands.Cog):
         users = users.split(" ")
 
         member = ctx.guild.get_member(int(users[0]))
-        await ctx.send(users[0], member)
+        await ctx.send(users[0])
+        await ctx.send(member)
         #
         # if users.id:
         #     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
