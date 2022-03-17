@@ -81,7 +81,7 @@ class Moderation(commands.Cog):
     @commands.command(aliases=['massBan', 'MassBan'])
     @commands.check(is_admin)
     @commands.guild_only()
-    async def massban(self, ctx: commands.Context, users: str):
+    async def massban(self, ctx: commands.Context, list: str):
         """
         Bans a user
         Param user: User you want to ban
@@ -89,7 +89,9 @@ class Moderation(commands.Cog):
         """
         author = ctx.author
 
-        users = users.splitlines
+        users = list.splitlines()
+
+        await ctx.send(len(users))
 
         for u in users:
             member = await ctx.bot.fetch_user(int(users[0]))
