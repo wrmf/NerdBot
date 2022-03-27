@@ -97,7 +97,7 @@ class Moderation(commands.Cog):
         banEmbed.add_field(name="**Bans**", value="-", inline=False)  # Set title for first embed
 
         for u in users:
-            try:
+            if u:
                 await ctx.send(u)
                 member = await ctx.bot.fetch_user(int(u))
                 await ctx.send(member.id + " " + member.mention)
@@ -124,8 +124,6 @@ class Moderation(commands.Cog):
                             name=f"Error",
                             value=f"Error banning: I don't have permissions **{member}**")
                         await ctx.send(embed=embed)  # Say in chat
-            except ValueError:
-                pass
 
         if embedCounter < 24:
             await ctx.send(embed=banEmbed)
