@@ -86,8 +86,6 @@ class Moderation(commands.Cog):
         Mass bans a list of users
         """
 
-        await ctx.send(list)
-
         users = list.splitlines()
 
         counter = 0
@@ -97,7 +95,6 @@ class Moderation(commands.Cog):
 
         for u in users:
             if u:
-                await ctx.send(u)
                 member = await ctx.bot.fetch_user(int(u))
                 if u == TNMN or u == TNMB or u == Tester:
                     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
