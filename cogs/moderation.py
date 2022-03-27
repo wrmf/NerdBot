@@ -109,7 +109,7 @@ class Moderation(commands.Cog):
                     await ctx.send(embed=embed)  # Say in chat
                 else:
                     try:
-                        await ctx.guild.ban(member, reason=reason)
+                        await ctx.guild.ban(member)#, reason=reason)
                         if embedCounter > 24:
                             embedCounter = 0
                             await ctx.send(embed=banEmbed)
