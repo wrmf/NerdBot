@@ -81,7 +81,7 @@ class Moderation(commands.Cog):
     @commands.command(aliases=['massBan', 'MassBan'])
     @commands.check(is_admin)
     @commands.guild_only()
-    async def massban(self, ctx: commands.Context, list: str, reason: str):
+    async def massban(self, ctx: commands.Context, list: str, reason: str = " "):
         """
         Mass bans a list of users
         """
