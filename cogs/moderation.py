@@ -97,32 +97,35 @@ class Moderation(commands.Cog):
         banEmbed.add_field(name="**Bans**", value="-", inline=False)  # Set title for first embed
 
         for u in users:
-            await ctx.send(u)
-            member = await ctx.bot.fetch_user(int(u))
-            await ctx.send(member.id + " " + member.mention)
-            if u == TNMN or u == TNMB or u == Tester:
-                embed = discord.Embed(color=ctx.message.author.top_role.color.value)
-                embed.add_field(
-                    name=f"Error",
-                    value=f"I cannot ban that person")
-                await ctx.send(embed=embed)  # Say in chat
-            else:
-                try:
-                    await ctx.guild.ban(member, reason=reason)
-                    if embedCounter > 24:
-                        embedCounter = 0
-                        await ctx.send(embed=banEmbed)
-                        banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
-                        banEmbed.add_field(name="**Bans**", value="-", inline=False)  # Set title for first embed
-                    banEmbed.add_field(name=counter, value=f"**{member}**", inline=False)
-                    counter += 1
-                    embedCounter += 1
-                except discord.Forbidden:
+            try:
+                await ctx.send(u)
+                member = await ctx.bot.fetch_user(int(u))
+                await ctx.send(member.id + " " + member.mention)
+                if u == TNMN or u == TNMB or u == Tester:
                     embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                     embed.add_field(
                         name=f"Error",
-                        value=f"Error banning: I don't have permissions **{member}**")
+                        value=f"I cannot ban that person")
                     await ctx.send(embed=embed)  # Say in chat
+                else:
+                    try:
+                        await ctx.guild.ban(member, reason=reason)
+                        if embedCounter > 24:
+                            embedCounter = 0
+                            await ctx.send(embed=banEmbed)
+                            banEmbed = discord.Embed(color=ctx.author.color.value)  # Make first embed
+                            banEmbed.add_field(name="**Bans**", value="-", inline=False)  # Set title for first embed
+                        banEmbed.add_field(name=counter, value=f"**{member}**", inline=False)
+                        counter += 1
+                        embedCounter += 1
+                    except discord.Forbidden:
+                        embed = discord.Embed(color=ctx.message.author.top_role.color.value)
+                        embed.add_field(
+                            name=f"Error",
+                            value=f"Error banning: I don't have permissions **{member}**")
+                        await ctx.send(embed=embed)  # Say in chat
+            except ValueError:
+                pass
 
         if embedCounter < 24:
             await ctx.send(embed=banEmbed)
