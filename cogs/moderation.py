@@ -81,7 +81,7 @@ class Moderation(commands.Cog):
     @commands.command(aliases=['massBan', 'MassBan'])
     @commands.check(is_admin)
     @commands.guild_only()
-    async def massban(self, ctx: commands.Context, list: str):
+    async def massban(self, ctx: commands.Context, list: str, reason: str):
         """
         Mass bans a list of users
         """
@@ -103,7 +103,7 @@ class Moderation(commands.Cog):
                 await ctx.send(embed=embed)  # Say in chat
             else:
                 try:
-                    await ctx.guild.ban(member)
+                    await ctx.guild.ban(member, reason=reason)
                     if embedCounter > 24:
                         embedCounter = 0
                         await ctx.send(embed=banEmbed)
