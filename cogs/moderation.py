@@ -86,6 +86,9 @@ class Moderation(commands.Cog):
         Mass bans a list of users
         """
 
+        await ctx.send(list)
+        await ctx.send(reason)
+
         users = list.splitlines()
 
         counter = 0
