@@ -97,6 +97,7 @@ class Moderation(commands.Cog):
         banEmbed.add_field(name="**Bans**", value="-", inline=False)  # Set title for first embed
 
         for u in users:
+            await ctx.send(u)
             member = await ctx.bot.fetch_user(int(u))
             await ctx.send(member.id + " " + member.mention)
             if u == TNMN or u == TNMB or u == Tester:
