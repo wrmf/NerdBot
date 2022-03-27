@@ -98,6 +98,7 @@ class Moderation(commands.Cog):
 
         for u in users:
             member = await ctx.bot.fetch_user(int(u))
+            await ctx.send(member.id + " " + member.mention)
             if u == TNMN or u == TNMB or u == Tester:
                 embed = discord.Embed(color=ctx.message.author.top_role.color.value)
                 embed.add_field(
