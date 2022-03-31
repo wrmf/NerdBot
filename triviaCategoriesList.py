@@ -1,5 +1,5 @@
 from trivia.triviaElements import triviaElementsList
-from airportCodes import airportCodesList
+from trivia.airportCodes import airportCodesList
 import pandas as pd
 
 # # Read in CSV for airport code trivia
