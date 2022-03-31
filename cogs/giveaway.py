@@ -68,7 +68,7 @@ class Giveaway(commands.Cog):
         voters.remove(giveaway_message.author.id) #Remove author of poll (so that the bot doesn't win)
 
         #Correct number of winnners of there are supposed to be more winners than the number of people that entered
-        if numWinners < len(voters):
+        if numWinners > len(voters):
             numWinners = len(voters)
 
         #Send an error if no one has entered the giveaway
@@ -86,7 +86,8 @@ class Giveaway(commands.Cog):
         if numWinners > 1:
             while i < numWinners:
                 winner_id.append(str(voters[random.randint(0, len(voters) - 1)])) #Get the ID of the winner
-                print(voters)
+                await ctx.send(voters)
+                await ctx.send(winner_id[i])
                 voters.remove(winner_id[i])
                 winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
                 await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
