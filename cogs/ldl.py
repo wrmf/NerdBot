@@ -125,5 +125,23 @@ class ldl(commands.Cog):
         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
         await ctx.send(embed=embed) #Send embed
 
+    @commands.command()
+    @commands.check(is_mod)
+    @commands.guild_only()
+    async def addLDLLOA(self, ctx: commands.Context, startDate: str, endDate: str):
+        """
+        Add LOA for LDL staff
+        @param startDate: start date of LOA DD/MM/YYYY format
+        @param endDate: start date of LOA DD/MM/YYYY format
+        @author Nerd#2022
+        """
+
+        if ctx.message.guild.id != 707226419993772112:
+            pass
+        else:
+            startDate = startDate.split("/")
+            endDate = endDate.split("/")
+
+
 def setup(bot):
     bot.add_cog(ldl(bot))
