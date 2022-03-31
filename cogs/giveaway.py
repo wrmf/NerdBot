@@ -105,7 +105,7 @@ class Giveaway(commands.Cog):
             while i < numWinners:
                 embed.add_field(name=i, value=f"{winner_users[i].mention}", inline=False)
                 i+=1
-            embed.add_field(name="~", value=f"{ctx.message.author.mention}", inline=False)
+            embed.add_field(name="Hosted by:", value=f"{ctx.message.author.mention}", inline=False)
             embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
             await giveaway_message.edit(embed=embed)
         #Error if bot can't edit embed
