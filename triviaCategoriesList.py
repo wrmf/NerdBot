@@ -12,7 +12,7 @@ import trivia.triviaElements
 
 # Read in CSV for airport code trivia
 columns = ["Name", "Number"]  # Columns for pandas array
-elementsDataframe = pd.read_csv("triviaElements.csv", header=None, delimiter="(", names=columns)
+elementsDataframe = pd.read_csv("triviaElementsText.csv", header=None, delimiter="(", names=columns)
 elementsDataframe["Number"] = elementsDataframe["Number"].str[:-1]  # Delete ) from end of string
 elementsDataframe.sort_values("Number")  # Sort values by code... does this do anything?
 
