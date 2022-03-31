@@ -7,16 +7,19 @@ from permissions import *
 class Giveaway(commands.Cog):
     """
     Giveaway commands
+    @author Nerd#2022
     """
 
     def __init__(self, bot):
         self.bot = bot
 
     @commands.command(pass_context=True)
-    @commands.check(is_plane_or_admin)
+    @commands.check(is_admin)
     async def giveaway(self, ctx: commands.Context, item: str):
         """
         Create a giveaway
+        @param item: item being given away
+        @author Nerd#2022
         """
 
         reaction = '🎉' #Reaction that you want the giveaway to be with
@@ -30,13 +33,28 @@ class Giveaway(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.check(is_admin)
-    async def roll(self, ctx: commands.Context, id):
-        """Roll a giveaway"""
+    async def roll(self, ctx: commands.Context, id, numWinners: int = 1):
+        """
+        Roll a giveaway
+        @param id: giveaway message ID
+        @param numWinners: number of winners for the giveaway to have
+        @author Nerd#2022
+        """
+        user = ctx.message.author
         giveaway_message = await ctx.fetch_message(id) #Set what message is the giveaway
 
         #Check if giveaway has an embed
         if not giveaway_message.embeds:
+            await user.send(f"Sorry, embed {id} is not a valid giveaway. "
+                            f"If you believe this is a mistake, please contact Nerd#2022")
             return
+        #Send an error if number of winners is less than 1 (a giveaway with negative winners??)
+        elif numWinners < 1:
+            embed = discord.Embed(title="ERROR",
+                                  description=f"You cannot roll a giveaway with less than one winner!\n\n"
+                                              f" Hosted by {ctx.message.author.mention}",
+                                  color=ctx.message.author.top_role.color)
+            await user.send(embed=embed)
 
         voters = [ctx.message.author.id]  # add the bot's ID to the list of voters to exclude it's votes
 
@@ -49,6 +67,10 @@ class Giveaway(commands.Cog):
 
         voters.remove(giveaway_message.author.id) #Remove author of poll (so that the bot doesn't win)
 
+        #Correct number of winnners of there are supposed to be more winners than the number of people that entered
+        if numWinners < len(voters):
+            numWinners = len(voters)
+
         #Send an error if no one has entered the giveaway
         if (len(voters) <= 0):
             embed = discord.Embed(title="ERROR", description=f"No one has entered this giveaway!\n\n Hosted by {ctx.message.author.mention}",
@@ -56,18 +78,26 @@ class Giveaway(commands.Cog):
             await ctx.send(embed=embed)
             return
 
-        winner_id = str(voters[random.randint(0, len(voters) - 1)]) #Get the ID of the winner
-        await ctx.send("Congrats on winning <@" + winner_id + ">!") #Send message pinging winner
+        i = 0
+        winner_id = []
+        winner_users = []
+
+        #Get the winners (can be more than 1)
+        while i < numWinners:
+            winner_id.append(str(voters[random.randint(0, len(voters) - 1)])) #Get the ID of the winner
+            voters.remove(winner_id[i])
+            winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
+            await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
 
         #Edit original message so it's not still advertising a giveaway
         try:
-            embed = discord.Embed(title="Giveaway ended!",description="Winner: <@" + winner_id + f">!\n\n Hosted by {ctx.message.author.mention}")
+            embed = discord.Embed(title=f"Giveaway ended!",description=f"Winner(s): {winner_users}!\n\n Hosted by {ctx.message.author.mention}")
             embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
             await giveaway_message.edit(embed=embed)
         #Error if bot can't edit embed
         except discord.Forbidden:
-            embed = discord.Embed(title="ERROR", description=f"Giveaway was not hosted by {ctx.me.mention}. I cannot edit the embed")
-            await ctx.send(embed=embed)
+            embed = discord.Embed(title="ERROR", description=f"Giveaway {id} was not hosted by {ctx.me.mention}. I cannot edit the embed")
+            await user.send(embed=embed)
 
 
 def setup(bot):

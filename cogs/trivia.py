@@ -14,12 +14,19 @@ from airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
 from trivia.LDLTriviaQuestions import LDLTriviaQuestions
 from bot import *
+import pandas as pd
 
 numUnansweredMax = 3
 
 
 async def getNumQuestions(self, ctx, check, category):
-    """Get the number of questions for a trivia game"""
+    """
+    Get number of questions from chat for a trivia game
+    @param check: custom check for trivia
+    @param category: trivia category (so you can't have too many questions)
+
+
+    """
 
     if category in triviaCategoriesList[0]:
         maxTriviaQuestions = len(triviaCategoriesList[1][triviaCategoriesList[0].index(category)])
@@ -262,9 +269,9 @@ class Trivia(commands.Cog):
                                   question="What element has abbreviation", questionList=triviaElementsList[1],
                                   answerList=triviaElementsList[0])
 
-    @commands.command(aliases=['addairport'])
+    @commands.command(aliases=['addelement','addairport', 'addAirport', 'addAirportCode', 'addairportcode', 'delairport', 'delAirport', 'delairportcode', 'delAirportCode'])
     @commands.check(is_plane)
-    async def addAirport(self, ctx: commands.Context, name: str, code: str):
+    async def addElement(self, ctx: commands.Context, name: str = None, code: str = None):
         """
         Add airport name and code to trivia list
         @param name: name of airport to add
@@ -272,83 +279,11 @@ class Trivia(commands.Cog):
         @author Nerd#2022
         """
 
-        # Check if user is none so bot doesn't crash
-        if name is None or code is None:
-            embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**ERROR**", value="You cannot set the name or code to be none", inline=True)
-            await ctx.send(embed=embed)
-
-        # Move onto adding the airport
-        else:
-            # Check if airport is already in the list
-            if (name in airportCodesList[0] or code in airportCodesList[1]):
-                embed = discord.Embed(color=ctx.author.color.value)
-                embed.add_field(name="**ERROR**", value=f"{name} Airport is already in the list",
-                                inline=True)
-                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed)
-            # Add airport
-            else:
-                airportCodesListLocal = [airportCodesList[0], airportCodesList[1]]  # Duplicate list for saving to file purposes
-
-                airportCodesListLocal[0].append(name)  # Add their ID
-                airportCodesListLocal[1].append(code)  # Add their display name
-                # Fix the ldl_staff.py file
-                with open("airportCodes.py", 'r+') as file:
-                    file.truncate(0)
-                    string = "airportCodesList = [" + str(airportCodesListLocal[0]) + "," + str(airportCodesListLocal[1]) + "]"
-                    file.write(string)
-                    file.close()
-                embed = discord.Embed(color=ctx.author.color.value)  # Make embed
-                embed.add_field(name="**Success**", value=f"{name} Airport has been added!",
-                                inline=True)  # Make sucess message
-                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed)  # Send embed
-
-    @commands.command(aliases=['addelement'])
-    @commands.check(is_admin)
-    async def addElement(self, ctx: commands.Context, name: str, abb: str):
-        """
-        Add airport name and code to trivia list
-        @param name: name of airport to add
-        @param abb: code for the airport being added
-        @author Nerd#2022
-        """
-
-        # Check if user is none so bot doesn't crash
-        if name is None or abb is None:
-            embed = discord.Embed(color=ctx.author.color.value)
-            embed.add_field(name="**ERROR**", value="You cannot set the name or abbreviation to be none", inline=True)
-            await ctx.send(embed=embed)
-
-        # Move onto adding the airport
-        else:
-            # Check if airport is already in the list
-            if (name in triviaElementsList[0] or abb in triviaElementsList[1]):
-                embed = discord.Embed(color=ctx.author.color.value)
-                embed.add_field(name="**ERROR**", value=f"{name} is already in the list",
-                                inline=True)
-                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed)
-            # Add airport
-            else:
-                triviaElementsListLocal = [triviaElementsList[0],
-                                         triviaElementsList[1]]  # Duplicate list for saving to file purposes
-
-                triviaElementsListLocal[0].append(name)  # Add their ID
-                triviaElementsListLocal[1].append(abb)  # Add their display name
-                # Fix the ldl_staff.py file
-                with open("trivia/triviaElements.py", 'r+') as file:
-                    file.truncate(0)
-                    string = "triviaElementsList = [" + str(triviaElementsListLocal[0]) + "," + str(
-                        triviaElementsListLocal[1]) + "]"
-                    file.write(string)
-                    file.close()
-                embed = discord.Embed(color=ctx.author.color.value)  # Make embed
-                embed.add_field(name="**Success**", value=f"{name} has been added!",
-                                inline=True)  # Make sucess message
-                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-                await ctx.send(embed=embed)  # Send embed
+        embed = discord.Embed(color=ctx.author.color.value)
+        embed.add_field(name="**ERROR**", value="This bot no longer has permissions to edit trivia answer files. "
+                                                "If you would like to add an answer, please contact Nerd#2022!",
+                        inline=True)
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=['printquestions', 'triviaQuestions', 'triviaquestions'])
     @commands.check(is_owner)

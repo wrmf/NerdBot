@@ -14,7 +14,9 @@ from tokenfile import token
 import logging
 import os
 from possibleMessages import possibleMessages
+import pandas as pd
 
+airportCodesTriviaDataframe = None
 
 
 logger = logging.getLogger('bot')
@@ -145,6 +147,18 @@ async def on_ready():
 	print(client.user.name)
 	print(client.user.id)
 	print('--------------------')
+
+	#Read in CSV for airport code trivia
+	columns = ["City", "Code"]  # Columns for pandas array
+	airportCodesTriviaDataframe = pd.read_csv("airportCodes.csv", header=None, delimiter="(", names=columns)
+	airportCodesTriviaDataframe["Code"] = airportCodesTriviaDataframe["Code"].str[:-1]  # Delete ) from end of string
+	airportCodesTriviaDataframe.sort_values("Code")  # Sort values by code... does this do anything?
+
+	# Read in CSV for airport code trivia
+	columns = ["ID", "Name"]  # Columns for pandas array
+	LDLStaffDataframe = pd.read_csv("ldl_staff.csv", header=None, delimiter="(", names=columns)
+	LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
+
 
 for file in os.listdir("cogs"):
     if file.endswith(".py"):
