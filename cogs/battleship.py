@@ -1,17 +1,27 @@
-pass
+import discord
+from discord.ext import commands
 
-# import discord
-# from discord.ext import commands
-#
-# from nukeIgnore import *
-# from bot import *
-# import logging
-# import discord
-# from discord.ext import commands
-# from bot import *
-# import random
-# from permissions import *
-#
+from nukeIgnore import *
+from bot import *
+import logging
+import discord
+from discord.ext import commands
+from bot import *
+import random
+from permissions import *
+
+class Trivia(commands.Cog):
+    """
+    Trivia related commands
+    """
+
+    def __init__(self, bot):
+        self.bot = bot
+
+
+def setup(bot):
+    bot.add_cog(Battleship(bot))
+
 # rows = ['1️⃣', '2️⃣', '3️⃣', 4️⃣, 5️⃣, '6️⃣', '7️⃣', 8️⃣, 9️⃣, '🔟']
 # columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'] #TODO put in proper column labels with lettered emojis
 #
