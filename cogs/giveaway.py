@@ -90,7 +90,7 @@ class Giveaway(commands.Cog):
                 await ctx.send(voters[0])
                 await ctx.send(voters[1])
                 await ctx.send(winner_id[i])
-                voters.remove(winner_id[i])
+                voters.remove(winner_id[winner_id.index(winner_id[i])])
                 winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
                 await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
                 i+=1
