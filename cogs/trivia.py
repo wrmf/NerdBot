@@ -145,7 +145,6 @@ async def startTrivia(self, ctx, questions, originalChannel, question, questionL
                 return False
 
         try:
-            await ctx.send(answerList[listOfQuestions[numQuestionCounter]])
             msg = await client.wait_for('message', timeout=15.0, check=checkIfCorrect) #Wait on player answer
             embed = discord.Embed(title="Trivia",
                                   description=f"{msg.author.mention} has won this round!",
