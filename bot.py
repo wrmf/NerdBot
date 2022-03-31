@@ -160,10 +160,10 @@ async def on_ready():
 	print(client.user.id)
 	print('--------------------')
 
-	# Read in CSV for airport code trivia
-	columns = ["ID", "Name"]  # Columns for pandas array
-	LDLStaffDataframe = pd.read_csv("ldl_staff.csv", header=None, delimiter="(", names=columns)
-	LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
+	# # Read in CSV for airport code trivia
+	# columns = ["ID", "Name"]  # Columns for pandas array
+	# LDLStaffDataframe = pd.read_csv("ldl_staff.csv", header=None, delimiter="(", names=columns)
+	# LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
 
 
 for file in os.listdir("cogs"):
