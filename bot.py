@@ -131,7 +131,7 @@ class Bot(AutoShardedBot):
 				# else:
 				beginningDate = datetime.datetime(2022, 3, 30)
 				endDate = datetime.datetime(2022, 5, 1)
-				currentDate = datetime.date.today()
+				currentDate = datetime.datetime.today()
 				if(m.id == Cheese and currentDate >= beginningDate and currentDate <= endDate):
 					await ctx.send(f"{ctx.message.author.mention} Cheese is on a break. Please do not disturb them.")
 
