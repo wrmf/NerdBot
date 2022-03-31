@@ -15,16 +15,19 @@ class Giveaway(commands.Cog):
 
     @commands.command(pass_context=True)
     @commands.check(is_admin)
-    async def giveaway(self, ctx: commands.Context, item: str):
+    async def giveaway(self, ctx: commands.Context, item: str, numWinners: int = 1):
         """
         Create a giveaway
         @param item: item being given away
         @author Nerd#2022
         """
 
+        if numWinners < 1:
+            numWinners = 1
+
         reaction = '🎉' #Reaction that you want the giveaway to be with
 
-        embed = discord.Embed(title="Giveaway!", description=item+f"\n\n Hosted by {ctx.message.author.mention}") #Create embed
+        embed = discord.Embed(title="Giveaway!", description=item+f"\n\n \n\n Number of winners: {numWinners} \n\n Hosted by {ctx.message.author.mention}") #Create embed
         react_message = await ctx.send(embed=embed) #Send original giveaway message
         await react_message.add_reaction(reaction) #React with the reaction
         embed.set_footer(text='Giveaway ID: {}'.format(react_message.id)) #Add giveaway ID (message.id)
