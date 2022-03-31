@@ -24,6 +24,8 @@ class Giveaway(commands.Cog):
 
         if numWinners < 1:
             numWinners = 1
+        elif numWinners > 10:
+            numWinners = 10
 
         reaction = '🎉' #Reaction that you want the giveaway to be with
 
