@@ -19,6 +19,7 @@ class Giveaway(commands.Cog):
         """
         Create a giveaway
         @param item: item being given away
+        @param numWinners: number of winners for the giveaway to have. Defaults to 1
         @author Nerd#2022
         """
 
