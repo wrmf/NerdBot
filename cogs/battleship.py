@@ -10,7 +10,7 @@ from bot import *
 import random
 from permissions import *
 
-class Trivia(commands.Cog):
+class Battleship(commands.Cog):
     """
     Trivia related commands
     """
