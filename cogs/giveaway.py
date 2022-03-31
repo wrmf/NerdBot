@@ -86,8 +86,8 @@ class Giveaway(commands.Cog):
         if numWinners > 1:
             while i < numWinners:
                 winner_id_temp = str(voters[random.randint(0, len(voters) - 1)]) #Get the ID of the winner
-                while winner_id_temp in winner_id:
-                    str(voters[random.randint(0, len(voters) - 1)]) #Get the ID of the winner
+                # while winner_id_temp in winner_id:
+                #     str(voters[random.randint(0, len(voters) - 1)]) #Get the ID of the winner
                 winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
                 await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
                 i+=1
