@@ -10,7 +10,7 @@ import asyncio
 from permissions import *
 from triviaCategoriesList import triviaCategoriesList
 import importlib
-from airportCodes import airportCodesList
+from trivia.airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
 from trivia.LDLTriviaQuestions import LDLTriviaQuestions
 from bot import *
