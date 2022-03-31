@@ -126,14 +126,14 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if(ctx.guild.id == LDL_server):
-				if(ctx.author.id in ldl_staff[0] or ctx.channel.id in ldl_channels[0]):
-					pass
-				else:
-					beginningDate = datetime.datetime(2022, 4, 1)
-					endDate = datetime.datetime(2022, 5, 1)
-					currentDate = datetime.date.today()
-					if(m.id == Cheese and currentDate >= beginningDate and currentDate <= endDate):
-						await ctx.send(f"{ctx.message.author.mention} Cheese is on a break. Please do not disturb them.")
+				# if(ctx.author.id in ldl_staff[0] or ctx.channel.id in ldl_channels[0]):
+				# 	pass
+				# else:
+				beginningDate = datetime.datetime(2022, 3, 30)
+				endDate = datetime.datetime(2022, 5, 1)
+				currentDate = datetime.date.today()
+				if(m.id == Cheese and currentDate >= beginningDate and currentDate <= endDate):
+					await ctx.send(f"{ctx.message.author.mention} Cheese is on a break. Please do not disturb them.")
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
