@@ -27,7 +27,7 @@ class Giveaway(commands.Cog):
 
         reaction = '🎉' #Reaction that you want the giveaway to be with
 
-        embed = discord.Embed(title="Giveaway!", description=item+f"\n\n \n\n Number of winners: {numWinners} \n\n Hosted by {ctx.message.author.mention}") #Create embed
+        embed = discord.Embed(title="Giveaway!", description=item+f"\n\n Number of winners: **{numWinners}** \n\n Hosted by {ctx.message.author.mention}") #Create embed
         react_message = await ctx.send(embed=embed) #Send original giveaway message
         await react_message.add_reaction(reaction) #React with the reaction
         embed.set_footer(text='Giveaway ID: {}'.format(react_message.id)) #Add giveaway ID (message.id)
