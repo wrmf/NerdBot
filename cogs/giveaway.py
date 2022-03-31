@@ -91,6 +91,7 @@ class Giveaway(commands.Cog):
                 #voters.remove(winner_id[i])
                 winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
                 await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
+                i+=1
         else:
             winner_id.append(str(voters[random.randint(0, len(voters) - 1)]))  # Get the ID of the winner
             winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
