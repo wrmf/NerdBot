@@ -103,9 +103,9 @@ class Giveaway(commands.Cog):
             embed = discord.Embed(title=f"Giveaway ended!",description=f"Winner(s):\n")
             i = 0
             while i < numWinners:
-                embed.add_field(name="~", value=f"Hosted by {ctx.message.author.mention}", inline=True)
+                embed.add_field(name=i, value=f"{winner_users[i].mention}", inline=True)
                 i+=1
-            embed.add_field(name="Thank you to", value=f"{winner_users[i].mention}", inline=True)
+            embed.add_field(name="~", value=f"{ctx.message.author.mention}", inline=True)
             embed.set_footer(text='Giveaway ID: {}'.format(giveaway_message.id))
             await giveaway_message.edit(embed=embed)
         #Error if bot can't edit embed
