@@ -83,11 +83,18 @@ class Giveaway(commands.Cog):
         winner_users = []
 
         #Get the winners (can be more than 1)
-        while i < numWinners:
-            winner_id.append(str(voters[random.randint(0, len(voters) - 1)])) #Get the ID of the winner
-            voters.remove(winner_id[i])
+        if numWinners > 1:
+            while i < numWinners:
+                winner_id.append(str(voters[random.randint(0, len(voters) - 1)])) #Get the ID of the winner
+                print(voters)
+                voters.remove(winner_id[i])
+                winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
+                await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
+        else:
+            winner_id.append(str(voters[random.randint(0, len(voters) - 1)]))  # Get the ID of the winner
             winner_users.append(await ctx.bot.fetch_user(int(winner_id[i])))
-            await ctx.send(f"Congrats on winning {winner_users[i].mention}!") #Send message pinging winner
+            await ctx.send(f"Congrats on winning {winner_users[i].mention}!")  # Send message pinging winner
+
 
         #Edit original message so it's not still advertising a giveaway
         try:
