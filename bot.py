@@ -16,7 +16,6 @@ import os
 from possibleMessages import possibleMessages
 import pandas as pd
 import datetime
-import ldl_staffText
 
 
 airportCodesTriviaDataframe = None
