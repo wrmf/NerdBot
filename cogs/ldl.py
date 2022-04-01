@@ -160,7 +160,7 @@ class ldl(commands.Cog):
             ldlLOADataframe = bot.getLOA()
 
             columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
-            tempDataframe = pd.DataFrame({"Random":[int(0)], "ID":[ctx.message.author.id], "startDay":[startDate[0]],
+            tempDataframe = pd.DataFrame({"ID":[ctx.message.author.id], "startDay":[startDate[0]],
                                             "startMonth":[startDate[1]], "startYear":[startDate[2]],
                                             "endDay":[endDate[0]], "endMonth":[endDate[1]], "endYear":[endDate[2]]})
 
