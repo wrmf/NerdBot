@@ -16,6 +16,8 @@ import os
 from possibleMessages import possibleMessages
 import pandas as pd
 import datetime
+import ldl_staffText
+
 
 airportCodesTriviaDataframe = None
 
@@ -160,10 +162,11 @@ async def on_ready():
 	print(client.user.id)
 	print('--------------------')
 
-	# # Read in CSV for airport code trivia
-	# columns = ["ID", "Name"]  # Columns for pandas array
-	# LDLStaffDataframe = pd.read_csv("ldl_staff.csv", header=None, delimiter="(", names=columns)
-	# LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
+	# Read in CSV for airport code trivia
+	columns = ["Name", "ID"]  # Columns for pandas array
+	LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
+	LDLStaffDataframe["ID"] = LDLStaffDataframe["ID"].str[:-1]  # Delete ) from end of string
+	LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
 
 
 for file in os.listdir("cogs"):
