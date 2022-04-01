@@ -1,8 +1,8 @@
 from trivia.triviaElements import triviaElementsList
 from trivia.airportCodes import airportCodesList
 import pandas as pd
-import trivia.triviaElementsText
-import trivia.airportCodesText
+import trivia.triviaElements
+import trivia.airportCodes
 
 # Read in CSV for elements trivia
 columns = ["Name", "Number"]  # Columns for pandas array
