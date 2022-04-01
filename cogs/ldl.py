@@ -159,13 +159,13 @@ class ldl(commands.Cog):
             startDate = startDate.split("/")
             endDate = endDate.split("/")
             ldlLOADataframe = bot.getLOA()
-            ldlLOADataframe["ID"].append(ctx.message.author.id)
-            ldlLOADataframe["startDate"].append(startDate[0])
-            ldlLOADataframe["startMonth"].append(startDate[1])
-            ldlLOADataframe["startYear"].append(startDate[2])
-            ldlLOADataframe["endDate"].append(endDate[0])
-            ldlLOADataframe["endMonth"].append(endDate[1])
-            ldlLOADataframe["endYear"].append(endDate[2])
+            ldlLOADataframe["ID"].concat(ctx.message.author.id)
+            ldlLOADataframe["startDate"].concat(startDate[0])
+            ldlLOADataframe["startMonth"].concat(startDate[1])
+            ldlLOADataframe["startYear"].concat(startDate[2])
+            ldlLOADataframe["endDate"].concat(endDate[0])
+            ldlLOADataframe["endMonth"].concat(endDate[1])
+            ldlLOADataframe["endYear"].concat(endDate[2])
 
 
 def setup(bot):
