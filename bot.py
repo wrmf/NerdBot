@@ -28,6 +28,12 @@ logger.info('=== RESTART ===')
 with open("options.json") as f:
 	options = json.loads(f.read())
 
+def getLdlStaff():
+	columns = ["ID", "Name"]  # Columns for pandas array
+	LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
+	LDLStaffDataframe["Name"] = LDLStaffDataframe["Name"].str[:-1]  # Delete ) from end of string
+	return LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
+
 class Bot(AutoShardedBot):
 	def __init__(self, *args, prefix=None, **kwargs):
 		super().__init__(prefix, *args, **kwargs)
@@ -124,7 +130,7 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if(ctx.guild.id == LDL_server):
-				if(ctx.author.id in ldl_staff[0] or ctx.channel.id in ldl_channels[0]):
+				if(ctx.author.id in getLdlStaff()["ID"] or ctx.channel.id in ldl_channels[0]):
 					pass
 				else:
 					beginningDate = datetime.datetime(2022, 4, 1)
@@ -157,12 +163,6 @@ async def on_ready():
 	print(client.user.name)
 	print(client.user.id)
 	print('--------------------')
-
-	# Read in CSV for LDL staff
-	columns = ["ID", "Name"]  # Columns for pandas array
-	LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
-	LDLStaffDataframe["Name"] = LDLStaffDataframe["Name"].str[:-1]  # Delete ) from end of string
-	LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
 
 
 for file in os.listdir("cogs"):
