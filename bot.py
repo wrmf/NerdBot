@@ -146,6 +146,7 @@ class Bot(AutoShardedBot):
 						currentDate = datetime.datetime.today()
 						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate):
 							await ctx.send(f"{ctx.message.author.mention} <@{ldlLOADataframe['ID'][counter]}> is on a break. Please do not disturb them.")
+						counter+=1
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
