@@ -34,7 +34,7 @@ def getLdlStaff():
 
 def getLOA():
 	columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
-	ldlLOADataframe = pd.read_csv("ldl/ldl_loa.csv", header=None, delimiter=" ", names=columns)
+	ldlLOADataframe = pd.read_csv("ldl/ldl_loa.csv", header=None, delimiter=",", names=columns)
 	return ldlLOADataframe
 
 class Bot(AutoShardedBot):
