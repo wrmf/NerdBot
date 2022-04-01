@@ -167,6 +167,8 @@ class ldl(commands.Cog):
 
             ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
 
+            ldlLOADataframe.to_csv("ldl/ldl_loa.csv")
+
             await ctx.send(ldlLOADataframe)
 
             embed = discord.Embed(color=ctx.author.color.value)  # Create embed
