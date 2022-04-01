@@ -8,7 +8,7 @@ from discord.ext import commands
 import random
 import asyncio
 from permissions import *
-from triviaCategoriesList import triviaCategoriesList
+from triviaCategoriesList import *
 import importlib
 from trivia.airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
@@ -255,13 +255,13 @@ class Trivia(commands.Cog):
         if numQuestions is not None:
             if category == triviaCategoriesList[0][0]: #Airport Codes trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
-                                  question="What is the airport code for", questionList=airportCodesList[0],
-                                  answerList=airportCodesList[1])
+                                  question="What is the airport code for", questionList=triviaElementsList[1][0],
+                                  answerList=triviaElementsList[1][1])
                 return
             elif category == triviaCategoriesList[0][1]: #Airport Codes trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
-                                  question="What airport has code", questionList=airportCodesList[1],
-                                  answerList=airportCodesList[0])
+                                  question="What airport has code", questionList=triviaElementsList[1][1],
+                                  answerList=triviaElementsList[1][0])
                 return
             elif category == triviaCategoriesList[0][2]: #Elements trivia
                 await startTrivia(self=self, ctx=ctx, questions=numQuestions, originalChannel=ctx.message.channel,
