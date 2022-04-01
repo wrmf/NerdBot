@@ -158,7 +158,7 @@ class ldl(commands.Cog):
         else:
             startDate = startDate.split("/")
             endDate = endDate.split("/")
-            ldlLOADataframe = NerdBot.bot.getLOA()
+            ldlLOADataframe = bot.getLOA()
             ldlLOADataframe["ID"].append(ctx.message.author.id)
             ldlLOADataframe["startDate"].append(startDate[0])
             ldlLOADataframe["startMonth"].append(startDate[1])
