@@ -131,7 +131,7 @@ class ldl(commands.Cog):
 
         # Read in CSV for LDL staff
         columns = ["ID", "Name"]  # Columns for pandas array
-        LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
+        LDLStaffDataframe = pd.read_csv("ldl/ldl_staffText.csv", header=None, delimiter="(", names=columns)
         LDLStaffDataframe["Name"] = LDLStaffDataframe["Name"].str[:-1]  # Delete ) from end of string
         LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
 
