@@ -1,8 +1,7 @@
 from trivia.triviaElements import triviaElementsList
 from trivia.airportCodes import airportCodesList
 import pandas as pd
-import trivia.triviaElements
-import trivia.airportCodes
+import trivia
 
 # Read in CSV for elements trivia
 columns = ["Name", "Number"]  # Columns for pandas array
@@ -11,7 +10,7 @@ elementsDataframe["Number"] = elementsDataframe["Number"].str[:-1]  # Delete ) f
 elementsDataframe.sort_values("Number")  # Sort values by code... does this do anything?
 
 # Read in CSV for airport codes trivia
-airportCodesDataframe = pd.read_csv("airportCodesText.csv", header = None, delimiter='"', names=columns)
+airportCodesDataframe = pd.read_csv("trivia/airportCodes.csv", header = None, delimiter='"', names=columns)
 airportCodesDataframe.sort_values("Code") #Sort values by code... does this do anything?
 
 triviaCategoriesList = [["airport codes", "airport names", "elements"], [airportCodesList[0], airportCodesList[1], elementsDataframe["Name"]]]
