@@ -133,8 +133,6 @@ class Bot(AutoShardedBot):
 
 		for m in msg.mentions:
 			if(ctx.guild.id == LDL_server):
-				await ctx.send(getLdlStaff()["ID"])
-				await ctx.send(getLdlStaff()["Name"])
 				if(ctx.author.id in getLdlStaff()["ID"] or ctx.channel.id in ldl_channels[0]):
 					pass
 				else:
