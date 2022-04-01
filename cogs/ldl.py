@@ -145,7 +145,7 @@ class ldl(commands.Cog):
     @commands.command()
     @commands.check(is_mod)
     @commands.guild_only()
-    async def addLOA(self, ctx: commands.Context, startDate: str, endDate: str):
+    async def addLOA(self, ctx: commands.Context, startDateStr: str, endDateStr: str):
         """
         Add LOA for LDL staff
         @param startDate: start date of LOA DD/MM/YYYY format
@@ -156,8 +156,8 @@ class ldl(commands.Cog):
         if ctx.message.guild.id != 707226419993772112:
             pass
         else:
-            startDate = startDate.split("/")
-            endDate = endDate.split("/")
+            startDate = startDateStr.split("/")
+            endDate = endDateStr.split("/")
             ldlLOADataframe = bot.getLOA()
 
             columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
@@ -171,7 +171,7 @@ class ldl(commands.Cog):
 
             embed = discord.Embed(color=ctx.author.color.value)  # Create embed
             embed.add_field(name="LOA", value=f"Created LOA for user <@{ctx.message.author.id}> starting on "
-                                              f"{startDate} and ending on {endDate}", inline=True)  # Add ldl staff to embed
+                                              f"{startDateStr} and ending on {endDateStr}", inline=True)  # Add ldl staff to embed
             embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
             await ctx.send(embed=embed)  # Send embed
 
