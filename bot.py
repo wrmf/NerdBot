@@ -159,9 +159,9 @@ async def on_ready():
 	print('--------------------')
 
 	# Read in CSV for LDL staff
-	columns = ["Name", "ID"]  # Columns for pandas array
+	columns = ["ID", "Name"]  # Columns for pandas array
 	LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
-	LDLStaffDataframe["ID"] = LDLStaffDataframe["ID"].str[:-1]  # Delete ) from end of string
+	LDLStaffDataframe["Name"] = LDLStaffDataframe["Name"].str[:-1]  # Delete ) from end of string
 	LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
 
 
