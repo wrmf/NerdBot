@@ -18,9 +18,6 @@ import pandas as pd
 import datetime
 
 
-airportCodesTriviaDataframe = None
-
-
 logger = logging.getLogger('bot')
 logger.setLevel(logging.DEBUG)
 handler = logging.FileHandler(filename='NerdBot.log', encoding='utf-8', mode='a')
@@ -161,7 +158,7 @@ async def on_ready():
 	print(client.user.id)
 	print('--------------------')
 
-	# Read in CSV for airport code trivia
+	# Read in CSV for LDL staff
 	columns = ["Name", "ID"]  # Columns for pandas array
 	LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
 	LDLStaffDataframe["ID"] = LDLStaffDataframe["ID"].str[:-1]  # Delete ) from end of string
