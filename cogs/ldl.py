@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import random
 
-import NerdBot.bot
+import bot
 from bot import *
 from ids import *
 from nukeIgnore import *
