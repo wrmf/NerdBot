@@ -138,6 +138,9 @@ class Bot(AutoShardedBot):
 				else:
 					ldlLOADataframe = getLOA()
 					counter = 0
+
+					await ctx.send(ldlLOADataframe)
+
 					while(counter < len(ldlLOADataframe["ID"])):
 						beginningDate = datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])
 						endDate = datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])
