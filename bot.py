@@ -2,8 +2,8 @@ import json
 import random
 import discord
 from ids import *
-from NerdBot.ldl.ldl_staff import *
-from NerdBot.ldl.ldl_channels import *
+from ldl.ldl_staff import *
+from ldl.ldl_channels import *
 from ownerPrefix import *
 import signal
 import discord.opus
