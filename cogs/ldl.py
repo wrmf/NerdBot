@@ -159,13 +159,21 @@ class ldl(commands.Cog):
             startDate = startDate.split("/")
             endDate = endDate.split("/")
             ldlLOADataframe = bot.getLOA()
-            ldlLOADataframe["ID"].concat(ctx.message.author.id)
-            ldlLOADataframe["startDate"].concat(startDate[0])
-            ldlLOADataframe["startMonth"].concat(startDate[1])
-            ldlLOADataframe["startYear"].concat(startDate[2])
-            ldlLOADataframe["endDate"].concat(endDate[0])
-            ldlLOADataframe["endMonth"].concat(endDate[1])
-            ldlLOADataframe["endYear"].concat(endDate[2])
+
+            columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
+            tempDataframe = pd.dataframe({"ID":[ctx.message.author.id], "startDay":[startDate[0]],
+                                            "startMonth":[startDate[1]], "startYear":[startDate[2]],
+                                            "endDate":[endDate[0]], "endMonth":[endDate[1]], "endYear":[endDate[2]]})
+
+            ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
+
+            await ctx.send(ldlLOADataframe)
+
+            embed = discord.Embed(color=ctx.author.color.value)  # Create embed
+            embed.add_field(name="LOA", value=f"Created LOA for user <@{ctx.message.author.id}> starting on "
+                                              f"{startDate} and ending on {endDate}", inline=True)  # Add ldl staff to embed
+            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+            await ctx.send(embed=embed)  # Send embed
 
 
 def setup(bot):
