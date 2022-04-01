@@ -165,6 +165,8 @@ class ldl(commands.Cog):
                                             "startMonth":[startDate[1]], "startYear":[startDate[2]],
                                             "endDay":[endDate[0]], "endMonth":[endDate[1]], "endYear":[endDate[2]]})
 
+            await ctx.send("got here")
+
             ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
 
             ldlLOADataframe.to_csv("ldl/ldl_loa.csv")
