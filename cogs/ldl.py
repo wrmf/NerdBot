@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 import random
+
+import NerdBot.bot
 from bot import *
 from ids import *
 from nukeIgnore import *
@@ -143,7 +145,7 @@ class ldl(commands.Cog):
     @commands.command()
     @commands.check(is_mod)
     @commands.guild_only()
-    async def addLDLLOA(self, ctx: commands.Context, startDate: str, endDate: str):
+    async def addLOA(self, ctx: commands.Context, startDate: str, endDate: str):
         """
         Add LOA for LDL staff
         @param startDate: start date of LOA DD/MM/YYYY format
@@ -156,6 +158,14 @@ class ldl(commands.Cog):
         else:
             startDate = startDate.split("/")
             endDate = endDate.split("/")
+            ldlLOADataframe = NerdBot.bot.getLOA()
+            ldlLOADataframe["ID"].append(ctx.message.author.id)
+            ldlLOADataframe["startDate"].append(startDate[0])
+            ldlLOADataframe["startMonth"].append(startDate[1])
+            ldlLOADataframe["startYear"].append(startDate[2])
+            ldlLOADataframe["endDate"].append(endDate[0])
+            ldlLOADataframe["endMonth"].append(endDate[1])
+            ldlLOADataframe["endYear"].append(endDate[2])
 
 
 def setup(bot):
