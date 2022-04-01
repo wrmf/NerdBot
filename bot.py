@@ -33,7 +33,7 @@ def getLdlStaff():
 	return LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
 
 def getLOA():
-	columns = ["Random", "ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
+	columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
 	ldlLOADataframe = pd.read_csv("ldl/ldl_loa.csv", header=None, delimiter=",", names=columns)
 	return ldlLOADataframe
 
