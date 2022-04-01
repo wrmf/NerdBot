@@ -168,7 +168,7 @@ class ldl(commands.Cog):
 
             ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
 
-            ldlLOADataframe.to_csv("ldl/ldl_loa.csv", index=False, header=False)
+            ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False)
 
             await ctx.send(ldlLOADataframe)
 
