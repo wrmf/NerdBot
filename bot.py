@@ -1,14 +1,12 @@
 import json
 import random
-
 import discord
 from ids import *
-from ldl_staff import *
-from ldl_channels import *
+from NerdBot.ldl.ldl_staff import *
+from NerdBot.ldl.ldl_channels import *
 from ownerPrefix import *
 import signal
 import discord.opus
-import asyncio
 from discord.ext.commands import AutoShardedBot, when_mentioned_or, Context
 from tokenfile import token
 import logging
@@ -30,9 +28,14 @@ with open("options.json") as f:
 
 def getLdlStaff():
 	columns = ["ID", "Name"]  # Columns for pandas array
-	LDLStaffDataframe = pd.read_csv("ldl_staffText.csv", header=None, delimiter="(", names=columns)
+	LDLStaffDataframe = pd.read_csv("ldl/ldl_staffText.csv", header=None, delimiter="(", names=columns)
 	LDLStaffDataframe["Name"] = LDLStaffDataframe["Name"].str[:-1]  # Delete ) from end of string
 	return LDLStaffDataframe.sort_values("Name")  # Sort values by code... does this do anything?
+
+def getLOA():
+	columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
+	ldlLOADataframe = pd.read_csv("ldl/ldl_loa.csv", header=None, delimiter=" ", names=columns)
+	return ldlLOADataframe
 
 class Bot(AutoShardedBot):
 	def __init__(self, *args, prefix=None, **kwargs):
@@ -133,11 +136,14 @@ class Bot(AutoShardedBot):
 				if(ctx.author.id in getLdlStaff()["ID"] or ctx.channel.id in ldl_channels[0]):
 					pass
 				else:
-					beginningDate = datetime.datetime(2022, 4, 1)
-					endDate = datetime.datetime(2022, 5, 1)
-					currentDate = datetime.datetime.today()
-					if(m.id == Cheese and currentDate >= beginningDate and currentDate <= endDate):
-						await ctx.send(f"{ctx.message.author.mention} Cheese is on a break. Please do not disturb them.")
+					ldlLOADataframe = getLOA()
+					counter = 0
+					while(counter < len(ldlLOADataframe["ID"])):
+						beginningDate = datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])
+						endDate = datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])
+						currentDate = datetime.datetime.today()
+						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate):
+							await ctx.send(f"{ctx.message.author.mention} <@{ldlLOADataframe['ID'][counter]}> is on a break. Please do not disturb them.")
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
