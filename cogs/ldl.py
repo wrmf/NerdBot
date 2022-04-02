@@ -164,14 +164,9 @@ class ldl(commands.Cog):
                                             "startMonth":[startDate[1]], "startYear":[startDate[2]],
                                             "endDay":[endDate[0]], "endMonth":[endDate[1]], "endYear":[endDate[2]]})
 
-            await ctx.send("got here")
-
             ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
 
             ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
-
-            await ctx.send(ldlLOADataframe)
-
             embed = discord.Embed(color=ctx.author.color.value)  # Create embed
             embed.add_field(name="LOA", value=f"Created LOA for user <@{ctx.message.author.id}> starting on "
                                               f"{startDateStr} and ending on {endDateStr}", inline=True)  # Add ldl staff to embed

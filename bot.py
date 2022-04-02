@@ -138,18 +138,26 @@ class Bot(AutoShardedBot):
 				else:
 					ldlLOADataframe = getLOA()
 					counter = 0
-
-					await ctx.send(ldlLOADataframe)
+					isMessaged = False
+					isDropped = False
 
 					while(counter < len(ldlLOADataframe["ID"])):
 						beginningDate = datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])
 						endDate = datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])
 						currentDate = datetime.datetime.today()
-						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate):
+						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate and not isMessaged):
 							member = await ctx.bot.fetch_user(ldlLOADataframe["ID"][counter])
-							await ctx.send(f"{ctx.message.author.mention} **{member.name}** is on a break. Please do not disturb them.")
-							counter = len(ldlLOADataframe["ID"])
+							await ctx.send(f"{ctx.message.author.mention} **{member.nick}** is on a break. Please do not disturb them.")
+							isMessaged
 						counter+=1
+
+						#Remove old ones
+						if currentDate > endDate:
+							ldlLOADataframe.drop(counter)
+							isDropped = True
+
+					if isDropped:
+						ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
