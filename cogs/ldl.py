@@ -7,6 +7,7 @@ from ids import *
 from nukeIgnore import *
 from permissions import *
 import pandas as pd
+import datetime
 
 
 class ldl(commands.Cog):
@@ -158,20 +159,31 @@ class ldl(commands.Cog):
             startDate = startDateStr.split("/")
             endDate = endDateStr.split("/")
             ldlLOADataframe = bot.getLOA()
+            beginningDate = datetime.datetime(int(startDate[2]), int(startDate[1]), int(startDate[0]))
+            endDate = datetime.datetime(int(endDate[2]), int(endDate[1]), int(endDate[0]))
+            currentDate = datetime.datetime.today()
 
-            columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
-            tempDataframe = pd.DataFrame({"ID":[ctx.message.author.id], "startDay":[startDate[0]],
-                                            "startMonth":[startDate[1]], "startYear":[startDate[2]],
-                                            "endDay":[endDate[0]], "endMonth":[endDate[1]], "endYear":[endDate[2]]})
+            if endDate > currentDate: #Make sure that end date is a future date
+                columns = ["ID", "startDay", "startMonth", "startYear", "endDay", "endMonth", "endYear"]  # Columns for pandas array
+                tempDataframe = pd.DataFrame({"ID":[ctx.message.author.id], "startDay":[startDate[0]],
+                                                "startMonth":[startDate[1]], "startYear":[startDate[2]],
+                                                "endDay":[endDate[0]], "endMonth":[endDate[1]], "endYear":[endDate[2]]})
 
-            ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
+                ldlLOADataframe = pd.concat([ldlLOADataframe, tempDataframe])
 
-            ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
-            embed = discord.Embed(color=ctx.author.color.value)  # Create embed
-            embed.add_field(name="LOA", value=f"Created LOA for user <@{ctx.message.author.id}> starting on "
-                                              f"{startDateStr} and ending on {endDateStr}", inline=True)  # Add ldl staff to embed
-            embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-            await ctx.send(embed=embed)  # Send embed
+                ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
+                embed = discord.Embed(color=ctx.author.color.value)  # Create embed
+                embed.add_field(name="LOA", value=f"Created LOA for user <@{ctx.message.author.id}> starting on "
+                                                  f"{startDateStr} and ending on {endDateStr}", inline=True)  #Send confirmation message
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+            else:
+                embed = discord.Embed(color=ctx.author.color.value)  # Create embed
+                embed.add_field(name="ERROR", value=f"You can't create an LOA with an end date in the past "
+                                                    f"(though start dates in the past work fine",inline=True)  #Create error embed
+                embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+                await ctx.send(embed=embed)  # Send embed
+
 
 
 def setup(bot):
