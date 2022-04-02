@@ -154,7 +154,7 @@ class Bot(AutoShardedBot):
 						if currentDate > endDate:
 							await ctx.send(f"Dropped {counter}")
 							await ctx.send(ldlLOADataframe)
-							ldlLOADataframe.drop(counter)
+							ldlLOADataframe = ldlLOADataframe.drop(counter)
 							isDropped = True
 
 						counter+=1
