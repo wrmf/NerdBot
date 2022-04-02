@@ -153,6 +153,7 @@ class Bot(AutoShardedBot):
 
 						#Remove old ones
 						if currentDate > endDate:
+							await ctx.send("After")
 							ldlLOADataframe.drop(counter)
 							isDropped = True
 
