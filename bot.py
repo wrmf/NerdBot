@@ -147,8 +147,8 @@ class Bot(AutoShardedBot):
 						currentDate = datetime.datetime.today()
 						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate and not isMessaged):
 							member = await ctx.bot.fetch_user(ldlLOADataframe["ID"][counter])
-							await ctx.send(f"{ctx.message.author.mention} **{member.nick}** is on a break. Please do not disturb them.")
-							isMessaged
+							await ctx.send(f"{ctx.message.author.mention} **{member.name}** is on a break. Please do not disturb them.")
+							isMessaged = True
 						counter+=1
 
 						#Remove old ones
