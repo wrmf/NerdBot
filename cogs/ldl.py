@@ -29,48 +29,20 @@ class ldl(commands.Cog):
         # Check if user is none so bot doesn't crash
         if user is None:
             user = ctx.message.author
+        if ctx.message.guild.id == 707226419993772112:
+            LDLStaffDataframe = bot.getLdlStaff()
 
-        embed = discord.Embed(color=ctx.author.color.value)
-        embed.add_field(name="**ERROR**", value="This command is deprecated, if you would like to add LDL staff, please contact Nerd#2022", inline=True)
-        await ctx.send(embed=embed)
+            columns = ["ID", "Name"]  # Columns for pandas array
+            tempDataframe = pd.DataFrame({"ID": [user.id], "Name": [f"({user.name})"]})
 
-        # # Make sure person isn't trying to add themself or TNMN as staff
-        # if (user.id == ctx.message.author.id or user.id == TNMN):
-        #     embed = discord.Embed(color=ctx.author.color.value)
-        #     embed.add_field(name="**ERROR**", value="You cannot add this person as staff!", inline=True)
-        #     await ctx.send(embed=embed)
-        #
-        # elif (ctx.message.guild.id != LDL_server):
-        #     embed = discord.Embed(color=ctx.author.color.value)
-        #     embed.add_field(name="**ERROR**", value="You cannot add people as staff in a different server!", inline=True)
-        #     await ctx.send(embed=embed)
-        #
-        # # Move onto adding the person
-        # else:
-        #     # Check if they are already staff
-        #     if (user.id in ldl_staff[0]):
-        #         embed = discord.Embed(color=ctx.author.color.value)
-        #         embed.add_field(name="**ERROR**", value=f"User {user.mention} is already staff in the LDL server!",
-        #                         inline=True)
-        #         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-        #         await ctx.send(embed=embed)
-        #     # Add person to ignore list
-        #     else:
-        #         ldl_staffLocal = [ldl_staff[0], ldl_staff[1]]  # Duplicate list for saving to file purposes
-        #
-        #         ldl_staffLocal[0].append(user.id) #Add their ID
-        #         ldl_staffLocal[1].append(user.display_name) #Add their display name
-        #         # Fix the ldl_staff.py file
-        #         with open("ldl_staff.py", 'r+') as file:
-        #             file.truncate(0)
-        #             string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]"
-        #             file.write(string)
-        #             file.close()
-        #         embed = discord.Embed(color=ctx.author.color.value) #Make embed
-        #         embed.add_field(name="**Success**", value=f"User {user.mention} has been added as LDL server staff!",
-        #                         inline=True) #Make sucess message
-        #         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-        #         await ctx.send(embed=embed) #Send embed
+            LDLStaffDataframe = pd.concat([LDLStaffDataframe, tempDataframe])
+            LDLStaffDataframe.to_csv("ldl/ldl_staffText.csv", header=False, index=False)
+
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**Success**", value=f"User {user.name} has been added as staff", inline=True)
+            await ctx.send(embed=embed)
+
+
 
 
     @commands.command(aliases=['delLDLStaff'])
@@ -85,42 +57,16 @@ class ldl(commands.Cog):
         if user is None:
             user = ctx.message.author
 
-        embed = discord.Embed(color=ctx.author.color.value)
-        embed.add_field(name="**ERROR**", value="This command is deprecated, if you would like to delete LDL staff, please contact Nerd#2022", inline=True)
-        await ctx.send(embed=embed)
+        if ctx.message.guild.id == 707226419993772112:
+            LDLStaffDataframe = bot.getLdlStaff()
 
-        # # Error if you are not in the LDL guild
-        # if (ctx.guild.id != LDL_server):
-        #     embed = discord.Embed(color=ctx.author.color.value) #Create embed
-        #     embed.add_field(name="**ERROR**", value=f"You do cannot delete staff in another guild!", inline=True) #Add error to embed
-        #     embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-        #     await ctx.send(embed=embed) #Sent error message
-        # else:
-        #     if (user.id in ldl_staff[0]):
-        #
-        #         ldl_staffLocal = [ldl_staff[0], ldl_staff[1]] #Create duplicate array
-        #
-        #         ldl_staffLocal[1].pop(ldl_staffLocal[0].index(user.id)) #Remove their display name
-        #
-        #         ldl_staffLocal[0].remove(user.id) #Remove ID
-        #
-        #         #Fix ldl_staff file
-        #         with open("ldl_staff.py", 'r+') as file:
-        #             file.truncate(0) #Empty the file
-        #             string = "ldl_staff = [" + str(ldl_staffLocal[0]) + "," + str(ldl_staffLocal[1]) + "]" #Add the copy arrays
-        #             file.write(string) #Write the files
-        #             file.close() #Close file
-        #
-        #         embed = discord.Embed(color=ctx.author.color.value) #Make embed
-        #         embed.add_field(name="**Success**", value=f"Deleted {user.mention} from staff list in LDL server",
-        #                         inline=True) #Add success message
-        #         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-        #         await ctx.send(embed=embed) #Send embed
-        #     else:
-        #         embed = discord.Embed(color=ctx.author.color.value) #Make embed
-        #         embed.add_field(name="**ERROR**", value=f"User {user.mention} is not staff in the LDL server", inline=True) #Error message
-        #         embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-        #         await ctx.send(embed=embed) #Send embed
+
+            LDLStaffDataframe.drop(LDLStaffDataframe["ID"].index(user.id))
+            LDLStaffDataframe.to_csv("ldl/ldl_staffText.csv", header=False, index=False)
+
+            embed = discord.Embed(color=ctx.author.color.value)
+            embed.add_field(name="**Success**", value=f"User {user} has been removed from staff", inline=True)
+            await ctx.send(embed=embed)
 
 
     @commands.command(aliases=['getLDLStaff'])
