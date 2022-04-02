@@ -180,7 +180,7 @@ class ldl(commands.Cog):
             else:
                 embed = discord.Embed(color=ctx.author.color.value)  # Create embed
                 embed.add_field(name="ERROR", value=f"You can't create an LOA with an end date in the past "
-                                                    f"(though start dates in the past work fine",inline=True)  #Create error embed
+                                                    f"(though start dates in the past work fine)",inline=True)  #Create error embed
                 embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
                 await ctx.send(embed=embed)  # Send embed
 

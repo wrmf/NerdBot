@@ -152,18 +152,13 @@ class Bot(AutoShardedBot):
 
 						#Remove old ones
 						if currentDate > endDate:
-							await ctx.send(f"Dropped {counter}")
-							await ctx.send(ldlLOADataframe)
 							ldlLOADataframe = ldlLOADataframe.drop(counter)
 							isDropped = True
 
 						counter+=1
 
 					if isDropped:
-						await ctx.send(ldlLOADataframe)
-						await ctx.send("Redoing file")
 						ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
-						await ctx.send(ldlLOADataframe)
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
