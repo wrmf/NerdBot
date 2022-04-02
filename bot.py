@@ -149,16 +149,20 @@ class Bot(AutoShardedBot):
 							member = await ctx.bot.fetch_user(ldlLOADataframe["ID"][counter])
 							await ctx.send(f"{ctx.message.author.mention} **{member.name}** is on a break. Please do not disturb them.")
 							isMessaged = True
-						counter+=1
 
 						#Remove old ones
 						if currentDate > endDate:
-							await ctx.send("After")
-							ldlLOADataframe.drop(counter-1)
+							await ctx.send(f"Dropped {counter}")
+							ldlLOADataframe.drop(counter)
 							isDropped = True
 
+						counter+=1
+
 					if isDropped:
+						await ctx.send(ldlLOADataframe)
+						await ctx.send("Redoing file")
 						ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
+						await ctx.send(ldlLOADataframe)
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
