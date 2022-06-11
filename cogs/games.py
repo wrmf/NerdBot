@@ -80,7 +80,7 @@ class Games(commands.Cog):
 
         embed.set_footer(text='ID: {}'.format(gameMessage.id))
 
-        circleUser = getCircle(ctx, user)
+        circleUser = await getCircle(ctx, user)
         await ctx.send(f"The user that selected circle is {circleUser.mention}")
 
 
