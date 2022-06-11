@@ -26,7 +26,7 @@ class Games(commands.Cog):
                        f"If you accept, please type 'yes' in the next 30 seconds")
 
         def check(message: discord.Message): #Check for getting the number of questions
-            return message.channel == ctx.channel
+            return message.channel == ctx.channel and message.author == user
         try:
             msg = await client.wait_for('message', timeout=10, check=check)  # Get response from user
             if 'yes' not in msg.clean_content.lower():
