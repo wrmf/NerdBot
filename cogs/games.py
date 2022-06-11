@@ -25,7 +25,7 @@ class Games(commands.Cog):
         await ctx.send(f"{user.mention}, {ctx.message.author.mention} has challenged you to TicTacToe. "
                        f"If you accept, please type 'yes' in the next 30 seconds")
 
-        def check(message: discord.Message, originalChannelID: int, originalAuthorID: int): #Check for getting the number of questions
+        def check(message: discord.Message): #Check for getting the number of questions
             return message.channel == ctx.channel
         try:
             msg = await client.wait_for('message', timeout=10, check=check)  # Get response from user
