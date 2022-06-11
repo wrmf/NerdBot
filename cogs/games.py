@@ -5,10 +5,6 @@ from bot import *
 from permissions import *
 import asyncio
 
-blankSquare = '|'️
-xSquare = 'X'️
-circleSquare = 'O'️
-
 def getCircle(ctx, user):
     embed = discord.Embed(title="TicTacToe",
                           description=f"User {user.mention} would you like to be circle or cross?",
