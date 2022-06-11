@@ -25,14 +25,19 @@ class Games(commands.Cog):
         await ctx.send(f"{user.mention}, {ctx.message.author.mention} has challenged you to TicTacToe. "
                        f"If you accept, please type 'yes' in the next 30 seconds")
 
-        def check(message: discord.Message): #Check for getting the number of questions
-            if "yes" in message.clean_content.lower():
-                return
+        def check(message: discord.Message, originalChannelID: int, originalAuthorID: int): #Check for getting the number of questions
+            return message.channel == ctx.channel
         try:
-            msg = await client.wait_for('message', timeout=15.0, check=check)  # Get response from user
+            msg = await client.wait_for('message', timeout=10, check=check)  # Get response from user
+            if 'yes' not in msg.clean_content.lower():
+                embed = discord.Embed(title="ERROR",
+                                      description=f"User {user.mention} did not say yes. Ending game",
+                                      color=ctx.message.author.top_role.color)  # Create error embed
+                await ctx.send(embed=embed)  # Send embed
+                return None
         except asyncio.TimeoutError:  # Timeout
             embed = discord.Embed(title="ERROR",
-                                  description=f"User {user.mention} did not respond or said no. Ending game",
+                                  description=f"User {user.mention} did not respond. Ending game",
                                   color=ctx.message.author.top_role.color)  # Create error embed
             await ctx.send(embed=embed)  # Send embed
             return None
