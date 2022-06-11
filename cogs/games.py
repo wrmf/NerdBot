@@ -5,9 +5,9 @@ from bot import *
 from permissions import *
 import asyncio
 
-blankSquare = '⬛'️
-xSquare = '❌'️
-circleSquare = '🟢'️
+blankSquare = '|'️
+xSquare = 'X'️
+circleSquare = 'O'️
 
 def getCircle(ctx, user):
     embed = discord.Embed(title="TicTacToe",
