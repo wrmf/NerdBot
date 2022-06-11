@@ -104,6 +104,7 @@ class Bot(AutoShardedBot):
 			await ctx.send("https://cdn.discordapp.com/attachments/710544037198823454/932073503224627300/IMG_3040.webp")
 
 		if "uwu" in msg.clean_content.lower() and ctx.message.guild.id == LDL_server:
+			await ctx.channel.purge(limit=1)
 			await ctx.send("Stop it. Get some help")
 
 		for m in msg.mentions:
