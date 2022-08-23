@@ -4,6 +4,9 @@ import random
 from bot import *
 from permissions import *
 import asyncio
+blankSquare = '|'
+crossSquare = 'X'
+circleSquare = 'O'
 
 async def getCircle(ctx, user):
     embed = discord.Embed(title="TicTacToe",
@@ -36,8 +39,84 @@ async def getCircle(ctx, user):
         await ctx.send(embed=embed)  # Send embed
         return None
 
-def generateNewBoard():
-    pass
+async def generateNewBoard():
+    board = [[" ", "1", "2", "3"],["a", blankSquare, blankSquare, blankSquare],
+             ["b", blankSquare, blankSquare, blankSquare], ["c", blankSquare, blankSquare, blankSquare]]
+    return board
+
+async def printBoard(board, embed):
+    embed = discord.Embed(title=f"TicTacToe", description=f"{board[0]}\n, {board[1]}\n, {board[2]}\n, {board[3]}\n")
+    return
+
+async def checkRows(board):
+    """
+    Check rows of the TicTacToe board
+    @return True if there is a win condition in rows, false if not
+    @author Nerd#2022
+    """
+    if(board[1][1] != '|' and board[1][2] != '|' and board[1][3] != '|' and board[1][1] ==
+            board[1][2] and board[1][1] == board[1][3]):
+        return True
+    elif (board[2][1] != '|' and board[2][2] != '|' and board[2][3] != '|' and board[2][1] ==
+            board[2][2] and board[2][1] == board[2][3]):
+        return True
+    elif (board[3][1] != '|' and board[3][2] != '|' and board[3][3] != '|' and board[3][1] ==
+            board[3][2] and board[3][1] == board[3][3]):
+        return True
+    else:
+        return False
+
+async def checkColumns(board):
+    """
+    Check columns of TicTacToe Board
+    @return True if there is a win condition in rows, false if not
+    @author Nerd#2022
+    """
+    if(board[1][1] != '|' and board[2][1] != '|' and board[3][1] != '|' and board[2][1] ==
+            board[2][2] and board[2][1] == board[2][3]):
+        return True
+    elif (board[1][2] != '|' and board[2][2] != '|' and board[3][2] != '|' and board[1][2] ==
+            board[2][2] and board[1][2] == board[3][2]):
+        return True
+    elif (board[1][3] != '|' and board[2][3] != '|' and board[3][3] != '|' and board[1][3] ==
+            board[2][3] and board[1][3] == board[3][3]):
+        return True
+    else:
+        return False
+
+async def checkDiagonals(board):
+    """
+    Check diagonals of TicTacToe board
+    @return True if there is a win condition in rows, false if not
+    @author Nerd#2022
+    """
+    if(board[1][1] != '|' and board[2][2] != '|' and board[3][3] != '|' and board[1][1] == board[2][2] and
+            board[1][1] == board[3][3]):
+        return True
+    elif (board[3][1] != '|' and board[2][2] != '|' and board[1][3] != '|' and board[3][1] == board[2][2] and
+            board[3][1] == board[1][3]):
+        return True
+    else:
+        return False
+
+
+async def isGameOver(embed, board):
+    return checkRows(board) and checkColumns(board) and checkDiagonals(board)
+
+async def updateSquare(board, xCoord, yCoord, symbol):
+    board[xCoord+1][yCoord+1] = symbol
+    return board
+
+async def makeMove(embed, board, crossUser, circleUser, lastX, lastY):
+    """
+    Make move (if game is not over)
+    @return True if game is over, false if not
+    @author Nerd#2022
+    """
+    if not isGameOver(embed, board):
+
+    return True
+
 
 
 class Games(commands.Cog):
@@ -45,6 +124,10 @@ class Games(commands.Cog):
     Game commands
     @author Nerd#2022
     """
+
+    blankSquare = '|'
+    crossSquare = 'X'
+    circleSquare = 'O'
 
     @commands.command()
     @commands.guild_only()
@@ -80,8 +163,26 @@ class Games(commands.Cog):
 
         embed.set_footer(text='ID: {}'.format(gameMessage.id))
 
+        #Get circle and cross
         circleUser = await getCircle(ctx, user)
-        await ctx.send(f"The user that selected circle is {circleUser.mention}")
+
+        if circleUser == None: #Return none if no one chose circle/cross
+            return None
+
+        crossUser = None
+
+        if circleUser == ctx.message.author:
+            crossUser = user
+        else:
+            crossUser = ctx.message.author
+
+        board = generateNewBoard()
+
+
+
+
+
+
 
 
 
