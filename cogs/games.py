@@ -114,8 +114,7 @@ async def makeMove(embed, board, crossUser, circleUser, lastX, lastY):
     @author Nerd#2022
     """
     if not isGameOver(embed, board):
-
-    return True
+        return True
 
 
 
