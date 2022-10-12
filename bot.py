@@ -136,6 +136,7 @@ class Bot(AutoShardedBot):
 					await ctx.send(f'Counter: {counter}, len {len(ldlLOADataframe)}')
 
 					while(counter < len(ldlLOADataframe["ID"])):
+						await ctx.send(f'Year: {ldlLOADataframe["startYear"][counter]}, Month: {ldlLOADataframe["startMonth"][counter]}, Day: {ldlLOADataframe["startDay"][counter]}')
 						await ctx.send(f'{datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])}')
 						beginningDate = datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])
 						await ctx.send(f'{datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])}')
