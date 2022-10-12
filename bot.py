@@ -134,8 +134,11 @@ class Bot(AutoShardedBot):
 					isDropped = False
 
 					while(counter < len(ldlLOADataframe["ID"])):
+						await ctx.send(f'{datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])}')
 						beginningDate = datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])
+						await ctx.send(f'{datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])}')
 						endDate = datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])
+						await ctx.send(f'{datetime.datetime.today()}')
 						currentDate = datetime.datetime.today()
 						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate and not isMessaged):
 							member = await ctx.bot.fetch_user(ldlLOADataframe["ID"][counter])
