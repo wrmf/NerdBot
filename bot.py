@@ -129,6 +129,7 @@ class Bot(AutoShardedBot):
 					pass
 				else:
 					ldlLOADataframe = getLOA()
+					await ctx.send(ldlLOADataframe)
 					counter = 0
 					isMessaged = False
 					isDropped = False
