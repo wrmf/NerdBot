@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from discord import app_commands # im using discord.py rewrite(2.0.0)
 from nukeIgnore import *
 from bot import *
 import logging
