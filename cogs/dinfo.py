@@ -20,12 +20,6 @@ class Discord_Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command()
-    async def ping(self, interaction: discord.Interaction) -> None:
-        ping1 = f"{str(round(self.client.latency * 1000))} ms"
-        embed = discord.Embed(title = "**Pong!**", description = "**" + ping1 + "**", color = 0xafdafc)
-        await interaction.response.send_message(embed = embed)
-
     @commands.command(hidden=True)
     @commands.check(is_owner)
     async def getGuilds(self, ctx):
