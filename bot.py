@@ -153,7 +153,7 @@ class Bot(AutoShardedBot):
 
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
-			 activity = discord.Game('nothing. Banging my head against a wall at JDA currently' if 'game' not in options else options['game']))
+			 activity = discord.Game('nothing. Banging my head against a wall at JDA currently' if 'game' not in options else options['game']), intents=discord.Intents.default())
 
 async def get_pre(bot, message):
 	pre = ["~"]
