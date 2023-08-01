@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+from bot import *
 from nukeIgnore import *
 import logging
 import discord
@@ -13,7 +14,6 @@ import importlib
 from trivia.airportCodes import airportCodesList
 from trivia.triviaElements import triviaElementsList
 from trivia.LDLTriviaQuestions import LDLTriviaQuestions
-from bot import *
 import pandas as pd
 
 numUnansweredMax = 3
