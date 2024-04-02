@@ -63,12 +63,12 @@ class Bot(AutoShardedBot):
 			if ctx.message.author.id == TNMN:
 				pass
 			elif ctx.message.author.id == Cheese or ctx.message.author.id == 1128849724401799169 or ctx.message.author.id == 606394564013719573 or ctx.message.author.id == 852913539705602108:
-				embed = discord.Embed(title="PING",
-									  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
-									  color=ctx.message.author.top_role.color)  # Create error embed
-				embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
-
-				await ctx.send(embed=embed)  # Send embed
+				if(ctx.message.channel.id in [710542883375022160, 829711652382441503, 901267588041044059]):
+					embed = discord.Embed(title="PING",
+										  description=possibleMessages[random.randint(0, len(possibleMessages) - 1)], #Correct answer,
+										  color=ctx.message.author.top_role.color)  # Create error embed
+					embed.set_footer(text=f"Message requested by {ctx.author}")  # Footer
+					await ctx.send(embed=embed)  # Send embed
 			else:
 				embed = discord.Embed(title="PING",
 									  description=f"My prefix is ~. You can get my command list by doing ~help",
