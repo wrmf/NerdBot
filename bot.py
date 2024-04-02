@@ -123,34 +123,6 @@ class Bot(AutoShardedBot):
 							value=f"{user.mention} pinged lockdown! **WARNING**")
 						await channel.send(embed=embed)
 
-		for m in msg.mentions:
-			if(ctx.guild.id == LDL_server):
-				if(ctx.author.id in getLdlStaff()["ID"] or ctx.channel.id in ldl_channels[0]):
-					pass
-				else:
-					counter = 0
-					isMessaged = False
-					isDropped = False
-
-					while(counter < len(ldlLOADataframe["ID"])):
-						beginningDate = datetime.datetime(ldlLOADataframe["startYear"][counter], ldlLOADataframe["startMonth"][counter], ldlLOADataframe["startDay"][counter])
-						endDate = datetime.datetime(ldlLOADataframe["endYear"][counter], ldlLOADataframe["endMonth"][counter], ldlLOADataframe["endDay"][counter])
-						currentDate = datetime.datetime.today()
-						if(m.id == ldlLOADataframe["ID"][counter] and currentDate >= beginningDate and currentDate <= endDate and not isMessaged):
-							member = await ctx.bot.fetch_user(ldlLOADataframe["ID"][counter])
-							await ctx.send(f"{ctx.message.author.mention} **{member.display_name}** is on a break. Please do not disturb them.")
-							isMessaged = True
-
-						#Remove old ones
-						if currentDate > endDate:
-							ldlLOADataframe = ldlLOADataframe.drop(counter)
-							isDropped = True
-
-						counter+=1
-
-					if isDropped:
-						ldlLOADataframe.to_csv("ldl/ldl_loa.csv", header=False, index=False)
-
 client = Bot(prefix=when_mentioned_or('~' if 'prefix' not in options else options['prefix']),
 			 pm_help=True if 'pm_help' not in options else options['pm_help'],
 			 activity = discord.Game('nothing. Banging my head against a wall at JDA currently' if 'game' not in options else options['game']))
