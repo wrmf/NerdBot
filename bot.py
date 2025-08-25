@@ -147,6 +147,14 @@ async def on_ready():
 	print(client.user.id)
 	print('--------------------')
 
+@client.event
+async def on_member_join(member):
+	print(ctx.message.guild.id)
+	if ctx.message.guild.id == 1150957792027476071:
+		try:
+			role = get(ctx.message.guild.roles, id=691836035499425823)
+			await member.add_roles(role)  # Add role to user
+
 
 for file in os.listdir("cogs"):
     if file.endswith(".py"):
